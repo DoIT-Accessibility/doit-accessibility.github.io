@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Office Supply: Welcome</title>
+	<link rel="stylesheet" href="styles.css" />
+	<style>
+		/* refactor all this */
+		.nav > * { padding: .125em 0; }
+		.nav > * > * { margin: 0; }
+		.nav ul ul { list-style-type: none; margin: 0;	 padding: 0; background: #47b; position: absolute; }
+		.menubar a { display: inline-block; padding: .25em .5em; min-width: 5em; text-align: center; }
+		.menubar a:hover, .menubar a:focus { text-decoration: none; background: #358; }
+		.menubar [role='menuitem'][aria-haspopup]::after { content: " \25bc"; opacity: .75; }
+		.menubar [role='menu'] [role='menuitem'] { width: 100%; text-align: left; }
+	</style>
+	<script>
+		Menubar = function() {
+			const menubar = document.querySelector(".menubar");
+			menubar.role = "menubar";
+			menubar.querySelectorAll("li").forEach(li => { li.role = "none"; });
+			menubar.allMenuitems = Array.from(menubar.querySelectorAll("a"));
+			menubar.allMenuitems.forEach(menuitem => {
+				menuitem.role = "menuitem";
+				menuitem.tabIndex = -1;
+				menuitem.addEventListener("mouseover", event => { event.target.focus(); });
+				menuitem.addEventListener("focus", event => {
+					menubar.allMenuitems.forEach(menuitem => { menuitem.tabIndex = -1; });
+					event.target.tabIndex = 0;
+				 });
+			});
+			menubar.allMenuitems[0].tabIndex = 0;
+			menubar.menuitems = Array.from(menubar.querySelectorAll("[role='menubar'] > li > a"));
+			menubar.addEventListener("keydown", event => {
+				const keymatch = event.key.match(/arrow(right|left)/i);
+				if (keymatch) {
+					const increment = keymatch[1].match(/right/i) ? 1 : -1;
+					const currentItem = event.target;
+					const currentIndex = menubar.menuitems.indexOf(currentItem);
+					const nextIndex = Math.max(Math.min(currentIndex + increment, menubar.menuitems.length - 1), 0);
+					const nextItem = menubar.menuitems[nextIndex];
+					nextItem.focus();
+				}
+			});
+			menubar.menus = Array.from(menubar.querySelectorAll("ul"));
+			menubar.menus.forEach(menu => {
+				menu.role = "menu";
+				menu.parentMenuitem = menu.parentElement.querySelector("[role='menuitem']");
+				menu.parentMenuitem.ariaHasPopup = true;
+				//menu.parentMenuitem.href = "#"; // TODO: Is this needed for speech recognition?
+				menu.parentMenuitem.menu = menu;
+				menu.menuitems = Array.from(menu.querySelectorAll("[role='menuitem']"));
+				menu.expand = function() {
+					menu.parentMenuitem.ariaExpanded = true;
+					menu.hidden = false;
+					menu.menuitems[0].focus();
+				};
+				menu.collapse = function(focusParentMenuitem = false) {
+					if (focusParentMenuitem) { menu.parentMenuitem.focus(); }
+					menu.parentMenuitem.ariaExpanded = false;
+					menu.hidden = true;
+				};
+				menu.collapse();
+				menu.parentMenuitem.addEventListener("click", event => {
+					if (menu.hidden) {
+						menu.expand();
+					}
+					else {
+						menu.collapse(true);
+					}
+				});
+				menu.parentMenuitem.addEventListener("keydown", event => {
+					console.log(event.key);
+					if (event.key.match(/enter|arrowdown/i)) {
+						menu.expand();
+					}
+				});
+				menu.addEventListener("keydown", event => {
+					if (event.key.match(/escape/i)) {
+						menu.collapse(true);
+					}
+				});
+				// TODO: combine this with menubar keydown handler above
+				menu.addEventListener("keydown", event => {
+					const keymatch = event.key.match(/arrow(down|up|right|left)/i);
+					if (keymatch) {
+						const increment = keymatch[1].match(/down/i) ? 1 : keymatch[1].match(/up/i) ? -1 : 0;
+						const currentItem = event.target;
+						const currentIndex = menu.menuitems.indexOf(currentItem);
+						const nextIndex = Math.max(Math.min(currentIndex + increment, menu.menuitems.length - 1), 0);
+						const nextItem = menu.menuitems[nextIndex];
+						nextItem.focus();
+						event.preventDefault();
+						event.stopPropagation();
+					}
+				});
+			});
+		};
+		window.addEventListener("load", Menubar );
+	</script>
+</head>
+<body>
+	<div class="header" role="banner">
+		<div class="skipnav">
+			<a href="#main">Skip to Main Content</a>
+		</div>
+		<div class="logo">
+			<img src="images/logo.png" alt="Office Supply" />
+			<img src="images/products.png" alt="" />
+		</div>
+		<div class="nav" role="navigation">
+			<ul class="menubar">
+				<li><a href="home-accessible.html">Home</a></li>
+				<li><a href="orderform-accessible.html">Order Form</a></li>
+				<li><a href="report-accessible.html">Sales Report</a></li>
+				<li><a>PDFs</a>
+					<ul>
+						<li><a href="newsletter-accessible.pdf">Newsletter (PDF)</a></li>
+						<li><a href="orderform-accessible.pdf">Order Form (PDF)</a></li>
+						<li><a href="report-accessible.pdf">Annual Report (PDF)</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="main" id="main" role="main">
+		<h1>Welcome</h1>
+		<p>Office Supply is your one-stop resource for office supplies, paper, and equipment.</p>
+		<div>
+			<h2>Featured Products</h2>
+			<p>We have your favorite products in stock:</p>
+			<ul class="productlist">
+				<li>
+					<h3>Post-its</h3>
+					<p>Assorted Colors <br />$3.59 and up</p>
+				</li>
+				<li>
+					<h3>Markers</h3>
+					<p>Dry-Erase <br />$6.49</p>
+				</li>
+				<li>
+					<h3>Staplers</h3>
+					<p>Red Swingline <br />$21.99</p>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h2>Sales Update</h2>
+			<p>We had a great first quarter. Here are our latest sales figures:</p>
+			<img class="saleschart" src="images/chart.png" alt="First Quarter Sales Chart" />
+			<table class="salestable xsr-only" aria-label="First Quarter Sales Data">
+				<thead>
+					<tr>
+						<td></td>
+						<th scope="col">January</th>
+						<th scope="col">February</th>
+						<th scope="col">March</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Post-its</th>
+						<td>20</td>
+						<td>31</td>
+						<td>57</td>
+					</tr>
+					<tr>
+						<th scope="row">Markers</th>
+						<td>16</td>
+						<td>23</td>
+						<td>42</td>
+					</tr>
+					<tr>
+						<th scope="row">Staplers</th>
+						<td>4</td>
+						<td>8</td>
+						<td>15</td>
+					</tr>
+				</tbody>
+			</table>
+			<br class="clear" />
+		</div>
+		<div>
+			<h2>Sign Up for the Office Supply Savings Club</h2>
+			<p>Just fill out the form below. Suspicious? Don't worry, see our <a href="blank.html?privacy">Privacy Policy</a>.</p>
+			<form action="#" method="post" class="signupform" onsubmit="alert('Thanks!'); return false;">
+				<p>
+					<label for="name">Name:</label>
+					<input type="text" name="name" id="name" />
+				</p>
+				<p>
+					<label for="email">Email:</label>
+					<input type="text" name="email" id="email" />
+					<input type="submit" class="button" value="Sign Up!" />
+				</p>
+			</form>
+		</div>
+	</div>
+	<div class="footer" role="contentinfo">
+		<p>Copyright &copy; 2019 Office Supply (not really...)</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+* { box-sizing: border-box; }
+html { background: #ddd; }
+body { font: 1rem/1.5 system-ui, sans-serif; max-width: 825px; margin: 0 auto; padding: 1em 2em; background: #fff; }
+body { display: flex; flex-flow: column nowrap; min-height: 100vh; }
+.skipnav a { position: absolute; width: 1px; height: 1px; overflow: hidden; }
+.skipnav a:focus { position: static; width: auto; height: auto; overflow: visible; }
+.logo { background: url(images/banner.png) repeat-x; display: flex; justify-content: space-between; align-items: flex-start; }
+nav { padding-top: 100px; background: url(images/hero.jpg) top left no-repeat; }
+nav > * { list-style-type: none; margin: 0; padding: .25em .5em; display: flex; flex-flow: row wrap; justify-content: space-between; background: #47b; }
+nav > * > * { display: inline-block; margin: 0 .5em !important; }
+nav a { text-decoration: none; color: #fff; }
+nav a:hover, nav a:focus { text-decoration: underline; }
+main { flex: 1; padding: 0 1em; }
+h1, h2, h3, h4, h5 { font-family: "Georgia", serif; font-weight: 500; margin: 1em 0 0; color: #47b; }
+h1 { font-size: 175%; line-height: 1.175; }
+h2 { font-size: 150%; line-height: 1.25; }
+h3, h4 { font-size: 125%; line-height: 1.35; }
+h6 { font-size: 100%; font-weight: normal; margin: .5em 0 0; }
+p, ul, ol { margin: .5em 0 0; }
+li { margin: .25em 0 0; }
+ul ul, ul ol, ol ul, ol ol { margin: 0; }
+.columns { display: flex; flex-flow: row wrap; }
+.columns > *:not(:last-child) { margin-right: 1em; }
+.productList { list-style-type: none; margin: 0; padding: 0; }
+.productList h3, .productList h4 { margin: .25em 0 0; }
+.productList p { margin: 0; min-width: 10em; }
+.layoutTable { margin: .25em 0 0; }
+.layoutTable td { padding: 0; border: 0; text-align: left; min-width: 11em; }
+table { margin: 1em 0 0; border-collapse: collapse; }
+th, td { border: 1px solid #ccc; padding: .125em .5em; text-align: left; vertical-align: top; font-weight: normal; }
+thead { background: #eee; }
+.salesChart { float: left; max-width: 100%; }
+.salesChart + .salesTable { margin-top: 15px; line-height: 1.8; }
+.salesTable [colspan] { text-align: center; }
+.fullwidth { width: 100%; }
+.clear { clear: both; }
+form { display: block; }
+fieldset { margin: 1em 0 0; border: 0; padding: 0; }
+fieldset legend { border: 0; padding: 0; }
+label { display: inline-block; }
+label:first-child { min-width: 4em; }
+p input[type="checkbox"]:first-child { margin-left: 4.5em; }
+input, select, textarea, button { font: inherit; padding: .125em; }
+input[type="checkbox"], input[type="radio"] { padding: 0; }
+input[type="image"] { vertical-align: bottom; padding: 0; }
+select { padding: .1875em 0 .25em; }
+textarea { vertical-align: top; }
+button, .button { padding: .1875em .75em; background: #47b; color: #fff; border: 1px solid transparent; border-radius: .25em; }
+.button:hover, .button:focus { background: #36a; }
+.radioList { margin: 0; padding: 0; list-style-type: none; }
+.orderTable tbody th, .orderTable tbody td { text-align: center; vertical-align: middle; }
+.orderTable input { text-align: right; }
+.icon { background: none; border: none; font-style: normal; }
+.removeIcon::after { font-weight: bold; color: #f00; content: "\274C"; }
+.dialog { border: 2px solid #777; border-radius: .25em; }
+.dialog > *:first-child { margin-top: 0; }
+.dialog form { margin-top: 1em; text-align: center; }
+footer { display: flex; flex-flow: row wrap; justify-content: space-between; min-height: 2.5em; margin: 1em 0 0; padding: 0 .5em 0 1em; background: #ddd; }
+.socialmedia { display: inline-block; vertical-align: middle; }

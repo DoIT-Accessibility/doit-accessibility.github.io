@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Office Supply</title>
+	<link rel="stylesheet" href="styles.css" />
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<header>
+		<div class="skipnav">
+			<a href="#main">Skip to Main Content</a>
+		</div>
+		<div class="logo">
+			<a href="home-accessible.html?"><img src="images/logo.png" alt="Office Supply" /></a>
+			<img src="images/montage.png" alt="" />
+		</div>
+		<nav>
+			<ul>
+				<li><a href="home-accessible.html">Home</a></li>
+				<li><a href="orderform-accessible.html">Order Form</a></li>
+				<li><a href="report-accessible.html">Sales Report</a></li>
+				<li><a href="newsletter-accessible.pdf">Newsletter (PDF)</a></li>
+				<li><a href="orderform-accessible.pdf">Order Form (PDF)</a></li>
+				<li><a href="report-accessible.pdf">Annual Report (PDF)</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>Welcome</h1>
+		<p>Office Supply is your one-stop resource for office supplies, paper, and equipment.</p>
+		<div>
+			<h2>Locations</h2>
+			<ul>
+				<li>Springfield - 120 W Jefferson St</li>
+				<li>Chicago
+					<ul>
+						<li>Downtown - 100 W Randolph St</li>
+						<li>Lakeview - 1060 W Addison St</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h2>Featured Products</h2>
+			<p>We have your favorite products in stock:</p>
+			<ul class="productList columns">
+				<li>
+					<h3>Post-its</h3>
+					<p>Assorted Colors <br />$3.59 and up</p>
+				</li>
+				<li>
+					<h3>Markers</h3>
+					<p>Dry-Erase <br />$6.49</p>
+				</li>
+				<li>
+					<h3>Staplers</h3>
+					<p>Red Swingline <br />$21.99</p>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h2>Sales Update</h2>
+			<p>We had a great first quarter. Here are our latest sales figures:</p>
+			<img class="salesChart" src="images/chart.png" alt="First Quarter Sales Chart" />
+			<table class="salesTable">
+				<thead>
+					<tr>
+						<td></td>
+						<th scope="col">January</th>
+						<th scope="col">February</th>
+						<th scope="col">March</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Post-its</th>
+						<td>20</td>
+						<td>31</td>
+						<td>57</td>
+					</tr>
+					<tr>
+						<th scope="row">Markers</th>
+						<td>16</td>
+						<td>23</td>
+						<td>42</td>
+					</tr>
+					<tr>
+						<th scope="row">Staplers</th>
+						<td>4</td>
+						<td>8</td>
+						<td>15</td>
+					</tr>
+				</tbody>
+			</table>
+			<br class="clear" />
+			<table class="salesTable fullwidth">
+				<thead>
+					<tr>
+						<td rowspan="2"></td>
+						<th colspan="4" id="colgrp1">2020</th>
+						<th colspan="4" id="colgrp2">2021</th>
+					</tr>
+					<tr>
+						<th id="col1" headers="colgrp1">Q1</th>
+						<th id="col2" headers="colgrp1">Q2</th>
+						<th id="col3" headers="colgrp1">Q3</th>
+						<th id="col4" headers="colgrp1">Q4</th>
+						<th id="col5" headers="colgrp2">Q1</th>
+						<th id="col6" headers="colgrp2">Q2</th>
+						<th id="col7" headers="colgrp2">Q3</th>
+						<th id="col8" headers="colgrp2">Q4</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th id="row1">Post-its</th>
+						<td headers="colgrp1 col1 row1">3</td>
+						<td headers="colgrp1 col2 row1">9</td>
+						<td headers="colgrp1 col3 row1">18</td>
+						<td headers="colgrp1 col4 row1">27</td>
+						<td headers="colgrp2 col5 row1">36</td>
+						<td headers="colgrp2 col6 row1">45</td>
+						<td headers="colgrp2 col7 row1">54</td>
+						<td headers="colgrp2 col8 row1">72</td>
+					</tr>
+					<tr>
+						<th id="row2">Markers</th>
+						<td headers="colgrp1 col1 row2">2</td>
+						<td headers="colgrp1 col2 row2">6</td>
+						<td headers="colgrp1 col3 row2">12</td>
+						<td headers="colgrp1 col4 row2">18</td>
+						<td headers="colgrp2 col5 row2">24</td>
+						<td headers="colgrp2 col6 row2">30</td>
+						<td headers="colgrp2 col7 row2">36</td>
+						<td headers="colgrp2 col8 row2">48</td>
+					</tr>
+					<tr>
+						<th id="row3">Staplers</th>
+						<td headers="colgrp1 col1 row3">1</td>
+						<td headers="colgrp1 col2 row3">3</td>
+						<td headers="colgrp1 col3 row3">6</td>
+						<td headers="colgrp1 col4 row3">9</td>
+						<td headers="colgrp2 col5 row3">12</td>
+						<td headers="colgrp2 col6 row3">15</td>
+						<td headers="colgrp2 col7 row3">18</td>
+						<td headers="colgrp2 col8 row3">24</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<h2>Savings Club</h2>
+			<p>Sign up below! Suspicious? Don't worry, see our <a href="blank.html?privacy">Privacy Policy</a>.</p>
+			<form class="signupForm" method="post" action="#" onsubmit="alert('Thanks for signing up!'); return false;">
+				<p>
+					<label for="emailInput">Email:</label>
+					<input type="text" id="emailInput" />
+					<input type="submit" class="button" value="Sign Up!" />
+				</p>
+			</form>
+		</div>
+		<div>
+			<h2>Order Form</h2>
+			<form class="order-form" method="post" action="#" onsubmit="alert('Thanks for your order!'); return false;">
+				<p>
+					<label for="NameInput">Name:</label>
+					<input type="text" id="NameInput" size="40" />
+				</p>
+				<p>
+					<label for="AddressTextarea">Address:</label>
+					<textarea id="AddressTextarea" rows="2" cols="43"></textarea>
+				</p>
+				<p>
+					<label for="CityInput">City:</label>
+					<input type="text" id="CityInput" size="10" />
+					<label for="StateInput">State:</label>
+					<input type="text" id="StateInput" size="2" maxlength="2" />
+					<label for="ZipInput">ZIP:</label>
+					<input type="text" id="ZipInput" size="5" maxlength="10" />
+				</p>
+				<p>
+					<label for="CountrySelect">Country:</label>
+					<select id="CountrySelect">
+						<option value=""></option>
+						<option value="CA">Canada</option>
+						<option value="MX">Mexico</option>
+						<option value="US">United States</option>
+					</select>
+				</p>
+				<p>
+					<input type="checkbox" id="MailingCheckbox" />
+					<label for="MailingCheckbox">Add me to the mailing list</label>
+				</p>
+				<div class="columns">
+					<fieldset>
+						<legend>Ship To</legend>
+						<p>
+							<label for="ShippingAddressInput">Address:</label>
+							<input type="text" id="ShippingAddressInput" size="40" />
+						</p>
+						<p>
+							<label for="ShippingCityInput">City:</label>
+							<input type="text" id="ShippingCityInput" size="10" />
+							<label for="ShippingStateInput">State:</label>
+							<input type="text" id="ShippingStateInput" size="2" maxlength="2" />
+							<label for="ShippingZipInput">ZIP:</label>
+							<input type="text" id="ShippingZipInput" size="5" maxlength="10" />
+						</p>
+					</fieldset>
+					<fieldset>
+						<legend>Shipping Method</legend>
+						<ul class="radioList">
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodStandardRadio" value="Standard" />
+								<label for="ShippingMethodStandardRadio">Standard</label>
+							</li>
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodSecondRadio" value="Second Day" />
+								<label for="ShippingMethodSecondRadio">Second Day</label>
+							</li>
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodOvernightRadio" value="Overnight" />
+								<label for="ShippingMethodOvernightRadio">Overnight</label>
+							</li>
+						</ul>
+					</fieldset>
+				</div>
+				<table class="orderTable">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" id="productHeader">Product</th>
+							<th scope="col" id="priceHeader">Price</th>
+							<th scope="col" id="quantityHeader">Quantity</th>
+							<th scope="col" id="totalHeader">Total</th>
+							<th scope="col" id="removeHeader">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row" id="numberHeader1">1</th>
+							<td>
+								<select class="productSelect" title="Product #1" aria-labelledby="productHeader numberHeader1">
+									<option value="" data-price=""></option>
+									<option value="Post-its" data-price="3.49">Post-its</option>
+									<option value="Markers" data-price="6.49">Markers</option>
+									<option value="Staplers" data-price="21.99">Staplers</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" class="priceInput" size="10" readonly="readonly" title="Price Product #1" aria-labelledby="priceHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<input type="text" class="quantityInput" size="5" title="Quantity Product #1" aria-labelledby="quantityHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<input type="text" class="totalInput" size="10" readonly="readonly" title="Total Product #1" aria-labelledby="totalHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<button class="removeRowButton icon" type="button" title="Remove Product #1" aria-labelledby="removeHeader productHeader numberHeader1"><i class="icon removeIcon"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<input type="button" class="addRowButton button" value="Add Another Product" />
+				</p>
+				<p>
+					<input type="submit" class="button" value="Submit Order" />
+				</p>
+			</form>
+		</div>
+	</main>
+	<footer>
+		<p>
+			Copyright &copy; 2024 Office Supply (not really) |
+			<a href="blank.html?lang=es" lang="es">Español</a>
+		</p>
+		<p>
+			<span class="socialmedia"><a href="blank.html?linkedin"><img src="images/linkedin.png" alt="LinkedIn" /></a></span>
+		</p>
+	</footer>
+</body>
+</html>

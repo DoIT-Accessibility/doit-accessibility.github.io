@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Untitled</title>
+	<link rel="stylesheet" href="styles.css" />
+	<script src="scripts.js"></script>
+	<style>
+		main a { text-decoration: none; outline: none; }
+		main a:hover { text-decoration: underline; }
+		nav > * { flex-wrap: nowrap;  }
+	</style>
+</head>
+<body>
+	<header>
+		<div class="skipnav" style="display: none;">
+			<a href="#main">Skip to Main Content</a>
+		</div>
+		<div class="logo">
+			<a href="all-inaccessible.html?"><img src="images/logo.png" alt="" /></a>
+			<img src="images/montage.png" />
+		</div>
+		<nav>
+			<ul>
+				<li><a href="home-inaccessible.html">Home</a></li>
+				<li><a href="orderform-inaccessible.html">Order Form</a></li>
+				<li><a href="report-inaccessible.html">Sales Report</a></li>
+				<li><a href="newsletter-inaccessible.pdf">Newsletter (PDF)</a></li>
+				<li><a href="orderform-inaccessible.pdf">Order Form (PDF)</a></li>
+				<li><a href="report-inaccessible.pdf">Annual Report (PDF)</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<p style="font: 175%/1.175 Georgia, serif; margin: 1em 0 0; color: #69d;">Welcome</p>
+		<h6>Office Supply is your one-stop resource for office supplies, paper, and equipment.</h6>
+		<div>
+			<h2>Locations</h2>
+			<ul>
+				<li>Springfield - 120 W Jefferson St</li>
+				<li>Chicago</li>
+				<ul>
+					<li>Downtown - 100 W Randolph St</li>
+					<li>Lakeview - 1060 W Addison St</li>
+				</ul>
+			</ul>
+		</div>
+		<div>
+			<h2>Featured Products</h2>
+			<p>We have your favorite products in stock:</p>
+			<table class="productList layoutTable">
+				<tr>
+					<td><h4>Post-its</h4></td>
+					<td><h4>Markers</h4></td>
+					<td><h4>Staplers</h4></td>
+				</tr>
+				<tr>
+					<td><p>Assorted Colors</p></td>
+					<td><p>Dry-Erase</p></td>
+					<td><p>Red Swingline</p></td>
+				</tr>
+				<tr>
+					<td><p>$3.59 and up</p></td>
+					<td><p>$6.49</p></td>
+					<td><p>$21.99</p></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<h2>Sales Update</h2>
+			<p>We had a great first quarter. Here are our latest sales figures:</p>
+			<img class="salesChart" src="images/chart.png" alt="chart.png" longdesc="First Quarter Sales: January Post-its 20, Markers 16, Staplers 4. February Post-its 31, Markers 23, Staplers 8. March Post-its 57, Markers 42, Staplers 15." />
+			<!--
+			<table class="salesTable">
+				<thead>
+					<tr>
+						<td></td>
+						<th scope="col">January</th>
+						<th scope="col">February</th>
+						<th scope="col">March</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Post-its</th>
+						<td>20</td>
+						<td>31</td>
+						<td>57</td>
+					</tr>
+					<tr>
+						<th scope="row">Markers</th>
+						<td>16</td>
+						<td>23</td>
+						<td>42</td>
+					</tr>
+					<tr>
+						<th scope="row">Staplers</th>
+						<td>4</td>
+						<td>8</td>
+						<td>15</td>
+					</tr>
+				</tbody>
+			</table>
+			-->
+			<br class="clear" />
+			<table class="salesTable fullwidth">
+				<thead>
+					<tr>
+						<td rowspan="2"></td>
+						<td colspan="4">2020</td>
+						<td colspan="4">2021</td>
+					</tr>
+					<tr>
+						<td>Q1</td>
+						<td>Q2</td>
+						<td>Q3</td>
+						<td>Q4</td>
+						<td>Q1</td>
+						<td>Q2</td>
+						<td>Q3</td>
+						<td>Q4</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Post-its</td>
+						<td>3</td>
+						<td>9</td>
+						<td>18</td>
+						<td>27</td>
+						<td>36</td>
+						<td>45</td>
+						<td>54</td>
+						<td>72</td>
+					</tr>
+					<tr>
+						<td>Markers</td>
+						<td>2</td>
+						<td>6</td>
+						<td>12</td>
+						<td>18</td>
+						<td>24</td>
+						<td>30</td>
+						<td>36</td>
+						<td>48</td>
+					</tr>
+					<tr>
+						<td>Staplers</td>
+						<td>1</td>
+						<td>3</td>
+						<td>6</td>
+						<td>9</td>
+						<td>12</td>
+						<td>15</td>
+						<td>18</td>
+						<td>24</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<h2>Savings Club</h2>
+			<p>Sign up below! Suspicious? Don't worry, <a href="blank.html?privacy">click here</a>.</p>
+			<form class="signupForm" method="post" action="#" onsubmit="alert('Thanks for signing up!'); return false;">
+				<p>
+					<label>Sign up:</label>
+					<input type="text" id="emailInput" />
+					<input type="image" src="images/signupbutton.png" />
+				</p>
+			</form>
+		</div>
+		<div>
+			<h2>Order Form</h2>
+			<form class="order-form" method="post" action="#" onsubmit="alert('Thanks for your order!'); return false;">
+				<p>
+					<label>Name:</label>
+					<input type="text" id="NameInput" size="40" title="Name" tabindex="1" />
+				</p>
+				<p>
+					<label for="Address">Address:</label>
+					<textarea id="AddressTextarea" rows="2" cols="43" title="No P.O. Boxes"></textarea>
+				</p>
+				<p>
+					<label>City:</label>
+					<input type="text" id="CityInput" size="10" aria-label="" />
+					<label>State:</label>
+					<input type="text" id="StateInput" size="2" maxlength="2" aria-labelledby="State" />
+					<label>ZIP:</label>
+					<input type="text" id="ZipInput" size="5" maxlength="10" aria-labelledby="ZipInput" />
+				</p>
+				<p>
+					<label>Country:</label>
+					<select id="CountrySelect" onchange="if (this.value == 'CA') { alert('Sorry we can\'t ship to Canada yet'); this.value = ''; }">
+						<option value=""></option>
+						<option value="CA">Canada</option>
+						<option value="MX">Mexico</option>
+						<option value="US">United States</option>
+					</select>
+				</p>
+				<p>
+					<input type="checkbox" id="MailingCheckbox" />
+					<label for="MailingCheckbox"></label>Add me to the mailing list
+				</p>
+				<div class="columns" style="margin-top: .5em;">
+					<div>
+						<p>Ship To</p>
+						<p>
+							<label for="ShippingAddressInput">Address:</label>
+							<input type="text" id="ShippingAddressInput" size="40" />
+						</p>
+						<p>
+							<label for="ShippingCityInput">City:</label>
+							<input type="text" id="ShippingCityInput" size="10" />
+							<label for="ShippingStateInput">State:</label>
+							<input type="text" id="ShippingStateInput" size="2" maxlength="2" />
+							<label for="ShippingZipInput">ZIP:</label>
+							<input type="text" id="ShippingZipInput" size="5" maxlength="10" />
+						</p>
+					</div>
+					<div>
+						<p>Shipping Method</p>
+						<ul class="radioList">
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodStandardRadio" value="Standard" />
+								<label for="ShippingMethodStandardRadio">Standard</label>
+							</li>
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodSecondRadio" value="Second Day" />
+								<label for="ShippingMethodSecondRadio">Second Day</label>
+							</li>
+							<li>
+								<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodOvernightRadio" value="Overnight" />
+								<label for="ShippingMethodOvernightRadio">Overnight</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<table class="orderTable" role="grid">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" id="productHeader">Product</th>
+							<th scope="col" id="priceHeader">Price</th>
+							<th scope="col" id="quantityHeader">Quantity</th>
+							<th scope="col" id="totalHeader">Total</th>
+							<th scope="col" id="removeHeader">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row" id="numberHeader1">1</th>
+							<td>
+								<select class="productSelect" title="Product #1" aria-labelledby="productHeader numberHeader1">
+									<option value="" data-price=""></option>
+									<option value="Post-its" data-price="3.49">Post-its</option>
+									<option value="Markers" data-price="6.49">Markers</option>
+									<option value="Staplers" data-price="21.99">Staplers</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" class="priceInput" size="10" readonly="readonly" title="Price Product #1" aria-labelledby="priceHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<input type="text" class="quantityInput" size="5" title="Quantity Product #1" aria-labelledby="quantityHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<input type="text" class="totalInput" size="10" readonly="readonly" title="Total Product #1" aria-labelledby="totalHeader productHeader numberHeader1" />
+							</td>
+							<td>
+								<i class="icon removeIcon removeRowButton"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<input type="button" class="addRowButton button" value="Add Another Product" onfocus="this.click();" />
+				</p>
+				<p>
+					<input type="submit" class="button" value="Submit Order" onblur="this.focus();" />
+				</p>
+			</form>
+		</div>
+	</main>
+	<footer>
+		<p>
+			Copyright &copy; 2024 Office Supply (not really) |
+			<a href="blank.html?lang=es">Español</a> 
+			<a aria-hidden="true" href="blank.html"></a>
+		</p>
+		<p>
+			<span class="socialmedia"></span>
+			<script>
+				var shadowDom = document.querySelector(".socialmedia").attachShadow({mode:"open"});
+				var link = document.createElement("a");
+				link.href = "blank.html?linkedin";
+				var img = document.createElement("img");
+				img.src = "images/linkedin.png";
+				link.appendChild(img);
+				shadowDom.appendChild(link);
+			</script>
+		</p>
+	</footer>
+</body>
+</html>

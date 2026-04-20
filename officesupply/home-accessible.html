@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Office Supply: Welcome</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<header>
+		<div class="skipnav">
+			<a href="#main">Skip to Main Content</a>
+		</div>
+		<div class="logo">
+			<a href="home-accessible.html?"><img src="images/logo.png" alt="Office Supply" /></a>
+			<img src="images/montage.png" alt="" />
+		</div>
+		<nav>
+			<ul>
+				<li><a href="home-accessible.html">Home</a></li>
+				<li><a href="orderform-accessible.html">Order Form</a></li>
+				<li><a href="report-accessible.html">Sales Report</a></li>
+				<li><a href="newsletter-accessible.pdf">Newsletter (PDF)</a></li>
+				<li><a href="orderform-accessible.pdf">Order Form (PDF)</a></li>
+				<li><a href="report-accessible.pdf">Annual Report (PDF)</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>Welcome</h1>
+		<p>Office Supply is your one-stop resource for office supplies, paper, and equipment.</p>
+		<div>
+			<h2>Locations</h2>
+			<ul>
+				<li>Springfield - 120 W Jefferson St</li>
+				<li>Chicago
+					<ul>
+						<li>Downtown - 100 W Randolph St</li>
+						<li>Lakeview - 1060 W Addison St</li>
+					</ul>
+				</li>
+			</ul>
+		</div>		
+		<div>
+			<h2>Featured Products</h2>
+			<p>We have your favorite products in stock:</p>
+			<ul class="productList columns">
+				<li>
+					<h3>Post-its</h3>
+					<p>Assorted Colors <br />$3.59 and up</p>
+				</li>
+				<li>
+					<h3>Markers</h3>
+					<p>Dry-Erase <br />$6.49</p>
+				</li>
+				<li>
+					<h3>Staplers</h3>
+					<p>Red Swingline <br />$21.99</p>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h2>Sales Update</h2>
+			<p>We had a great first quarter. Here are our latest sales figures:</p>
+			<img class="salesChart" src="images/chart.png" alt="First Quarter Sales Chart" />
+			<table class="salesTable">
+				<thead>
+					<tr>
+						<td></td>
+						<th scope="col">January</th>
+						<th scope="col">February</th>
+						<th scope="col">March</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Post-its</th>
+						<td>20</td>
+						<td>31</td>
+						<td>57</td>
+					</tr>
+					<tr>
+						<th scope="row">Markers</th>
+						<td>16</td>
+						<td>23</td>
+						<td>42</td>
+					</tr>
+					<tr>
+						<th scope="row">Staplers</th>
+						<td>4</td>
+						<td>8</td>
+						<td>15</td>
+					</tr>
+				</tbody>
+			</table>
+			<br class="clear" />
+		</div>
+		<div>
+			<h2>Savings Club</h2>
+			<p>Sign up below! Suspicious? Don't worry, see our <a href="blank.html?privacy">Privacy Policy</a>.</p>
+			<form class="signupForm" method="post" action="#" onsubmit="document.querySelector('.dialog').showModal(); return false;">
+				<p>
+					<label for="emailInput">Email:</label>
+					<input type="text" id="emailInput" />
+					<input type="submit" class="button" value="Sign Up!" />
+				</p>
+			</form>
+			<dialog class="dialog" aria-labelledby="dialog-heading">
+				<p id="dialog-heading">Thanks for signing up!</p>
+				<form method="dialog">
+					<button>OK</button>
+				</form>
+			</dialog>
+		</div>
+	</main>
+	<footer>
+		<p>
+			Copyright &copy; 2024 Office Supply (not really)
+		</p>
+	</footer>
+</body>
+</html>

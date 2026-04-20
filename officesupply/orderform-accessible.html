@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Office Supply: Order Form</title>
+	<link rel="stylesheet" href="styles.css" />
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<header>
+		<div class="skipnav">
+			<a href="#main">Skip to Main Content</a>
+		</div>
+		<div class="logo">
+			<a href="home-accessible.html?"><img src="images/logo.png" alt="Office Supply" /></a>
+			<img src="images/montage.png" alt="" />
+		</div>
+		<nav>
+			<ul>
+				<li><a href="home-accessible.html">Home</a></li>
+				<li><a href="orderform-accessible.html">Order Form</a></li>
+				<li><a href="report-accessible.html">Sales Report</a></li>
+				<li><a href="newsletter-accessible.pdf">Newsletter (PDF)</a></li>
+				<li><a href="orderform-accessible.pdf">Order Form (PDF)</a></li>
+				<li><a href="report-accessible.pdf">Annual Report (PDF)</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>Order Form</h1>
+		<form class="order-form" method="post" action="#" onsubmit="alert('Thanks for your order!'); return false;">
+			<p>
+				<label for="NameInput">Name:</label>
+				<input type="text" id="NameInput" size="40" />
+			</p>
+			<p>
+				<label for="AddressTextarea">Address:</label>
+				<textarea id="AddressTextarea" rows="2" cols="43"></textarea>
+			</p>
+			<p>
+				<label for="CityInput">City:</label>
+				<input type="text" id="CityInput" size="10" />
+				<label for="StateInput">State:</label>
+				<input type="text" id="StateInput" size="2" maxlength="2" />
+				<label for="ZipInput">ZIP:</label>
+				<input type="text" id="ZipInput" size="5" maxlength="10" />
+			</p>
+			<p>
+				<label for="CountrySelect">Country:</label>
+				<select id="CountrySelect">
+					<option value=""></option>
+					<option value="CA">Canada</option>
+					<option value="MX">Mexico</option>
+					<option value="US">United States</option>
+				</select>
+			</p>
+			<p>
+				<input type="checkbox" id="MailingCheckbox" />
+				<label for="MailingCheckbox">Add me to the mailing list</label>
+			</p>
+			<div class="columns">
+				<fieldset>
+					<legend>Ship To</legend>
+					<p>
+						<label for="ShippingAddressInput">Address:</label>
+						<input type="text" id="ShippingAddressInput" size="40" />
+					</p>
+					<p>
+						<label for="ShippingCityInput">City:</label>
+						<input type="text" id="ShippingCityInput" size="10" />
+						<label for="ShippingStateInput">State:</label>
+						<input type="text" id="ShippingStateInput" size="2" maxlength="2" />
+						<label for="ShippingZipInput">ZIP:</label>
+						<input type="text" id="ShippingZipInput" size="5" maxlength="10" />
+					</p>
+				</fieldset>
+				<fieldset>
+					<legend>Shipping Method</legend>
+					<ul class="radioList">
+						<li>
+							<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodStandardRadio" value="Standard" />
+							<label for="ShippingMethodStandardRadio">Standard</label>
+						</li>
+						<li>
+							<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodSecondRadio" value="Second Day" />
+							<label for="ShippingMethodSecondRadio">Second Day</label>
+						</li>
+						<li>
+							<input type="radio" name="ShippingMethodRadioGroup" id="ShippingMethodOvernightRadio" value="Overnight" />
+							<label for="ShippingMethodOvernightRadio">Overnight</label>
+						</li>
+					</ul>
+				</fieldset>
+			</div>
+			<table class="orderTable">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col" id="productHeader">Product</th>
+						<th scope="col" id="priceHeader">Price</th>
+						<th scope="col" id="quantityHeader">Quantity</th>
+						<th scope="col" id="totalHeader">Total</th>
+						<th scope="col" id="removeHeader">Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" id="numberHeader1">1</th>
+						<td>
+							<select class="productSelect" title="Product #1" aria-labelledby="productHeader numberHeader1">
+								<option value="" data-price=""></option>
+								<option value="Post-its" data-price="3.49">Post-its</option>
+								<option value="Markers" data-price="6.49">Markers</option>
+								<option value="Staplers" data-price="21.99">Staplers</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="priceInput" size="10" readonly title="Price Product #1" aria-labelledby="priceHeader productHeader numberHeader1" />
+						</td>
+						<td>
+							<input type="text" class="quantityInput" size="5" title="Quantity Product #1" aria-labelledby="quantityHeader productHeader numberHeader1" />
+						</td>
+						<td>
+							<input type="text" class="totalInput" size="10" readonly title="Total Product #1" aria-labelledby="totalHeader productHeader numberHeader1" />
+						</td>
+						<td>
+							<button type="button" class="removeRowButton icon" title="Remove Product #1" aria-labelledby="removeHeader productHeader numberHeader1"><i class="icon removeIcon"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<button type="button" class="addRowButton button">Add Another Product</button>
+			</p>
+			<p>
+				<button type="button" class="button" onclick="document.querySelector('dialog').showModal()">Submit Order</button>
+			</p>
+		</form>
+		<dialog class="dialog" aria-labelledby="dialog-heading">
+			<h2 id="dialog-heading">Confirm Order</h2>
+			<p>Are you ready to place your order?</p>
+			<form method="dialog">
+				<button>Confirm</button>
+				<button>Cancel</button>
+			</form>
+		</dialog>
+	</main>
+	<footer>
+		<p>
+			Copyright &copy; 2024 <a href="home-inaccessible.html?">Office Supply</a> (not really)
+		</p>
+	</footer>
+</body>
+</html>

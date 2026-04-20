@@ -1,0 +1,436 @@
+NVDA
+Settings > Vision > check Highlight navigator object
+Settings > Mouse > uncheck Enable mouse tracking
+
+Office Supply: Order Form
+banner landmark    link    Skip to Main Content
+[down]	link    graphic    Office Supply
+[down]	navigation landmark    list  with 6 items  visited  link    Home
+[down]	visited  link    Order Form
+[down]	link    Sales Report
+[down]	link    Newsletter (PDF)
+[down]	link    Order Form (PDF)
+[down]	link    Annual Report (PDF)
+[down]	out of list  main landmark    heading    level 1  Welcome
+[down]	Office Supply is your one-stop resource for office supplies, paper, and equipment.
+[down]	heading    level 2  Locations
+[down]	list  with 2 items  • Springfield - 120 W Jefferson St
+[down]	• Chicago
+[down]	list  with 2 items  ◦ Downtown - 100 W Randolph St
+[down]	◦ Lakeview - 1060 W Addison St
+[down]	out of list  out of list  heading    level 2  Featured Products
+[down]	We have your favorite products in stock:
+[down]	list  with 3 items  heading    level 3  Post-its
+[down]	Assorted Colors
+[down]	$3.59 and up
+[down]	heading    level 3  Markers
+[down]	Dry-Erase
+[down]	$6.49
+[down]	heading    level 3  Staplers
+[down]	Red Swingline
+[down]	$21.99
+[down]	out of list  heading    level 2  Sales Update
+[down]	We had a great first quarter. Here are our latest sales figures:
+[down]	graphic    First Quarter Sales Chart
+[down]	table  with 4 rows and 4 columns  row 1  column 1
+[c+a+r]	column 2  January
+[c+a+r]	column 3  February
+[c+a+r]	column 4  March
+[c+a+r]	Edge of table  March
+[down]	row 2  column 1  Post-its
+[c+a+r]	January  column 2  20
+[c+a+r]	February  column 3  31
+[c+a+r]	March  column 4  57
+[c+a+r]	Edge of table  57
+[down]	row 3  column 1  Markers
+[c+a+r]	January  column 2  16
+[c+a+r]	February  column 3  23
+[c+a+r]	March  column 4  42
+[c+a+r]	Edge of table  42
+[down]	row 4  column 1  Staplers
+[c+a+r]	January  column 2  4
+[c+a+r]	February  column 3  8
+[c+a+r]	March  column 4  15
+[c+a+r]	Edge of table  15
+[down]	out of table  blank
+[down]	heading    level 2  Savings Club
+[down]	Sign up below! Suspicious? Don't worry, see our   link    Privacy Policy  .
+[down]	Email:  edit       button    Sign Up!
+[down]	content info landmark    Copyright © 2023 Office Supply (not really)
+
+Office Supply: Order Form  document
+[tab]	banner landmark    link    Skip to Main Content
+[tab]	Office Supply  graphic    link  
+[tab]	navigation landmark    list  with 6 items  Home  visited  link  
+[tab]	Order Form  visited  link  
+[tab]	Sales Report  link  
+[tab]	Newsletter (PDF)  link  
+[tab]	Order Form (PDF)  link  
+[tab]	Annual Report (PDF)  link  
+[tab]	main landmark  Name:  edit  blank
+[tab]	Address:  edit  multi line  blank
+[tab]	City:  edit  blank
+[tab]	State:  edit  blank
+[tab]	ZIP:  edit  blank
+[tab]	Country:  combo box  collapsed
+[enter]	expanded  list  list item  1 of 4
+[down]	Canada  2 of 4
+[down]	Mexico  3 of 4
+[down]	United States  4 of 4
+[enter]	Country:  combo box  United States  collapsed
+[tab]	Add me to the mailing list  check box  not checked  
+[space]	checked
+[tab]	Ship To  grouping
+[tab]	Address:  edit  blank
+[tab]	City:  edit  blank
+[tab]	State:  edit  blank
+[tab]	ZIP:  edit  blank
+[tab]	Shipping Method  grouping  list  Standard  radio button  not checked  1 of 3
+[down]	Second Day  radio button  checked  2 of 3
+[down]	Overnight  radio button  checked  3 of 3
+[tab]	table  1  row 2  Product  column 2  Product 1  combo box  collapsed  Product #1
+[enter]	expanded  list  list item  1 of 4
+[down]	Post-its  2 of 4
+[down]	Markers  3 of 4
+[down]	Staplers  4 of 4
+[enter]	Product 1  combo box  Staplers  collapsed  Product #1
+[tab]	1  row 2  Price  column 3  Price Product 1  edit  read only  Price Product #1  selected 21.99
+[tab]	1  row 2  Quantity  column 4  Quantity Product 1  edit  Quantity Product #1  blank
+[2]		2
+[tab]	1  row 2  Total  column 5  Total Product 1  edit  read only  Total Product #1  selected 43.98
+[tab]	1  row 2  Remove  column 6  Remove Product 1  button    Remove Product #1
+[tab]	Add Another Product  button  
+[tab]	Submit Order  button  
+
+JAWS
+
+[c+h]	Office Supply: Welcome
+[down]	same page link Skip to Main Content
+[down]	Link Graphic Office Supply
+[down]	navigation region
+[down]	list of 6 items
+[down]	visited Link Home
+[down]	visited Link Order Form
+[down]	Link Sales Report
+[down]	Link Newsletter (PDF)
+[down]	Link Order Form (PDF)
+[down]	Link Annual Report (PDF)
+[down]	list end
+[down]	navigation region end
+[down]	main region
+[down]	heading level 1 Welcome
+[down]	Office Supply is your one-stop resource for office supplies, paper, and equipment.
+[down]	heading level 2 Locations
+[down]	list of 2 items
+[down]	• Springfield - 120 W Jefferson St 
+[down]	• Chicago 
+[down]	list of 2 items nesting level 1
+[down]	◦ Downtown - 100 W Randolph St 
+[down]	◦ Lakeview - 1060 W Addison St 
+[down]	list end nesting level 1
+[down]	list end
+[down]	heading level 2 Featured Products
+[down]	We have your favorite products in stock:
+[down]	list of 3 items
+[down]	heading level 3 Post-its
+[down]	Assorted Colors
+[down]	$3.59 and up
+[down]	heading level 3 Markers
+[down]	Dry-Erase
+[down]	$6.49
+[down]	heading level 3 Staplers
+[down]	Red Swingline
+[down]	$21.99
+[down]	list end
+[down]	heading level 2 Sales Update
+[down]	We had a great first quarter. Here are our latest sales figures:
+[down]	First Quarter Sales Chart Graphic 
+[down]	table with 4 columns and 4 rows
+[c+a+r]	January Column 2
+[c+a+r]	February Column 3
+[c+a+r]	March Column 4
+[c+a+r]	end of row
+[down]	Post-its 
+[c+a+r]	January 20 Column 2
+[c+a+r]	February 31 Column 3
+[c+a+r]	March 57 Column 4
+[c+a+r]	end of row
+[down]	Markers 
+[c+a+r]	January 16 Column 2
+[c+a+r]	February 23 Column 3
+[c+a+r]	March 42 Column 4
+[c+a+r]	end of row
+[down]	Staplers
+[c+a+r]	January 4 Column 2
+[c+a+r]	February 8 Column 3
+[c+a+r]	March 15 Column 4
+[c+a+r]	end of row
+[down]	table end
+[down]	heading level 2 Savings Club
+[down]	Sign up below! Suspicious? Don’t worry, see our 
+[down]	Link Privacy Policy.
+[down]	Email:
+[down]	Sign Up! Button 
+[down]	main region end
+[down]	Copyright © 2023 Office Supply (not really)
+
+[c+h]	Office Supply: Order Form
+[down]	same page link Skip to Main Content
+[down]	Link Graphic Office Supply
+[down]	navigation region
+[down]	list of 6 items
+[down]	visited Link Home
+[down]	visited Link Order Form
+[down]	Link Sales Report
+[down]	Link Newsletter (PDF)
+[down]	Link Order Form (PDF)
+[down]	Link Annual Report (PDF)
+[down]	list end
+[down]	navigation region end
+[down]	main region
+[down]	heading level 1 Order Form
+[down]	Name:
+[down]	Edit
+[down]	Address: 
+[down]	edit 
+[down]	City: 
+[down]	Edit 
+[down]	State: 
+[down]	Edit 
+[down]	ZIP: 
+[down]	Edit 
+[down]	Country: 
+[down]	Combo box collapsed  
+[down]	Add me to the mailing list check box not checked 
+[down]	group start Ship To
+[down]	Address: 
+[down]	Edit 
+[down]	City: 
+[down]	Edit 
+[down]	State: 
+[down]	Edit 
+[down]	ZIP: 
+[down]	Edit 
+[down]	group end Ship To
+[down]	group start Shipping Method
+[down]	list of 3 items
+[down]	Standard radio button not checked 1 of 3
+[down]	 Second Day radio button not checked 2 of 3
+[down]	 Overnight radio button not checked 3 of 3
+[down]	list end
+[down]	group end Shipping Method
+[down]	table with 6 columns and 2 rows
+#
+Product
+Price
+Column 3
+Quantity
+Column 4
+Total
+Column 5
+Remove
+Column 6
+end of row
+1
+Product 
+Product 1
+Combo box collapsed  
+Column 2
+Price 
+Price Product 1
+read only edit  
+Column 3
+Quantity 
+Quantity Product 1
+Edit  
+Column 4
+Total 
+Total Product 1
+read only edit  
+Column 5
+Remove 
+Remove Product 1
+Button 
+Column 6
+end of row
+table end
+Add Another Product
+Button 
+Submit Order
+Button 
+main region end
+Copyright © 2023 Office Supply (not really)
+
+
+Office Supply: Order Form
+Banner Region Skip to Main Content same page link 
+Office Supply Link Graphic 
+Navigation Region list with 6 items Home Link 
+Order Form Link 
+Sales Report Link 
+Newsletter (PDF) Link 
+Order Form (PDF) Link 
+Annual Report (PDF) Link 
+Main Region Name: Edit Type in text.
+Address: edit Type in text.
+City: Edit Type in text.
+State: 
+
+ZIP: Edit 
+
+Type in text.
+Country: Combo box 
+To change the selection use the Arrow keys.
+expanded 
+list 
+with 4 items
+To move to an item press the Arrow keys.
+Canada
+To move to an item press the Arrow keys.
+Mexico
+To move to an item press the Arrow keys.
+United States
+To move to an item press the Arrow keys.
+Country: Combo box 
+United States
+ Add me to the mailing list check box not checked 
+Combo box collapsed United States
+Mexico
+Canada
+Mexico
+United States
+Add me to the mailing list check box not checked 
+To check press Spacebar.
+checked 
+Ship To group 
+Address: Edit 
+
+Type in text.
+City: 
+
+State: 
+
+ZIP: Edit 
+
+Type in text.
+To change the selection press Up or Down Arrow.
+Shipping Method group 
+list 
+with 3 items
+Standard radio button not checked 
+1 of 3
+Second Day radio button checked 
+2 of 3
+To change the selection press Up or Down Arrow.
+Overnight radio button checked 
+3 of 3
+To change the selection press Up or Down Arrow.
+table
+Column 2, Row 2
+Product 1 Combo box 
+Product #1
+1
+Product
+col 1 row 1
+To change the selection use the Arrow keys.
+expanded 
+list 
+with 4 items
+To move to an item press the Arrow keys.
+Post-its
+To move to an item press the Arrow keys.
+Markers
+To move to an item press the Arrow keys.
+Staplers
+To move to an item press the Arrow keys.
+Product 1 Combo box 
+Staplers
+Product #1
+1 
+Product 
+col 2 row 2
+Price Product 1
+Combo box collapsed Staplers
+Markers
+Post-its
+Markers
+Staplers
+Price Product 1 read only edit 
+21.99
+Price Product #1
+Price 
+Use your reading keys to read the text.
+Quantity Product 1 Edit 
+
+Quantity Product #1
+Quantity 
+Type in text.
+Total Product 1 read only edit 
+43.98
+Total Product #1
+Total 
+Use your reading keys to read the text.
+Remove Product 1
+Button 
+Remove 
+To activate press Enter.
+Add Another Product Button 
+To activate press Enter.
+Product 2 Combo box 
+Product #2
+2
+Product
+col 1 row 2
+To change the selection use the Arrow keys.
+Price Product 2 read only edit 
+Price Product #2
+2
+Price 
+col 3 row 3
+Use your reading keys to read the text.
+Quantity Product 2 Edit 
+
+Quantity Product #2
+Quantity 
+Type in text.
+Total Product 2 read only edit 
+Total Product #2
+Total 
+Use your reading keys to read the text.
+Remove Product 2
+Button 
+Remove 
+To activate press Enter.
+Product 1 Combo box 
+Staplers
+Product #1
+1
+Product
+col 1 row 1
+To change the selection use the Arrow keys.
+21.99
+Price Product 1 read only edit 
+21.99
+Price Product #1
+1
+Price 
+col 3 row 2
+Use your reading keys to read the text.
+Quantity Product 1 Edit 
+2
+Quantity Product #1
+Quantity 
+Type in text.
+Total Product 1 read only edit 
+43.98
+Total Product #1
+Total 
+Use your reading keys to read the text.
+Remove Product 1
+Button 
+Remove 
+To activate press Enter.
+Add Another Product Button  
+To activate press Enter.
+Submit Order Button To activate press Enter.
+

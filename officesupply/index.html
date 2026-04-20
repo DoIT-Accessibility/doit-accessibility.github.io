@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Office Supply Accessibility Tests</title>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>“Office Supply” Accessibility Tests</h1>
+		<table id="t1" class="fullWidth" summary="Accessibility Tests">
+			<thead>
+				<tr>
+					<th id="t1r1c1" scope="col"></th>
+					<th id="t1r1c2" scope="col">Accessible</th>
+					<th id="t1r1c3" scope="col">Inaccessible</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th id="t1rg1" colspan="3" scope="row">HTML</th>
+				</tr>
+				<tr>
+					<th id="t1r1" headers="t1r1c1 t1rg1" scope="row">Document</th>
+					<td headers="t1r1c2 t1rg1 t1r1"><a href="home-accessible.html">Home Page <span class="visually-hidden">(accessible)</span></a></td>
+					<td headers="t1r1c3 t1rg1 t1r1"><a href="home-inaccessible.html">Home Page <span class="visually-hidden">(inaccessible)</span></a></td>
+				</tr>
+				<tr>
+					<th id="t1r2" headers="t1r1c1 t1rg1" scope="row">Form</th>
+					<td headers="t1r1c2 t1rg1 t1r2"><a href="orderform-accessible.html">Order Form <span class="visually-hidden">(accessible)</span></a></td>
+					<td headers="t1r1c3 t1rg1 t1r2"><a href="orderform-inaccessible.html">Order Form <span class="visually-hidden">(inaccessible)</span></a></td>
+				</tr>
+				<tr>
+					<th id="t1r3" headers="t1r1c1 t1rg1" scope="row">Complex Table</th>
+					<td headers="t1r1c2 t1rg1 t1r3"><a href="report-accessible.html">Sales Report <span class="visually-hidden">(accessible)</span></a></td>
+					<td headers="t1r1c3 t1rg1 t1r3"><a href="report-inaccessible.html">Sales Report <span class="visually-hidden">(inaccessible)</span></a></td>
+				</tr>
+				<tr>
+					<th id="t1r4" headers="t1r1c1 t1rg1" scope="row">All</th>
+					<td headers="t1r1c2 t1rg1 t1r4"><a href="all-accessible.html">All <span class="visually-hidden">(accessible)</span></a></td>
+					<td headers="t1r1c3 t1rg1 t1r4"><a href="all-inaccessible.html">All <span class="visually-hidden">(inaccessible)</span></a></td>
+				</tr>
+				<tr>
+					<th id="t1rg2" colspan="3" scope="row">PDF</th>
+				</tr>
+				<tr>
+					<th id="t1r5" headers="t1r1c1 t1rg2" scope="row">Document</th>
+					<td headers="t1r1c2 t1rg2 t1r5"><a href="newsletter-accessible.pdf">Newsletter (PDF<span class="visually-hidden">, accessible</span>)</a></td>
+					<td headers="t1r1c3 t1rg2 t1r5"><a href="newsletter-inaccessible.pdf">Newsletter (PDF<span class="visually-hidden">, inaccessible</span>)</a></td>
+				</tr>
+				<tr>
+					<th id="t1r6" headers="t1r1c1 t1rg2" scope="row">Form</th>
+					<td headers="t1r1c2 t1rg2 t1r6"><a href="orderform-accessible.pdf">Order Form (PDF<span class="visually-hidden">, accessible</span>)</a></td>
+					<td headers="t1r1c3 t1rg2 t1r6"><a href="orderform-inaccessible.pdf">Order Form (PDF<span class="visually-hidden">, inaccessible</span>)</a></td>
+				</tr>
+				<tr>
+					<th id="t1r7" headers="t1r1c1 t1rg2" scope="row">Complex Table</th>
+					<td headers="t1r1c2 t1rg2 t1r7"><a href="report-accessible.pdf">Annual Report (PDF<span class="visually-hidden">, accessible</span>)</a></td>
+					<td headers="t1r1c3 t1rg2 t1r7"><a href="report-inaccessible.pdf">Annual Report (PDF<span class="visually-hidden">, inaccessible</span>)</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<h2>Example Reports</h2>
+		<ul>
+			<li><a href="DoIT-Accessibility-Report-Example.pdf">Accessibility Report Example (PDF)</a></li>			
+			<li><a href="DoIT-Accessibility-Ticket-Example.pdf">Accessibility Ticket Example (PDF)</a></li>			
+		</ul>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-08-20</footer>
+</body>
+</html>
