@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chart Test</title>
+	<link rel="stylesheet" href="../site.css">
+	<style>
+		.full-width table { width: 100%; }
+		.data-align-right td { text-align: right; }
+		.capitalize-headers th { text-transform: capitalize; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Chart Test</h1>
+	<canvas id="myChart"></canvas> 
+	<div id="myTable" class="full-width data-align-right capitalize-headers"></div>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-09-10</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	
+	// ComplianceData from https://isp.illinois.gov/home/Compliance
+	const ComplianceData = [{"year":2020,"jan":42,"feb":46,"mar":60,"apr":25,"may":46,"jun":41,"jul":64,"aug":33,"sep":115,"oct":38,"nov":27,"dec":25,"total":562},{"year":2021,"jan":5,"feb":39,"mar":76,"apr":41,"may":38,"jun":72,"jul":65,"aug":59,"sep":47,"oct":32,"nov":58,"dec":63,"total":595},{"year":2022,"jan":32,"feb":38,"mar":26,"apr":32,"may":28,"jun":1157,"jul":846,"aug":178,"sep":72,"oct":90,"nov":76,"dec":49,"total":2624},{"year":2023,"jan":52,"feb":34,"mar":96,"apr":35,"may":27,"jun":54,"jul":242,"aug":233,"sep":84,"oct":123,"nov":150,"dec":63,"total":1193},{"year":2024,"jan":36,"feb":159,"mar":268,"apr":47,"may":199,"jun":139,"jul":669,"aug":null,"sep":null,"oct":null,"nov":null,"dec":null,"total":1517}]
+
+	// ComplianceChart from https://isp.illinois.gov/js/guntrafficing.js
+	function ComplianceChart() {
+		var datas = ComplianceData;
+		let years = [];
+		let jan = [];
+		let feb = [];
+		let mar = [];
+		let apr = [];
+		let may = [];
+		let jun = [];
+		let jul = [];
+		let aug = [];
+		let sep = [];
+		let oct = [];
+		let nov = [];
+		let dec = [];
+		let total = [];
+		years = datas.map(o => o.year);
+		jan = datas.map(o => o.jan);
+		feb = datas.map(o => o.feb);
+		mar = datas.map(o => o.mar);
+		apr = datas.map(o => o.apr);
+		may = datas.map(o => o.may);
+		jun = datas.map(o => o.jun);
+		jul = datas.map(o => o.jul);
+		aug = datas.map(o => o.aug);
+		sep = datas.map(o => o.sep);
+		oct = datas.map(o => o.oct);
+		nov = datas.map(o => o.nov);
+		dec = datas.map(o => o.dec);
+		total = datas.map(o => o.total);
+		const ctx = document.getElementById('#myChart');
+		new Chart("myChart", {
+			type: 'bar',
+			options: {
+				animation: true,
+				plugings: {
+					legend: { display: false },
+					tooltip: { enable: false },
+					scales: { yAxes: [{ ticks: { beginAtZero: true }}]}
+				}
+			},
+			data: {
+				labels: years,
+				datasets: [{ label: "Jan", data: jan }, { label: "Feb", data: feb }, { label: "Mar", data: mar }, { label: "Apr", data: apr }, { label: "May", data: may }, { label: "Jun", data: jun }, { label: "Jul", data: jul }, { label: "Aug", data: aug }, { label: "Sep", data: sep }, { label: "Oct", data: oct }, { label: "Nov", data: nov }, { label: "Dec", data: dec }, { label: "Total", data: total }]
+			}
+		})
+	};
+	ComplianceChart();
+
+	// CreateTable - creates an HTML table from JSON data
+	function CreateTable(data) {
+		const keys = Object.keys(data[0]);
+		const table = document.createElement("table");
+		const thead = table.createTHead();
+		const tr = thead.insertRow();
+		keys.forEach(key => {
+			const th = document.createElement("th");
+			th.scope = "col";
+			th.textContent = key;
+			tr.appendChild(th);
+		});
+		const tbody = table.createTBody();
+		data.forEach(row => {
+			const tr = tbody.insertRow();
+			keys.forEach((key, i) => {
+				const cell = document.createElement(i === 0 ? "th" : "td");
+				if (i === 0) { cell.scope = "row" };
+				cell.textContent = row[key];
+				tr.appendChild(cell);
+			});
+		});
+		return table;
+	}
+	document.querySelector("#myTable").appendChild(CreateTable(ComplianceData)); 
+	
+</script>
+</body>
+</html>

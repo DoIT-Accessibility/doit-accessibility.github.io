@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Shadow DOM Test</title>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Shadow DOM Test</h1>
+		<p>The Shadow DOM is used to isolate reusable web components from the rest of a web page. It is a technique being used by many modern component libraries. If an accessibility testing tool cannot test within Shadow DOMs, it may miss important accessibility issues, and should not be used unless you are <em>certain</em> the pages you are testing do not use Shadow DOMs.</p>
+		<p>There are two inputs without labels below -- accessibility testing tools should identify <em>both</em> as errors. If a tool only finds the first one, it probably cannot test within Shadow DOMs:</p>
+		<p><input value="In Document"></p>
+		<p id="shadow-dom">[Shadow DOM will go here -- if you see this message, the script didn't run correctly.]</p>
+		<p>For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM">MDN: Using Shadow DOM</a></p>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+	<script>
+		var shadowDom = document.querySelector("#shadow-dom").attachShadow({mode:"open"});
+		//shadowDom.appendChild(document.createTextNode("In Shadow DOM: "));
+		var input = document.createElement("input");
+		input.value = "In Shadow DOM";
+		shadowDom.appendChild(input);
+	</script>
+</body>
+</html>

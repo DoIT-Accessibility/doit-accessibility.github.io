@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Image Button Test</title>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Image Button Test</h1>
+	<p>An update to Google Chrome and Microsoft Edge (possibly version 131) casued these browsers to stop recognizing alt text on image buttons that have type="IMAGE" in all caps.</p>
+	<form action="#">
+		<div>
+			<h2>Test 1: type="image"</h2>
+			<p><input type="image" src="/images/button-test-1.png" alt="Test 1"></p>
+			<p>Read as "Test 1 button" as expected.</p>
+		</div>
+		<div>
+			<h2>Test 2: type="IMAGE"</h2>
+			<p><input type="IMAGE" src="/images/button-test-2.png" alt="Test 2"></p>
+			<p>Read as "button" (NVDA, Narrator) or "Unlabeled 0 button" (JAWS); Should be read as "Test 2 button".</p>
+		</div>
+	</form>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-11-19</footer>
+</body>
+</html>

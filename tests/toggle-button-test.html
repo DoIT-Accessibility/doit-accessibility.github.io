@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toggle Button Test</title>
+	<link rel="stylesheet" href="../site.css">
+	<style>
+		button { border: 1px solid #808080; border-radius: 3px; padding: .25em .5em .5em; }
+		button[aria-pressed="true"] { background: #00A1FF; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Toggle Button Test</h1>
+	<p>A toggle button uses aria-pressed="true" or "false" to indicate whether it is "pressed" or "not pressed".</p>
+	<p>
+		<button aria-label="Like" aria-pressed="true">&#x1F44D;</button>
+		<button aria-label="Dislike" aria-pressed="false">&#x1F44E;</button>
+	</p>
+	<p>See <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">ARIA Button Pattern</a></p>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-02-05</footer>
+<script>
+	document.querySelectorAll("button[aria-label]").forEach(button => {
+		button.addEventListener("click", event => { 
+			button.setAttribute("aria-pressed", button.getAttribute("aria-pressed").match(/true/i) ? "false" : "true");
+		})
+	})
+</script>
+</body>
+</html>

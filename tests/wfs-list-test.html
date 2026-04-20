@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>WFS List Test</title>
+	<style>
+		.exception-list, .exception-list ol { margin: 0; padding: 0; list-style-type: none; width: fit-content; }
+		.exception-group-label { background: #eee; }
+		.exception { border-bottom: 1px solid #eee; }
+		.exception p { margin: 0; }
+		.exception-list div { padding: .25em .5em; }
+		.exception-list .exception { display: flex; flex-flow: row nowrap; }
+		.exception-table th, .exception-table td { border: 1px solid #eee; border-width: 0 0 1px 0; font-weight: normal; }
+		i { font-style: normal; }
+		.sr-only { position: absolute; left: -10000px; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>WFS List Test</h1>
+		<p>Note: These examples use several diffent methods of providing hidden, readable text (aria-label and sr-only) and associating labels (aria-label and aria-labelledby), which are noted in comments in the code. For actual use, you'd pick one method for each and use it consistently. </p>
+		<p>Ideally, the list or table would provide adequate context for the button in each list item/table row, but neither JAWS nor NVDA read the list item number if it is not displayed (e.g., because of list-style-type:none or display:flex). Because of this, the examples below use aria-label or sr-only text to explcitly identify the 'exception number'.</p>
+
+		<h2>Exceptions (as a list)</h2>
+		<ul class="exception-list">
+			<li>
+				<div class="exception-group-label">Monday, April 1</div>
+				<ol>
+					<li class="exception">
+						<div>
+							<!-- using role img w/ aria-label (could also be an acutal img w/ alt) -->
+							<span role="img" aria-label="Exception 1">⚠</span>
+						</div>
+						<div>
+							<p>John Doe</p>
+							<p>No time entered</p>
+						</div>
+						<div>
+							<!-- using aria-label on button -->
+							<button aria-haspopup="menu" aria-label="Monday, April 1, Exception 1">⋮</button>
+						</div>
+					</li>
+					<li class="exception">
+						<div>
+							<!-- using aria-hidden icon and sr-only text (like Font Awesome) -->
+							<i aria-hidden="true">⚠</i>
+							<span class="sr-only">Exception 2</span>
+						</div>
+						<div>
+							<p>John Doe</p>
+							<p>No time entered</p>
+						</div>
+						<div>
+							<!-- using aria-hidden icon and sr-only text (like Font Awesome) -->
+							<button aria-haspopup="menu">
+								<i aria-hidden="true">⋮</i>
+								<span class="sr-only">Monday, April 1, Exception 2</span>
+							</button>
+						</div>
+					</li>
+				</ol>
+			</li>
+			<li>
+				<div class="exception-group-label" id="exception-group-2-label">Tuesday, April 2</div>
+				<ol>
+					<li class="exception">
+						<div>
+							<!-- using role img w/ aria-label -->
+							<span role="img" aria-label="Exception 1" id="exception-group-2-label-1">⚠</span>
+						</div>
+						<div>
+							<p>John Doe</p>
+							<p>No time entered</p>
+						</div>
+						<div>
+							<!-- using aria-labelledby on button -->
+							<button aria-haspopup="menu" aria-labelledby="exception-group-2-label exception-group-2-label-1">⋮</button>
+						</div>
+					</li>
+					<li class="exception">
+						<div>
+							<!-- using aria-hidden icon and sr-only text (like Font Awesome) -->
+							<i aria-hidden="true">⚠</i>
+							<span class="sr-only" id="exception-group-2-label-2">Exception 2</span>
+						</div>
+						<div>
+							<p>John Doe</p>
+							<p>No time entered</p>
+						</div>
+						<div>
+							<!-- using aria-labelledby on button -->
+							<button aria-haspopup="menu" aria-labelledby="exception-group-2-label exception-group-2-label-2">⋮</button>
+						</div>
+					</li>
+				</ol>
+			</li>
+		</ul>
+
+		<h2>Exceptions (as a table)</h2>
+		<table class="exception-table">
+			<thead class="sr-only">
+				<tr>
+					<th scope="col">Exception #</th>
+					<th scope="col">Description</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="exception-group-label">
+					<!-- note: scope=rowgroup has limited screen reader support -->
+					<th scope="rowgroup" colspan="3">Monday, April 1</th>
+				</tr>
+				<tr class="exception">
+					<th scope="row">
+						<span role="img" aria-label="Exception 1">⚠</span>
+					</th>
+					<td>
+						<p>John Doe</p>
+						<p>No time entered</p>
+					</td>
+					<td>
+						<!-- note: table headers technically provide adequate context, but using aria-label to be explicit and support forms mode -->
+						<button aria-haspopup="menu" aria-label="Monday, April 1, Exception 1">⋮</button>
+					</td>
+				</tr>
+				<tr class="exception">
+					<th scope="row">
+						<i role="img" aria-hidden="true">⚠</i>
+						<span class="sr-only">Exception 2</span>
+					</th>
+					<td>
+						<p>John Doe</p>
+						<p>No time entered</p>
+					</td>
+					<td>
+						<button aria-haspopup="menu" aria-label="Monday, April 1, Exception 2">⋮</button>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr class="exception-group-label">
+					<th scope="rowgroup" colspan="3" id="exception-table-group-2-label">Tuesday, April 2</th>
+				</tr>
+				<tr class="exception">
+					<th scope="row">
+						<span role="img" aria-label="Exception 1" id="exception-table-group-2-label-1">⚠</span>
+					</th>
+					<td>
+						<p>John Doe</p>
+						<p>No time entered</p>
+					</td>
+					<td>
+						<button aria-haspopup="menu" aria-labelledby="exception-table-group-2-label exception-table-group-2-label-1">⋮</button>
+					</td>
+				</tr>
+				<tr class="exception">
+					<th scope="row">
+						<i aria-hidden="true">⚠</i>
+						<span class="sr-only" id="exception-table-group-2-label-2">Exception 2</span>
+					</th>
+					<td>
+						<p>John Doe</p>
+						<p>No time entered</p>
+					</td>
+					<td>
+						<button aria-haspopup="menu" aria-labelledby="exception-table-group-2-label exception-table-group-2-label-2">⋮</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2024-03-22</footer>
+</body>
+</html>

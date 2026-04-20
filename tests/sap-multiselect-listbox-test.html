@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>SAP Multiselect Listbox Test</title>
+	<style>
+		section { min-height: 8em; margin-top: 1em; }
+		section>div:nth-of-type(2) { border: 1px solid #999; margin: .25em 0 0 4.25em; min-width: 13.75em; max-width: fit-content; position: absolute; background: #fff; }
+		ul { list-style-type: none; margin: 0; padding: 0; }
+		li { margin: 0; padding: 0; }
+		[role='option']:focus { outline: 2px solid #000; }
+		[aria-checked='true'] { background: #ddd; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>SAP Multiselect Listbox Test</h1>
+	<p>Note: This is still a work in progress...</p>
+	<section hidden>
+		<h2>Original</h2>
+		<div>
+			<label>Location: </label>
+			<span role="combobox" id="40:_select" aria-haspopup="listbox" aria-expanded="false" aria-label="Location" aria-describedby="40:_srText" tabindex="0">
+				<input type="text" id="40:_selectInput" readonly="true" value="Any" aria-label="Location" title="Select one or more options for Location" tabindex="-1">
+				<button type="button" id="40:_selectButton" aria-label="Location" title="Select one or more options for Location" tabindex="-1"><span class="ui5">▼</span></button>
+				<span id="40:_loadingIcon"></span>
+				<span id="40:_srText" class="sr-only" aria-hidden="true">Select one or more options for Location multiselect combobox with checkbox options.No value selected</span>
+			</span>
+		</div>
+		<div id="rcmObj_" hidden>
+			<div id="undefined_dialogHeader">
+				<input type="checkbox" id="42:" aria-checked="false" title="Select all" tabindex="0">
+				<label for="42:"><span id="lbl42:">Select all</span></label>
+			</div>
+			<div id="41:">
+				<div id="41:container">
+					<div id="41:0">
+						<div class="rcmObjMultiselect">
+							<ul role="listbox" id="41:_listSelect" aria-expanded="true">
+								<li role="option" id="rcmObjMultiSelectItem41:0"></li>
+								<li role="option" id="41:item0" aria-selected="false" tabindex="0">
+									<input type="checkbox" id="80:" aria-checked="false" tabindex="0">
+									<label for="80:"><span id="lbl80:">Chicago</span></label>
+								</li>
+								<li role="option" id="rcmObjMultiSelectItem41:1"></li>
+								<li role="option" id="41:item1" aria-selected="true" tabindex="0">
+									<input type="checkbox" id="81:" checked aria-checked="true" tabindex="0">
+									<label for="81:"><span id="lbl81:">Springfield</span></label>
+								</li>
+								<!-- ... -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h2 hidden>Modified</h2>
+		<div>
+			<label>Location: </label>
+			<span role="combobox" id="50:_select" aria-haspopup="listbox" aria-controls="rcmObj_1" aria-expanded="false" aria-label="Location" tabindex="0">
+				<input type="text" id="50:_selectInput" aria-label="Location" tabindex="-1" readonly="true" value="Any" title="Select one or more options for Location">
+				<button type="button" id="50:_selectButton" tabindex="-1" aria-hidden="true" title="Select one or more options for Location"><span>▼</span></button>
+				<span id="50:_loadingIcon"></span>
+			</span>
+		</div>
+		<div id="rcmObj_1" role="listbox" aria-multiselectable="true" aria-label="Location" hidden>
+			<div role="option" aria-checked="false" aria-selected="false" id="undefined_dialogHeader1" tabindex="-1">
+				<input type="checkbox" id="52:" tabindex="-1" value="Select all" title="Select all">
+				<label for="52:"><span id="52:">Select all</span></label>
+			</div>
+			<div id="51:">
+				<div id="51:container">
+					<div id="51:0">
+						<div>
+							<ul role="none" id="51:_listSelect">
+								<li role="none" id="rcmObjMultiSelectItem51:0"><!-- remove if possible --></li>
+								<li role="option" id="51:item0" aria-checked="false" aria-selected="false" tabindex="-1">
+									<input type="checkbox" id="90:" tabindex="-1" value="3764">
+									<label for="90:"><span id="lbl90:">Chicago</span></label>
+								</li>
+								<li role="none" id="rcmObjMultiSelectItem51:1"><!-- remove if possible --></li>
+								<li role="option" aria-checked="true" aria-selected="true" id="51:item1" tabindex="-1">
+									<input type="checkbox" id="91:" checked tabindex="-1" value="3459">
+									<label for="91:"><span id="lbl91:">Springfield</span></label>
+								</li>
+								<!-- ... -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section hidden>
+		<h2>Select</h2>
+		<label for="select">Location:</label>
+		<select id="select">
+			<option>Any</option>
+			<option>Select All</option>
+			<option>Chicago</option>
+			<option>Springfield</option>
+		</select>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-12-04</footer>
+<script>
+	// NOTE: this is cobbled together to work with the html of the existing control, 
+	// this is not a best practice if it were to be developed from scratch
+	const comboboxes = document.querySelectorAll("[role='combobox']");
+	comboboxes.forEach((combobox, index) => {
+		combobox.index = index;
+		combobox.listbox = combobox.parentElement.nextElementSibling;
+		const listbox = combobox.listbox;
+		combobox.open = function() {
+			listbox.removeAttribute("hidden");
+			combobox.setAttribute("aria-expanded", "true");
+			// in original, focus first checkbox; in modified, focus first option
+			listbox.querySelector("#undefined_dialogHeader:not([role='option']) [type='checkbox'], [role='option']:not(:empty)").focus();
+		};
+		combobox.close = function() {
+			listbox.setAttribute("hidden", "");
+			combobox.setAttribute("aria-expanded", "false");
+			combobox.focus();
+		};
+		combobox.toggle = function() {
+			if (combobox.getAttribute("aria-expanded").match(/true/i)) {
+				combobox.close();
+			}
+			else {
+				combobox.open();
+			}
+		};
+		combobox.addEventListener("keyup", function(event) {
+			if (event.key.match(/arrowdown|enter/i)) {
+				combobox.toggle();
+			}
+			else if (event.key.match(/escape/i)) {
+				combobox.close();
+			}
+		});
+		combobox.addEventListener("click", function() {
+			combobox.toggle();
+		});
+
+		listbox.options = listbox.querySelectorAll("#undefined_dialogHeader, [role='option']:not(:empty)");	
+		const options = listbox.options;
+		options.forEach((option, index) => {
+			option.index = index;
+			option.checkbox = option.querySelector("[type='checkbox']");
+			const checkbox = option.checkbox;
+			option.check = function() {
+				option.setAttribute("aria-checked", checkbox.checked);
+				option.setAttribute("aria-selected", checkbox.checked);
+			};
+			checkbox.addEventListener("click", function(event) {
+				option.check();
+			});
+			option.addEventListener("click", function(event) {
+				if (event.target == option) {
+					checkbox.click();
+				}
+				if (option.index == 0) { // select all
+					for (let i = 1, otheroption; otheroption = options[i]; i++) {
+						otheroption.checkbox.checked = checkbox.checked;
+						otheroption.setAttribute("aria-checked", checkbox.checked);
+					}				
+				}
+				else if (!option.checked && options[0].checkbox.checked) { 
+					options[0].checkbox.checked = false;
+					options[0].check();
+				}
+			});
+			option.addEventListener("keyup", function(event) { 
+				if (event.key.match(/ /i)) { // space
+					option.click();
+				}
+				else if (event.key.match(/arrowdown/i)) {
+					options[Math.min(option.index + 1, options.length - 1)].focus();
+				}
+				else if (event.key.match(/arrowup/i)) {
+					options[Math.max(option.index - 1, 0)].focus();
+				}
+				else if (event.key.match(/enter|escape/i)) {
+					combobox.close();
+				}
+			});
+			option.addEventListener("keydown", function(event) {
+				if (event.key.match(/arrowup|arrowdown/i)) {
+					event.preventDefault(); // prevent scrolling page
+				}
+			});
+		});
+	});
+</script>
+</body>
+</html>

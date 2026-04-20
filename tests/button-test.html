@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Button Test</title>
+	<style>
+		button[aria-pressed] { border-color: #777; border-radius: 3px; }
+		button[aria-pressed="true"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }		
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Button Test</h1>
+		<p></p>
+		<section>
+			<h2>Test 1: Action Button</h2>
+			<p>This is a 'normal' button that performs an action or submits a form.</p>
+			<p>
+				<button type="button">Test 1</button>
+			</p>
+		</section>
+		<section>
+			<h2>Test 2: Toggle Button</h2>
+			<p>A toggle button switches a setting, e.g., 'mute' on and off. It uses aria-pressed=true|false to indicate the state. (Note: toggle buttons, checkboxes, and switches all do essentially the same thing.)</p>
+			<p>
+				<button aria-pressed="false">Test 2</button>
+				<script>
+					document.querySelectorAll("button[aria-pressed]").forEach(button => {
+						button.addEventListener("click", event => { 
+							button.setAttribute("aria-pressed", button.getAttribute("aria-pressed").match(/true/i) ? "false" : "true");
+						})
+					})					
+				</script>
+			</p>
+		</section>
+		<section>
+			<h2>Test 3: Menu Button</h2>
+			<p>
+				<button></button>
+			</p>
+		</section>
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/">ARIA Button Patterns</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-09-19</footer>
+</body>
+</html>

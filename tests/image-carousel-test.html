@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Image Carousel Test</title>
+	<style>
+		.carousel { position: relative; margin: 0; padding: 0; line-height: 1; list-style-type: none; text-align: center; }
+		.carousel > li { position: absolute; top: 0; margin: 0; padding: 0; width: 100%; opacity: 0; visibility: hidden; transition: opacity 2s, visibility 2s; }
+		.carousel > li.current { position: static; opacity: 1; visibility: visible; }
+		.carousel > li img { display: block; width: 100%; }
+		.carousel-container { position: relative; }
+		.carousel-controls button { position: absolute; top: 50%; min-width: 44px; min-height: 44px; margin-top: -22px; color: #fff; background-color: rgba(0,0,0,0.25); border: none; }
+		.carousel-controls button:hover, .carousel-controls button:focus { background-color: rgba(0,0,0,0.5); }
+		.carousel-controls button:first-child { right: 1%; }
+		.carousel-controls button:last-child { left: 1%; }
+	</style>
+	<script>
+		// NOTE: This is designed to work with a CMS that can create ul.carousel with images but not the button controls, so controls and container are added by this script. 
+		// Code needs to be backward-compatible for Edge IE Mode (so no NodeList.forEach, Array.from, template strings, or arrow functions)
+		Carousel = function(list) {
+
+			const settings = { 
+				autoPlay: true, 
+				autoPlayDelay: "3000",
+				carouselClassName: "carousel",
+				containerClassName: "carousel-container",
+				controlsClassName: "carousel-controls",
+				currentClassName: "current",
+				listLabel: "Carousel, showing item ${number} of ${total}",
+				prevButtonText: "\u23f4", //"\u2b9c",
+				prevButtonLabel: "Show previous carousel item",
+				nextButtonText: "\u23f5", //"\u2b9e",
+				nextButtonLabel: "Show next carousel item"
+			};
+
+			// Container for Carousel & Controls
+			const container = document.createElement("div");
+			container.classList.add(settings.containerClassName);
+			list.parentNode.insertBefore(container, list);
+			container.appendChild(list);
+
+			// Controls (Prev & Next)
+			const controls = document.createElement("div");
+			controls.classList.add(settings.controlsClassName);
+			const nextButton = document.createElement("button");
+			nextButton.appendChild(document.createTextNode(settings.nextButtonText));
+			nextButton.addEventListener("click", next);
+			nextButton.setAttribute("aria-label", settings.nextButtonLabel);
+			controls.appendChild(nextButton);
+			const prevButton = document.createElement("button");
+			prevButton.appendChild(document.createTextNode(settings.prevButtonText));
+			prevButton.addEventListener("click", prev);
+			prevButton.setAttribute("aria-label", settings.prevButtonLabel);
+			controls.appendChild(prevButton);
+			container.appendChild(controls);
+
+			// Rotation
+			const items = list.children;
+			let currentIndex = 0;
+			function show() {
+				if (currentIndex > items.length - 1) { currentIndex = 0; }
+				else if (currentIndex < 0) { currentIndex = items.length - 1; }
+				for (let i = 0, item; item = items[i]; i++) {
+					item.classList.remove(settings.currentClassName);
+				}
+				items[currentIndex].classList.add(settings.currentClassName);
+				container.setAttribute("aria-label", settings.listLabel.replace("${number}", (currentIndex + 1)).replace("${total}", items.length));
+			};
+			show();
+
+			function next() {
+				show(currentIndex++);
+			};
+
+			function prev() {
+				show(currentIndex--);
+			};
+
+			// Autoplay
+			let autoPlayInterval = null;
+			function play() {
+				if (settings.autoPlay) { 
+					clearInterval(autoPlayInterval);
+					setAriaLive("off");
+					autoPlayInterval = setInterval(next, settings.autoPlayDelay); 
+				}
+			};
+
+			function pause() {
+				clearInterval(autoPlayInterval);
+				setAriaLive("polite");
+			};
+
+			function stop() { 
+				pause();
+				settings.autoPlay = false;
+			};
+
+			if (settings.autoPlay) { 
+				container.addEventListener("mouseenter", pause);
+				container.addEventListener("mouseleave", play); 
+				container.addEventListener("focusin", stop);
+				play();
+			}
+
+			// Accessibility
+			// Based on https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/ 
+			// Tweaked to actually work with JAWS 2022/3 & NVDA
+			// TODO: test & tweak for iOS Safari...
+
+			// Container
+			container.setAttribute("role", "group");
+			//container.setAttribute("aria-roledescription", "carousel");
+			// NVDA doesn't seem to recognize roledescription, and JAWS sometimes prepends it & sometimes appends it in confusing ways; using aria-label (set in show method) instead
+			// dynamically setting item number in container aria-label (in show method) since posinset and setsize on list items don't seem to work
+
+			// List
+			list.setAttribute("role", "presentation");
+			// use role presentation to avoid reading "list of 1 item"; would leave as role list if posinset and setsize worked
+			list.setAttribute("aria-atomic", "true");
+			list.setAttribute("aria-relevant", "additions");
+			function setAriaLive(value) { list.setAttribute("aria-live", value); }
+			// setting aria-live on list to avoid double reading of dynamic container aria-label
+
+			// Items
+			for (let i = 0, item; item = items[i]; i++) {
+				item.setAttribute("role", "presentation");
+				// use role presentation to avoid "list of 1 item"; would leave as role listitem if posinset and setsize worked
+				// ARIA guide suggests role group, but that causes unncessary reading of "group start" & "group end"
+				item.addEventListener("transitionstart", function() { list.setAttribute("aria-busy", "true"); });
+				item.addEventListener("transitionend", function() { list.setAttribute("aria-busy", "false"); });
+				//item.addEventListener("transitionstart", function() { item.setAttribute("aria-hidden", "true"); });
+				//item.addEventListener("transitionend", function() { item.setAttribute("aria-hidden", "false"); });
+				// aria-busy works for JAWS, but then NVDA doesn't recognize the change
+				// aria-hidden works for NVDA, but causes JAWS to read change multiple times
+				// opting to work with JAWS, since it seems to be doing what it is supposed to
+			};
+		};
+
+		Carousel.initAll = function() {
+			const carousels = document.querySelectorAll(".carousel"); // TODO: move to setting
+			for (let i = 0, carousel; carousel = carousels[i]; i++) {
+				Carousel(carousel);
+			}
+		};
+
+		window.addEventListener("load", Carousel.initAll);
+	</script>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Image Carousel Test</h1>
+	<p>The following is an image carousel designed to work with a web content management system that can create a simple list of images -- button controls are added by script. Based on the design request, buttons are positioned at the left/right edges (rather than corners). Focusing either button will stop autoplay.</p>
+	<p>ARIA markup is based on <a href="https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/">Auto-Rotating Image Carousel Example with Buttons for Slide Control</a>, tweaked to try to get it working consistently with JAWS &amp; NVDA. (Need to test with VoiceOver.) Main issues are reading the carousel group label/description, and the image alt text &amp; item number w/ aria-live, without reading multiple times.</p>
+	<h2>Example</h2>
+	<ul class="carousel">
+		<li class=""><img src="/images/carousel-1.jpg" alt="ocean"></li>
+		<li class="show"><a href="javascript:alert('Image 2')"><img src="/images/carousel-2.jpg" alt="mountain"></a></li>
+		<li class=""><a href="javascript:alert('Image 3')"><img src="/images/carousel-3.jpg" alt="galaxy"></a></li>
+	</ul>
+	<h2>Issues</h2>
+	<ul>
+		<li>Working OK w/ JAWS 2022, but doesn't read item number without up-arrowing to container.</li>
+		<li>NVDA is being squirrelly in general, and not reading changed image alt text. Works if aria-hidden is toggled, but that causes JAWS to read it twice.</li>
+		<li>Neither JAWS nor NVDA seem to recognize aria-posinset and aria-setsize, so item number and total are being included in container aria-label.</li>
+		<li>ARIA Guide recommends using aria-roledescription, but NVDA doesn't seem to read it, and JAWS reads it after the button labels, etc., in confusing ways.</li>
+		<li>Need to add a pause button? Maybe off-screen until hovered/focused? Or below?</li>
+	</ul>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+</body>
+</html>

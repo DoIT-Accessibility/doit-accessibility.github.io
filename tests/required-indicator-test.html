@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Required Indicator Test</title>
+	<style>
+		.required-indicator { color: #e00; font-weight: bold; }		
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Required Indicator Test</h1>
+	<p>A red asterisk is often used to indicate required fields. To be accessible:</p>
+	<ul>
+		<li>The color must have a contrast ratio of 4.5:1, which, on a white background, means a little darker than pure red (e.g., #ee0000).</li>
+		<li>There must a way for a screen reader to recognize and say that the field is required.</li>
+	</ul>
+	<form action="#">
+		<section>
+			<h2>Example 1: ARIA-Label</h2>
+			<p>The element that contains the asterisk has role="img" and aria-label="required", so that a screen reader says "required" instead of "asterisk". This approach keeps the text "required" with the indicator. (Note: role="img" is needed because aria-label isn't allowed on generic elements.)</p>
+			<p>
+				<label for="example1">Example 1<i class="required-indicator" role="img" aria-label="required">*</i></label>
+				<input id="example1">
+			</p>
+		</section>
+		<section>
+			<h2>Example 2: ARIA-Required</h2>
+			<p>The field has aria-required="true", which modern screen readers recognize and read as "required". It uses slightly less code and may be easier to internationalize, but you must remember to remove the aria-required attribute if you ever remove the indicator. (Note: the "required" attribute has the same effect, but adds browser-side validation.)</p>
+			<p>
+				<label for="example2">Example 2<i class="required-indicator">*</i></label>
+				<input id="example2" aria-required="true">
+			</p>
+		</section>
+	</form>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>JAWS Listbox Bug</title>
+	<style>
+	</style>
+	<script>
+		window.addEventListener("load", function() {
+			// Alert the value of the button that is clicked for testing
+			document.querySelectorAll("button").forEach(function(button) {
+				button.addEventListener("click", function() {
+					alert(this.textContent + " button clicked");
+				});
+			});
+			// Prevent form submission for testing
+			document.querySelectorAll("form").forEach(function(form) {
+				form.addEventListener("submit", function(event) {
+					event.preventDefault();
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>JAWS Listbox Bug</h1>
+	<p>The following example is an HTML <code>select</code> element that has a <code>size</code> attribute greater than <code>1</code> so that it is displayed as a listbox. In Chrome or Edge, JAWS incorrectly clicks the wrong button after making a selection from the listbox. NVDA does not have this problem, and JAWS does not have it with Firefox.</p>
+	<p>To replicate the error:</p>
+	<ol>
+		<li>Tab to the Listbox below (may need to Tab and then Shift + Tab),</li>
+		<li>Press down arrow to select an item,</li>
+		<li>Tab to the Submit button,</li>
+		<li>Press Enter or Space to click the Submit button,</li>
+		<li>Note that the Clear button is clicked instead of Submit.</li>
+	</ol>
+	<h2>Example</h2>
+	<form method="post" action="#">
+		<p>
+			<label for="listbox">Listbox:</label>
+		</p>
+		<p>
+			<select id="listbox" size="3">
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+				<option value="4">Option 4</option>
+				<option value="5">Option 5</option>
+			</select>
+		</p>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>
+	<h2>For Reference</h2>
+	<p>JAWS does not have this problem with the following multiselect lisbox (<code>select</code> with the <code>multiple</code> attribute) or dropdown (<code>select</code> with no <code>size</code> attribute).</p>
+	<form method="post" action="#">
+		<p>
+			<label for="multilistbox">Multiselect Lisbox:</label>
+		</p>
+		<p>
+			<select id="multilistbox" size="3" multiple>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+				<option value="4">Option 4</option>
+				<option value="5">Option 5</option>
+			</select>
+		</p>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>
+	<form method="post" action="#">
+		<p>
+			<label for="dropdown">Dropdown:</label>
+		</p>
+		<p>
+			<select id="dropdown">
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+				<option value="4">Option 4</option>
+				<option value="5">Option 5</option>
+			</select>
+		</p>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>	
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2025-02-21</footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Dialog Test</title>
+	<style>
+		dialog { border: 1px solid #777; border-radius: .25em; text-align: center; }
+		dialog *:first-child { margin: 0; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Dialog Test</h1>
+	<p>This is a test of a modal dialog created using the HTML5 dialog element following the ARIA dialog pattern:</p>
+	<p><button id="open-button">Open Dialog (Modal)</button></p>
+	<dialog id="test-dialog" aria-labelledby="dialog-heading">
+		<h2 id="dialog-heading">Test Dialog</h2>
+		<p>This is a test.</p>
+		<p><button id="close-button">Close Dialog</button></p>
+	</dialog>
+	<p>For more information, see:</p>
+	<ul>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog">MDN: &lt;dialog&gt;</a></li>
+		<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">ARIA Guide: Dialog (Modal) Pattern</a></li>
+	</ul>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-11-27</footer>
+<script>
+	const testDialog = document.getElementById("test-dialog");
+	document.getElementById("open-button").addEventListener("click", function() { testDialog.showModal(); });
+	document.getElementById("close-button").addEventListener("click", function() { testDialog.close(); });
+</script>
+</body>
+</html>

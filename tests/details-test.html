@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Details Test</title>
+	<style>
+		details { margin: 1em 0; }
+		details details { margin-left: 1.25em; }
+		summary h2, summary h3, summary h4, summary h5, summary h6 { display: inline; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Details Test</h1>
+		<p>The HTML <code>details</code> element creates a disclosure widget. The <code>name</code> attribute can be used to group details elements so that only one is open at a time, like an accordion.</p>
+		<section>
+			<h2>Example 1: Details Disclosure</h2>
+			<details>
+				<summary>Summary</summary>
+				<p>This is a test.</p>
+			</details>
+		</section>
+		<section>
+			<h2>Example 2: Details Group</h2>
+			<details name="group" open>
+				<summary>Summary 1</summary>
+				<p>This is only a test.</p>
+			</details>
+			<details name="group">
+				<summary>Summary 2</summary>
+				<p>This is also a test.</p>
+			</details>
+		</section>
+		<section>
+			<h2>Example 3: Nested w/ Headings</h2>
+			<details>
+				<summary><h3>Outer Summary</h3></summary>
+				<details>
+					<summary><h4>Inner Summary</h4></summary>
+					<p>This is a test.</p>
+				</details>
+			</details>
+		</section>
+		<section>
+			<h2>Example 4: Button inside Summary</h2>
+			<details name="group" open>
+				<summary>Summary 1 <button>Button 1</button></summary>
+				<p>This is only a test.</p>
+			</details>
+			<details name="group">
+				<summary>Summary 2 <button>Button 2</button></summary>
+				<p>This is also a test.</p>
+			</details>
+		</section>		
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">MDN Details Element</a></li>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">ARIA Disclosure Pattern</a></li>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/">ARIA Accordion Pattern</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2024-05-14</footer>
+</body>
+</html>

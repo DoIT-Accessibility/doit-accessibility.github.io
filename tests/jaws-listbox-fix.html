@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>JAWS Listbox Fix</title>
+	<style>
+		pre { margin: 0; tab-size: 2; }
+		pre em { color: #080; }
+	</style>
+	<script>
+		window.addEventListener("load", function() {
+			// Alert the value of the button that is clicked for testing
+			document.querySelectorAll("button").forEach(function(button) {
+				button.addEventListener("click", function() {
+					alert(this.textContent + " button clicked");
+				});
+			});
+			// Prevent form submission for testing
+			document.querySelectorAll("form").forEach(function(form) {
+				form.addEventListener("submit", function(event) {
+					event.preventDefault();
+				});
+			});
+			// Fix the JAWS listbox bug
+			document.querySelectorAll("select[size]:not([multiple])").forEach(function(listbox) {
+				if (listbox.size > 1 && !listbox.multiple) {
+					listbox.multiple = true;
+					listbox.addEventListener("focus", function(event) {
+						listbox.multiple = false;
+					});
+					listbox.addEventListener("blur", function(event) {
+						listbox.multiple = true;
+					});
+					listbox.addEventListener("change", function(event) {
+						if (listbox.selectedOptions.length > 1) {
+							listbox.multiple = false;
+						}
+					});
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>JAWS Listbox Fix</h1>
+	<p>In Chrome or Edge, JAWS may incorrectly focus on and click the wrong button after making a selection from a listbox (<code>select</code> element with <code>size</code> greater than <code>1</code>). For more details, see <a href="jaws-listbox-test.html">JAWS Listbox Test</a>. Until JAWS is fixed, the bug can be avoided by using script to toggle the <code>multiple</code> attribute on the <code>select</code> element.</p>
+	<p>To test this fix:</p>
+	<ol>
+		<li>Tab to the Listbox below,</li>
+		<li>Press down arrow to select an item,</li>
+		<li>Tab to the Submit button,</li>
+		<li>Press Enter or Space to click the Submit button,</li>
+		<li>Confirm that the Submit button was clicked.</li>
+	</ol>
+	<form method="post" action="#">
+		<p>
+			<label for="listbox">Listbox:</label>
+		</p>
+		<p>
+			<select id="listbox" size="3">
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+				<option value="4">Option 4</option>
+				<option value="5">Option 5</option>
+			</select>
+		</p>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>
+	<h2>Script</h2>
+	<pre><code>
+<em>// Apply to all select elements with size attribute and without multiple attribute (could use a classname instead)</em>
+document.querySelectorAll("select[size]:not([multiple])").forEach(function(listbox) { 
+	<em>// Double-check that size > 1 and multiple attribute was not set, since this fix will prevent multiple selections</em>
+	if (listbox.size > 1 && !listbox.multiple) { 
+		<em>// Set multiple attribute to avoid JAWS bug</em>
+		listbox.multiple = true; 
+		<em>// Remove multiple attribute when listbox is focused to prevent multiple selections</em>
+		listbox.addEventListener("focus", function(event) {
+			listbox.multiple = false; 
+		});
+		<em>// Reset multiple attribute when listbox loses focus</em>
+		listbox.addEventListener("blur", function(event) {
+			listbox.multiple = true; 
+		});
+		<em>// For browsers that don't fire the focus event (e.g., Mobile Safari), use the change event to check and clear multiple selections</em>
+		listbox.addEventListener("change", function(event) { 
+			if (listbox.selectedOptions.length > 1) { 
+				listbox.multiple = false;
+			}
+		});
+	}
+});
+</code></pre>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2025-02-25</footer>
+</body>
+</html>

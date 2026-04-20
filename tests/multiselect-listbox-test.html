@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Multiselect Listbox Test</title>
+	<style>
+		main div { margin: 1em 0; }
+		select { display: block; }
+		ul[role='listbox'] { list-style-type: none; margin: 0; padding: 0; border: 1px solid #767676; width: fit-content; overflow-y: scroll; }
+		li[role='option'] { margin: 0; padding: 1px 2px; }
+		li[role='option']:focus { padding: 0 1px; border: 2px solid #000; }
+		[aria-checked='true'] { background: #767676; color: #fff; }
+		[aria-selected='true'] { background: #3C78B4; color: #fff; }
+		[aria-checked='true'][aria-selected='true'] { background: #785699; color: #fff; }
+		@media (forced-colors: active) {
+			[aria-checked='true'], [aria-selected='true'] { forced-color-adjust: none; }
+		}
+		label { font-weight: 500; }		
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Multiselect Listbox Test</h1>
+	<h2>HTML Select w/ multiple</h2>
+	<p>(Note: Default behavior requires holding CTRL to make multiple selections, and will unselect all previously selected options if you do not -- this is confusing and error prone.)</p>
+	<div>
+		<label for="select">Select:</label>
+		<select id="select" size="3" multiple>
+			<option>Option 1</option>
+			<option selected>Option 2</option>
+			<option>Option 3</option>
+		</select>
+	</div>
+	<h2>Listbox w/ aria-checked</h2>
+	<p><a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/#wai-ariaroles,states,andproperties">ARIA Listbox Pattern</a> recommends using aria-checked instead of aria-selected for multiselect widgets, but both JAWS and NVDA say "not selected" if there is no aria-selected attribute, resulting in "not selected, checked", which is incorrect.</p>
+	<div>
+		<label id="listbox1-label">Listbox 1:</label>
+		<ul role="listbox" aria-multiselectable="true" aria-labelledby="listbox1-label" tabindex="0">
+			<li role="option" aria-checked="false">Option 1</li>
+			<li role="option" aria-checked="true">Option 2</li>
+			<li role="option" aria-checked="false">Option 3</li>
+		</ul>
+	</div>
+	<h2>Listbox w/ aria-selected</h2>
+	<p>Both JAWS and NVDA say "not selected" for not-selected options, but do not say anything for selected options. This seems unclear, but is not wrong.</p>
+	<div>
+		<label id="listbox2-label">Listbox 2:</label>
+		<ul role="listbox" aria-multiselectable="true" aria-labelledby="listbox2-label" tabindex="0">
+			<li role="option" aria-selected="false">Option 1</li>
+			<li role="option" aria-selected="true">Option 2</li>
+			<li role="option" aria-selected="false">Option 3</li>
+		</ul>
+	</div>
+	<h2>Listbox w/ aria-checked AND aria-selected</h2>
+	<p>Both JAWS and NVDA say "not selected, not checked" and "checked" for not-selected and selected options respectively. This is more clear, although a bit verbose, but the ARIA Listbox Pattern says <em>not</em> to use both.</p>
+	<div>
+		<label id="listbox3-label">Listbox 3:</label>
+		<ul role="listbox" aria-multiselectable="true" aria-labelledby="listbox3-label" tabindex="0">
+			<li role="option" aria-checked="false" aria-selected="false">Option 1</li>
+			<li role="option" aria-checked="true" aria-selected="true">Option 2</li>
+			<li role="option" aria-checked="false" aria-selected="false">Option 3</li>
+		</ul>
+	</div>
+	<h2>Conclusions</h2>
+	<p>Screen readers probably should <em>not</em> say "not selected" when there is no aria-selected attribute present -- they should only say "not selected" if aria-selected="false".</p>
+	<p>Screen readers probably <em>should</em> say "selected" when aria-selected="true" within a listbox with aria-multiselectable="true". (The decision <em>not</em> to say "selected" seems based on the behavior of <em>single-select</em> listboxes, where selection follows focus so it is unnecessary and redundant to say "selected" on every option.)</p>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-04-22</footer>
+<script>
+	const listboxes = document.querySelectorAll("[role='listbox']");
+	listboxes.forEach(listbox => {
+		const options = listbox.querySelectorAll("[role='option']");
+		listbox.options = options;
+		listbox.options.forEach((option, index) => {
+			option.listbox = listbox;
+			option.index = index;
+			option.setAttribute("tabindex", "-1");
+			option.toggle = function() {
+				if (option.hasAttribute("aria-checked")) {
+					option.setAttribute("aria-checked", option.getAttribute("aria-checked") === "true" ? "false" : "true");
+				}
+				if (option.hasAttribute("aria-selected")) {
+					option.setAttribute("aria-selected", option.getAttribute("aria-selected") === "true" ? "false" : "true");
+				}
+			};
+			option.addEventListener("click", event => {
+				option.toggle();
+			});
+			option.addEventListener("keyup", event => { 
+				const key = event.key.toLowerCase();
+				if (key === "arrowdown") {
+					options[Math.min(option.index + 1, options.length - 1)].focus();
+				}
+				else if (key === "arrowup") {
+					options[Math.max(option.index - 1, 0)].focus();
+				}
+				else if (key === " ") {
+					option.toggle();
+				}
+			});
+			option.addEventListener("keydown", event => {
+				const key = event.key.toLowerCase();
+				if (["arrowdown","arrowup"," "].includes(key)) {
+					event.preventDefault(); // don't scroll page
+				}
+			});
+			option.addEventListener("focus", event => {
+				options.forEach(option => {
+					option.setAttribute("tabindex", option !== event.currentTarget ? "-1" : "0" );
+				});
+			});
+			// TODO: add a blur handler?
+		});
+		listbox.addEventListener("focus", event => {
+			(listbox.querySelector("[aria-checked='true']") || listbox.querySelector("[aria-selected='true']") || listbox.querySelector("[role='option']")).focus();
+			listbox.setAttribute("tabindex", "-1");
+		});
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Date Input Test</title>
+	<script>
+		window.addEventListener("load", function() {
+			const params = new URLSearchParams(window.location.search);
+			const dob = params.get("dob");
+			const dobInput = document.getElementById("dob");
+			if (dob) { dobInput.value = dob; }
+			const ageMin = 18;
+			const ageMax = 150;
+			const now = new Date();
+			dobInput.setAttribute("min", [now.getFullYear() - ageMax, (now.getMonth() + 1).toString().padStart(2,"0"), (now.getDate()).toString().padStart(2,"0")].join("-"));
+			dobInput.setAttribute("max", [now.getFullYear() - ageMin, (now.getMonth() + 1).toString().padStart(2,"0"), (now.getDate()).toString().padStart(2,"0")].join("-"));
+		});
+		document.querySelector("form").addEventListener("submit", function() {
+			alert("Form Submitted: Date of Birth = " +  document.getElementById("dob").value);
+		});
+	</script>
+</head>
+<body>
+	<header></header>
+	<main>
+	<h1>Date Input Test</h1>
+	<p>The following example uses a standard HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date">&lt;input type="date"&gt;</a> element. The user interface is provided by the browser, and varies in different browsers and devices. If a calendar popup is provided, it may be opened by clicking a button <em>and/or</em> by pressing alt + down arrow, and this behavior may change depending on whether a screen reader is or has been running. On mobile devices, it may be presented as a combination of pop-up calendar, spinners, and/or other elements specific to the device.</p>
+	<p>For this test, the minimum date is set (via script) to 150 years before today and the maximum to 18 years before today. Client-side validation, including the error message, is handled by the browser. This behavior can be disabled by adding the "novalidate" attribute to the form element.</p>
+	<form method="get" action="#">
+		<p>
+			<label for="dob">Date of Birth:</label><br>
+			<input id="dob" name="dob" type="date" min="1873-06-12" max="2005-06-12">
+		</p>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+</body>
+</html>

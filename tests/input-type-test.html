@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Input Type Test</title>
+	<style>
+		label { display: inline-block; min-width: 5em;}
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Input Type Test</h1>
+		<p>The following are tests of the new HTML5 input types (with the old input type="text" just for comparison). Presentation and functionality is implemented by the web browser and may vary between browsers.</p>
+		<form method="post" action="#" onsubmit="return false;">
+			<section>
+				<h2>Text</h2>
+				<p>
+					<label for="text">Text:</label>
+					<input type="text" id="text">
+				</p>
+				<p>
+					<label for="search">Search:</label>
+					<input type="search" id="search">
+				</p>
+				<p>
+					<label for="url">URL:</label>
+					<input type="url" id="url">
+				</p>
+				<p>
+					<label for="email">Email:</label>
+					<input type="email" id="email">
+				</p>
+				<p>
+					<label for="tel">Tel:</label>
+					<input type="tel" id="tel">
+				</p>
+			</section>
+			<section>
+				<h2>Numbers</h2>
+				<p>
+					<label for="number">Number:</label>
+					<input type="number" id="number">
+				</p>
+				<p>
+					<label for="step">Step:</label>
+					<input type="number" id="step" step="10">
+				</p>			
+				<p>
+					<label for="range">Range:</label>
+					<input type="range" id="range">
+				</p>
+			</section>
+			<section>
+				<h2>Dates &amp; Times</h2>
+				<p>
+					<label for="date">Date:</label>
+					<input type="date" id="date">
+				</p>
+				<p>
+					<label for="time">Time:</label>
+					<input type="time" id="time">
+				</p>
+				<p>
+					<label for="datetime">DateTime:</label>
+					<input type="datetime-local" id="datetime">
+				</p>
+				<p>
+					<label for="month">Month:</label>
+					<input type="month" id="month">
+				</p>
+				<p>
+					<label for="week">Week:</label>
+					<input type="week" id="week">
+				</p>
+			</section>
+			<section>
+				<h2>Misc</h2>
+				<p>
+					<label for="color">Color:</label>
+					<input type="color" id="color">
+				</p>
+				<p>
+					<label for="file">File:</label>
+					<input type="file" id="file">
+				</p>
+			</section>
+		</form>	
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#input_types">MDN Input Types</a></li>
+				<li><a href="https://www.w3.org/TR/wai-aria-1.2/#input">ARIA Input Role</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-09-18</footer>
+</body>
+</html>

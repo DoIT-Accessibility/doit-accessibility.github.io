@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Readonly Combobox Test</title>
+	<style>
+
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Readonly Combobox Test</h1>
+	<form action="#">
+		<section>
+			<h2>Test 1: Default</h2>
+			<p>
+				<label for="test1">Test 1:</label>
+				<select id="test1">
+					<option></option>
+					<option selected>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</p>
+		</section>
+		<section>
+			<h2>Test 2: Readonly</h2>
+			<p>
+				<label for="test2">Test 2:</label>
+				<select id="test2" readonly>
+					<option></option>
+					<option selected>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</p>
+		</section>
+		<section>
+			<h2>Test 3: ARIA-Readonly</h2>
+			<p>
+				<label for="test3">Test 3:</label>
+				<select id="test3" aria-readonly="true">
+					<option></option>
+					<option selected>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</p>
+		</section>
+		<section>
+			<h2>Test 4: Disabled</h2>
+			<p>
+				<label for="test4">Test 4:</label>
+				<select id="test4" disabled>
+					<option></option>
+					<option selected>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</p>
+		</section>
+		<section>
+			<h2>Test 5: ARIA-Disabled</h2>
+			<p>
+				<label for="test5">Test 5:</label>
+				<select id="test5" aria-disabled="true">
+					<option></option>
+					<option selected>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</p>
+		</section>
+	</form>
+	<h2>More Information</h2>
+	<ul>
+		<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-readonly">ARIA-Readonly</a></li>
+		<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-disabled">ARIA-Disabled</a></li>
+		<li><a href="https://html.spec.whatwg.org/multipage/input.html#the-readonly-attribute">HTML Readonly</a></li>
+		<li><a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#enabling-and-disabling-form-controls:-the-disabled-attribute">HTML Disabled</a></li>
+	</ul>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2025-06-13</footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Yes/No Button Test</title>
+	<style>
+		fieldset { border: 0; margin: 0; padding: 0; }
+		legend { float: left; margin: .25em 0; }
+		legend, .grouplabel { display: inline-block; max-width: 20em; margin-right: .25em; vertical-align: top; }
+		label { display: inline-block; padding: .25em; padding-right: 1.5em; border: 1px solid GrayText; border-radius: 3px; background: ButtonFace; color: ButtonText; font-weight: 500; }
+		label:has(input[type="radio"]:focus), label:has(input[type="radio"]:hover) { outline: 1px solid ButtonText; }
+		label:has(input[type="radio"]:checked) { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+		/* input[type="radio"] { opacity: 0; } */
+		p { margin-bottom: 1em; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Yes/No Button Test</h1>
+		<p>Radio buttons can be styled to look like buttons</p>
+		<section>
+			<h2>Example 1: Fieldset &amp; Legend</h2>
+			<p>This example uses a <code>fieldset</code> element to group the radio buttons with a <code>legend</code> element as the group label.</p>
+			<fieldset>
+				<legend>Does this example use html fieldset and legend elements?</legend>
+				<label><input type="radio" name="group1" value="1"> Yes</label>
+				<label><input type="radio" name="group1" value="0"> No</label>
+			</fieldset>
+		</section>
+		<section>
+			<h2>Example 2: ARIA Radio Group</h2>
+			<p>This example uses a <code>div role="radiogroup"</code> to group the radio buttons with <code>aria-labelledby</code> pointing to a <code>span</code> with the group label.</p>
+			<div role="radiogroup" aria-labelledby="grouplabel">
+				<span class="grouplabel" id="grouplabel">Does this example use role radiogroup and aria-labelledby?</span>
+				<label><input type="radio" name="group2" value="1"> Yes</label>
+				<label><input type="radio" name="group2" value="0"> No</label>
+			</div>
+		</section>
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">ARIA Radio Group Pattern</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-08-31</footer>
+</body>
+</html>

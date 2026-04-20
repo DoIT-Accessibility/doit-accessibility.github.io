@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>ARIA Description Test</title>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>ARIA Description Test</h1>
+		<p>ARIA 1.3 introduces a new <code>aria-description</code> property that takes human-readable text, like <code>aria-label</code>. While <code>aria-label</code> is meant to provide a concise name for an element, <code>aria-description</code> can provide longer instructions for screen reader users &ndash; but it should <em>only</em> be used when absolutely necessary!</p>
+		<section>
+			<h2>Example 1: Image</h2>
+			<p><img src="/images/web-access-symbol.png" aria-label="ARIA Label" aria-description="ARIA Description"></p>
+		</section>
+		<section>
+			<h2>Example 2: Input</h2>
+			<p><label for="input">Label:</label> <input type="text" id="input" aria-description="ARIA Description"></p>
+		</section>
+		<section>
+			<h2>Example 3: Button</h2>
+			<p><button type="button" aria-description="ARIA Description">Text Content</button></p>
+		</section>
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://www.w3.org/TR/wai-aria-1.3/#aria-description">ARIA 1.3: aria-description</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-10-17</footer>
+</body>
+</html>

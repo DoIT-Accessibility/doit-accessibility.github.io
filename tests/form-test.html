@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Form Test</title>
+	<link rel="stylesheet" href="../site.css">
+	<style>
+		fieldset { margin: .75em 0 0; width: fit-content; border-color: #757575; }
+		fieldset ul, fieldset li { margin: 0; padding: 0; list-style-type: none; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Form Test</h1>
+	<form method="post" action="#">
+		<p>
+			<label for="text">Text Input:</label><br>
+			<input type="text" id="text">
+		</p>
+		<p>
+			<label for="textarea">Text Area:</label><br>
+			<textarea></textarea>
+		</p>		
+		<p>
+			<label for="select">Select:</label><br>
+			<select id="select">
+				<option></option>
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+			</select>
+		</p>
+		<p>
+			<label for="listbox">List Box:</label><br>
+			<select id="listbox" size="2">
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+			</select>
+		</p>		
+		<p>
+			<label for="multiselect">Multiselect:</label><br>
+			<select id="multiselect" size="2" multiple>
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+			</select>
+		</p>	
+		<fieldset>
+			<legend>Checkboxes</legend>
+			<ul>
+				<li>
+					<input type="checkbox" id="checkbox1">
+					<label for="checkbox1">Checkbox 1</label>
+				</li>
+				<li>
+					<input type="checkbox" id="checkbox2">
+					<label for="checkbox2">Checkbox 2</label>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Radio Buttons</legend>
+			<ul>
+				<li>
+					<input type="radio" name="radiogroup" id="radio1">
+					<label for="radio1">Radio 1</label>
+				</li>
+				<li>
+					<input type="radio" name="radiogroup" id="radio2">
+					<label for="radio2">Radio 2</label>
+				</li>
+			</ul>
+		</fieldset>
+		<p>
+			<button type="submit">Submit</button>
+			<button type="reset">Clear</button>
+		</p>
+	</form>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-02-01</footer>
+</body>
+</html>

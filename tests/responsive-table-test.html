@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Responsive Table Test</title>
+	<style>
+		[role="button"] { cursor: pointer; }
+		.icon-sort::after { content: "\25BD"; padding: .25em; }
+		[aria-sort='ascending'] .icon-sort::after { content: "\25BC"; }
+		[aria-sort='descending'] .icon-sort::after { content: "\25B2"; }
+		.icon-expand::before { padding: .25em; }
+		[aria-expanded='true'] .icon-expand::before, [aria-expanded='true'].icon-expand::before { content: "\2296"; }
+		[aria-expanded='false'] .icon-expand::before, [aria-expanded='false'].icon-expand::before { content: "\2295"; }
+		.responsive tbody th:not([tabindex]) { position: relative; padding-left: 1.75em; }
+		.responsive tbody th:not([tabindex]) [role='button'] { position: absolute; left: .25em;  } 
+		.responsive tbody div[role='cell'] { padding-left: 1.25em; }
+		.hidden { display: none; }
+		.visually-hidden { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+	</style>
+	<script>
+		ResponsiveTableTest = (function() {
+			return {
+				init : function(table) { 
+					// init sorting
+					table.querySelectorAll("thead th").forEach(th => {
+						th.addEventListener("click", event => { ResponsiveTableTest.sort(event.target); });
+						th.addEventListener("keydown", event => { if (event.key.match(/enter| /i)) { event.target.click(); }});
+					});
+					// init expanding			
+					table.querySelectorAll("tbody th").forEach(th => {
+						th.addEventListener("click", event => { ResponsiveTableTest.expand(event.target); });
+						th.addEventListener("keydown", event => { if (event.key.match(/enter| /i)) { event.target.click(); }});
+						th.querySelectorAll("a").forEach(a => { a.addEventListener("click", event => { event.stopPropagation(); })});
+					});
+				},
+				sort : function(target) {
+					const th = target.closest("th");
+					const state = th.getAttribute("aria-sort");
+					th.closest("tr").querySelectorAll("th[aria-sort]").forEach(th => { th.setAttribute("aria-sort", "none");});
+					th.setAttribute("aria-sort", (state === "ascending") ? "descending" : "ascending");
+					// fake sort by reversing order
+					const tbody = th.closest("table").querySelector("tbody");
+					for (var n = tbody.rows.length - 3; n > 0; n = n - 2) { tbody.append(tbody.rows[n - 1], tbody.rows[n]); }
+				},
+				expand : function(target) {
+					const control = target.closest("[tabindex='0']") || target.querySelector("[tabindex='0']");
+					const state = control.getAttribute("aria-expanded");
+					control.setAttribute("aria-expanded", (state === "true") ? "false" : "true");
+					// warning: hard-coded aria-labels
+					const label = control.getAttribute("aria-label");
+					if (label) { control.setAttribute("aria-label", (state === "true") ? label.replace("Collapse", "Expand") : label.replace("Expand","Collapse")); }
+					control.closest("tr").nextElementSibling.classList.toggle(control.closest("table.use-visually-hidden") ? "visually-hidden" : "hidden");
+				},
+			};
+		})();
+		window.addEventListener("load", function() { 
+			document.querySelectorAll("table.responsive").forEach(table => {
+				ResponsiveTableTest.init(table);
+			})
+		});
+	</script>
+</head>
+<body>
+	<header></header>
+	<main>
+	<h1>Responsive Table Test</h1>
+	<p>Responsive tables collapse columns into expandable sections on narrow screens (and at high zoom settings) to eliminate the need for horizontal scrolling. There is no specific ARIA Pattern for responsive tables, but related examples include:</p>
+	<ul>
+		<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/">Sortable Table Example</a></li>
+		<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">Disclosure (Show/Hide) Pattern</a></li>
+	</ul>
+	<p>Additionally, responsive tables should meet the following requirements:</p>
+	<ul style="list-style-type: circle;">
+		<li>Commands to expand/collapse rows (and sort columns) must be focusable</li>
+		<li>Controls must be clickable by keyboard (space) <em>and</em> speech recognition</li>
+		<li>Controls must have an indication that they are clickable (screen reader and visual)</li>
+		<li>Controls must have aria-expanded="true/false" (and sort="ascending/descending")</li>
+		<li>Controls must be clickable even if the cell contains a link</li>
+		<li>Controls should have adequate target size for mobile devices</li>
+		<li>Controls shouldn't trigger screen reader forms mode unexpectedly</li>
+		<li>Ideally, controls would <em>not</em> be read as part of headers with table reading commands</li>
+		<li>Collapsed columns should be associated with their row header</li>
+	</ul>
+	<p>(Note: in the tests below, tables are already "collapsed" as if they were one a narrow screen -- so we don't have to resize the browser to test.)</p>
+	<section>
+		<h2>Original Table (not collapsed)</h2>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Agency</th>
+					<th scope="col">Acronym</th>
+					<th scope="col">Code</th>
+					<th scope="col">Staff</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Aging</th>
+					<td>AGE</td>
+					<td>402</td>
+					<td>147</td>
+				</tr>
+				<tr>
+					<th scope="row">Agriculture</th>
+					<td>AGR</td>
+					<td>406</td>
+					<td>355</td>
+				</tr>
+				<tr>
+					<th scope="row"><a href="about:blank">Arts Council</a></th>
+					<td>IAC</td>
+					<td>503</td>
+					<td>17</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h2>Test 1: Clickable Headers (current implementation)</h2>
+		<table class="responsive" aria-label="Test 1. Click column headers to sort. Click row headers to show hidden columns.">
+			<thead>
+				<tr>
+					<th scope="col" tabindex="0" aria-sort="ascending">Agency<span class="icon-sort" aria-hidden="true"></span></th>
+					<th scope="col" tabindex="0" aria-sort="none">Acronym<span class="icon-sort" aria-hidden="true"></span></th>
+					<th scope="col" class="hidden">Code</th>
+					<th scope="col" class="hidden">Staff</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row" tabindex="0" aria-expanded="false"><span class="icon-expand" aria-hidden="true"></span>Aging</th>
+					<td>AGE</td>
+					<td class="hidden">402</td>
+					<td class="hidden">147</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>402</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>147</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" tabindex="0" aria-expanded="false"><span class="icon-expand" aria-hidden="true"></span>Agriculture</th>
+					<td>AGR</td>
+					<td class="hidden">406</td>
+					<td class="hidden">355</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>406</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>355</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" tabindex="0" aria-expanded="false"><span class="icon-expand" aria-hidden="true"></span><a href="about:blank">Arts Council</a></th>
+					<td>IAC</td>
+					<td class="hidden">503</td>
+					<td class="hidden">17</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>503</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>17</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul>
+			<li>Works with the keyboard, but</li>
+			<li>Expanded state is not read for rowheader without link unless tabbing</li>
+			<li>When tabbing, forms mode activates; must press escape to exit</li>
+			<li>Clicking header with link activates link; must tab to get focus to column header</li>
+			<li>VoiceOver never reads state and cannot get focus to column header</li>
+			<li>Headers may not be clickable with speech recognition</li>
+			<li>Collapsed columns not associated with row headers</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Test 2: Header Buttons &amp; ARIA-Owns</h2>
+		<table class="responsive" aria-label="Test 2. Click column headers to sort. Click row headers to show 2 hidden columns">
+			<thead>
+				<tr>
+					<th scope="col" aria-sort="ascending"><span class="icon-sort" role="button" tabindex="0" aria-label="Agency">Agency</span></th>
+					<th scope="col" aria-sort="none"><span class="icon-sort" role="button" tabindex="0" aria-label="Acronym">Acronym</span></th>	
+					<th scope="col" class="visually-hidden">Code</th>
+					<th scope="col" class="visually-hidden">Staff</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr aria-owns="t2r1c3 t2r1c4">
+					<th scope="row"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Aging">Aging</span></th>
+					<td>AGE</td>
+					<td class="hidden">402</td>
+					<td class="hidden">147</td>
+				</tr>
+				<tr class="hidden" role="none">
+					<td colspan="4" role="none">
+						<div role="cell" id="t2r1c3">
+							<strong aria-hidden="true">Code:</strong>
+							<span>402</span>
+						</div>
+						<div role="cell" id="t2r1c4">
+							<strong aria-hidden="true">Staff:</strong>
+							<span>147</span>
+						</div>
+					</td>
+				</tr>
+				<tr aria-owns="t2r2c3 t2r2c4">
+					<th scope="row"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Agriculture">Agriculture</span></th>
+					<td>AGR</td>
+					<td class="hidden">406</td>
+					<td class="hidden">355</td>
+				</tr>
+				<tr class="hidden" role="none">
+					<td colspan="4" role="none">
+						<div role="cell" id="t2r2c3">
+							<strong aria-hidden="true">Code:</strong>
+							<span>406</span>
+						</div>
+						<div role="cell" id="t2r2c4">
+							<strong aria-hidden="true">Staff:</strong>
+							<span>355</span>
+						</div>
+					</td>
+				</tr>
+				<tr aria-owns="t2r3c3 t2r3c4">
+					<th scope="row"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Arts Council"></span><a href="about:blank">Arts Council</a></th>
+					<td>IAC</td>
+					<td class="hidden">503</td>
+					<td class="hidden">17</td>
+				</tr>
+				<tr class="hidden" role="none">
+					<td colspan="4" role="none">
+						<div role="cell" id="t2r3c3">
+							<strong aria-hidden="true">Code:</strong>
+							<span>503</span>
+						</div>
+						<div role="cell" id="t2r3c4">
+							<strong aria-hidden="true">Staff:</strong>
+							<span>17</span>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul>
+			<li>Works with keyboard, JAWS &amp; NVDA, but visually-hidden column headers and aria-owns confuses VoiceOver</li>
+			<li>Table is identified as having number of columns/row that are actually in table regardless of what is currently showing (i.e., 4 columns, 4 rows)</li>
+			<li>Collapsed columns read as if they are in their original row (i.e., ctrl + alt + right arrow); don't appear to be extra rows</li>
+			<li>Note: column headers cannot contain links or focusable elements; row headers with links will be read twice with table reading commands</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Test 3: Header Buttons &amp; Headers Attribute</h2>
+		<table class="responsive" aria-label="Test 3. Click column headers to sort. Click row headers to show 2 hidden columns">
+			<thead>
+				<tr>
+					<th scope="col" aria-sort="ascending"><span class="icon-sort" role="button" tabindex="0" aria-label="Agency">Agency</span></th>
+					<th scope="col" aria-sort="none"><span class="icon-sort" role="button" tabindex="0" aria-label="Acronym">Acronym</span></th>	
+					<th scope="col" class="hidden">Code</th>
+					<th scope="col" class="hidden">Staff</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row" id="t3r1c1"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Aging">Aging</span></th>
+					<td>AGE</td>
+					<td class="hidden">402</td>
+					<td class="hidden">147</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4" headers="t3r1c1">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>402</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>147</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" id="t3r2c1"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Agriculture">Agriculture</span></th>
+					<td>AGR</td>
+					<td class="hidden">406</td>
+					<td class="hidden">355</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4" headers="t3r2c1">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>406</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>355</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" id="t3r3c1"><span class="icon-expand" role="button" tabindex="0" aria-expanded="false" aria-label="Arts Council"></span><a href="about:blank">Arts Council</a></th>
+					<td>IAC</td>
+					<td class="hidden">503</td>
+					<td class="hidden">17</td>
+				</tr>
+				<tr class="hidden">
+					<td colspan="4" headers="t3r3c1">
+						<ul>
+							<li>
+								<strong>Code:</strong>
+								<span>503</span>
+							</li>
+							<li>
+								<strong>Staff:</strong>
+								<span>17</span>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul>
+			<li>Works with keyboard, JAWS, NVDA &amp; VoiceOver (mostly)</li>
+			<li>Table is identified as having number of columns/row that are showing (e.g., 2 columns, 5 rows)</li>
+			<li>Collapsed columns are read as extra rows; NVDA &amp; VoiceOver don't associate them with row headers (except by proximity)</li>
+			<li>Note: column headers cannot contain links or focusable elements; row headers with links will be read twice with table reading commands</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Conclusions?</h2>
+		<ul>
+			<li>Test 2 seems like the <em>best</em> approach, but doesn't work well with VoiceOver on iOS, where we're most likely to need it</li>
+			<li>Test 3 isn't ideal, but may be the best option that works in iOS?</li>
+		</ul>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+</body>
+</html>

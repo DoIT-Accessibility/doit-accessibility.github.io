@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Tabs Test</title>
+	<style>
+		.tabs { margin: 1em 0 0; }
+		[role="tablist"] { margin-bottom: -1px; }
+		[role="tab"], [role="tabpanel"] { position: relative; border: 1px solid #777; border-radius: .25em; padding: .25em .5em; }
+		[role="tab"] { z-index: 1; background: buttonface; border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+		[role="tab"][aria-selected="true"] { z-index: 3; background: field; }
+		[role="tabpanel"] { z-index: 2; border-top-left-radius: 0; padding: 0 .5em .75em; min-height: 10.5em; background: canvas; }
+		[role="tabpanel"]:focus { border-color: activeborder; outline: 1px solid activeborder; }
+		.back-to-tabs a { display: inline-block; margin-left: 2px; padding: .25em .5em; background: canvas; text-decoration: none; }
+		.back-to-tabs a:not(:focus) { position: absolute; height: 1px; width: 1px; margin: -1px; padding: 0; overflow: hidden; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Tabs Test</h1>
+		<section id="about">
+			<p>This example demonstrates a Tabs widget following the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">ARIA Tabs Pattern</a>.</p>
+		</section>
+		<section id="examples">
+			<!-- h2>Example</h2 -->
+			<div class="tabs">
+				<div role="tablist" id="tablist-1">
+					<button type="button" role="tab" aria-selected="true" aria-controls="tabpanel-1-1" id="tab-1-1" tabindex="0">Text</button>
+					<button type="button" role="tab" aria-selected="false" aria-controls="tabpanel-1-2" id="tab-1-2" tabindex="-1">Form</button>
+					<button type="button" role="tab" aria-selected="false" aria-controls="tabpanel-1-3" id="tab-1-3" tabindex="-1">Link</button>
+				</div>
+				<div id="tabpanel-1-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1-1">
+					<p>This panel contains text.</p>
+				</div>
+				<div id="tabpanel-1-2" role="tabpanel" tabindex="0" aria-labelledby="tab-1-2" hidden>
+					<p>This panel contains form fields.</p>
+					<p>
+						<label for="input-1">Input:</label>
+						<input type="text" id="input-1">
+					</p>
+					<p>
+						<label for="select-1">Select:</label>
+						<select id="select-1">
+							<option value=""></option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
+					</p>
+					<p>
+						<button type="button">Button</button>
+					</p>
+				</div>
+				<div id="tabpanel-1-3" role="tabpanel" tabindex="0" aria-labelledby="tab-1-3" hidden>
+					<p>This panel contains text with a <a href="#">link</a>.</p>
+				</div>
+			</div>
+		</section>
+		<section class="note problem">
+			<h2>Problem</h2>
+			<p><strong>Keyboard and screen reader users need a way to return to the tab list after reading each tab panel.</strong></p>
+			<p>After reading the content of a panel, the user needs to return to the tab list to select another tab. For panels that contain only text, pressing Shift + Tab moves focus back to the tab list, but for panels with links or fields (which is very common), the user must Shift + Tab through <em>all</em> the links or fields to get back to the tab list.</p>
+			<p>With JAWS, Shift + Apostrophe will move to the last tab, but this is not a widely known command and also results in moving to the <em>last</em> tab in the list regardless of which tab is selected. JAWS users can also use Ctrl + Insert + Apostrophe to opens a list of <em>all</em> tabs on the page, but this list doesn't indicate which tab was last selected. NVDA does not have these features and does not indicate when the end of a tab panel is reached, making the process even more confusing.</p>
+		</section>
+		<section class="note">
+			<h2>Recommendation</h2>
+			<p><strong>Back to Tabs Link</strong> - In the example below, a link after the last panel points back to the tab list. Similar to a "Skip to Main Content" link, it is visually hidden until it receives keyboard focus. (Alternatively, this link could be a button.)</p>
+
+			<div class="tabs">
+				<div role="tablist" id="tablist-2" tabindex="-1">
+					<button type="button" role="tab" aria-selected="true" aria-controls="tabpanel-2-1" id="tab-2-1" tabindex="0">Text</button>
+					<button type="button" role="tab" aria-selected="false" aria-controls="tabpanel-2-2" id="tab-2-2" tabindex="-1">Form</button>
+					<button type="button" role="tab" aria-selected="false" aria-controls="tabpanel-2-3" id="tab-2-3" tabindex="-1">Link</button>
+				</div>
+				<div id="tabpanel-2-1" role="tabpanel" tabindex="0" aria-labelledby="tab-2-1">
+					<p>This panel contains text.</p>
+				</div>
+				<div id="tabpanel-2-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2-2" hidden>
+					<p>This panel contains form fields.</p>
+					<p>
+						<label for="input-2">Input:</label>
+						<input type="text" id="input-2">
+					</p>
+					<p>
+						<label for="select-2">Select:</label>
+						<select id="select-2">
+							<option value=""></option>
+							<option value="1">Option 1</option>
+							<option value="2">Option 2</option>
+							<option value="3">Option 3</option>
+						</select>
+					</p>
+					<p>
+						<button type="button">Button</button>
+					</p>
+				</div>
+				<div id="tabpanel-2-3" role="tabpanel" tabindex="0" aria-labelledby="tab-2-3" hidden>
+					<p>This panel contains text with a <a href="#">link</a>.</p>
+				</div>
+				<div class="back-to-tabs"><a href="#tablist-2"><span aria-hidden="true">▲</span> Back to Tabs</a></div>
+			</div>
+		</section>
+		<section>
+			<h2>References</h2>
+			<ul>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">ARIA Tabs Pattern</a></li>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role">MDN ARIA: tab role</a></li>
+				<li><a href="https://www.w3.org/TR/wai-aria/#tablist">ARIA tablist role</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2024-11-22</footer>
+	<script>
+
+	class Tabs {
+
+		constructor(container) {
+			this.container = container;
+			this.tablist = this.container.querySelector(':scope > [role="tablist"]');
+			this.tabs = this.tablist.querySelectorAll(':scope > [role="tab"]');
+			this.selectedIndex = 0;
+			this.init();
+		}
+
+		init() {
+			this.tabs.forEach((tab, index) => {
+				tab.panel = this.container.querySelector(`#${tab.getAttribute("aria-controls")}`);
+				tab.addEventListener("click", event => this.selectTab(tab));
+			});
+			this.tablist.addEventListener("keydown", event => this.handleKeys(event));
+			this.tablist.addEventListener("focus", event => this.tabs[this.selectedIndex].focus());
+		}
+
+		selectTab(targetTab) {
+			this.tabs.forEach(tab => {
+				tab.setAttribute("aria-selected", "false");
+				tab.setAttribute("tabindex", "-1");
+				tab.panel.setAttribute("hidden", "true");
+			});
+			targetTab.setAttribute("aria-selected", "true");
+			targetTab.setAttribute("tabindex", "0");
+			targetTab.panel.removeAttribute("hidden");
+			targetTab.focus();
+			this.selectedIndex = Array.prototype.indexOf.call(this.tabs, targetTab);
+		}
+
+		handleKeys(event) {
+			const tabs = this.tabs;
+			const selectedIndex = this.selectedIndex;
+			const key = event.key.toLowerCase();
+			if (key === "arrowright") {
+				this.selectedIndex = (selectedIndex + 1) % tabs.length;
+			} else if (key === "arrowleft") {
+				this.selectedIndex = (selectedIndex - 1 + tabs.length) % tabs.length;
+			} else if (key === "home") {
+				this.selectedIndex = 0;
+			} else if (key === "end") {
+				this.selectedIndex = tabs.length - 1;
+			} else {
+				return;
+			}
+			tabs[this.selectedIndex].click();
+		}
+	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		document.querySelectorAll(".tabs").forEach(container => new Tabs(container));
+	});
+
+</script>
+</body>
+</html>

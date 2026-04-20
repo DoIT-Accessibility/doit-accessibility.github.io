@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Status Test</title>
+	<style>
+		[role="status"] { color: #e00; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Status Test</h1>
+		<p>This is a test of role="status". Click a Test button below to make the status message appear.</p>
+		<section>
+			<h2>Test 1: Dynamic Update</h2>
+			<form action="#" method="post">
+				<p>Status: <span role="status" id="status1"></span></p>
+				<p><button type="button" id="button1">Test 1</button></p>
+				<script>
+					document.getElementById("button1").addEventListener("click", (event) => { 
+						document.getElementById("status1").innerHTML = "This is test 1."; 
+					});
+				</script>
+			</form>
+		</section>
+		<section>
+			<h2>Test 2: Page Reload</h2>
+			<form action="#" method="get">
+				<p>Status: <span role="status" id="status2"></span></p>
+				<p><button type="submit" name="button2">Test 2</button></p>
+				<script>
+					if (window.location.search) {
+						document.getElementById("status2").innerHTML = "This is test 2.";
+					}
+				</script>
+			</form>
+			<p><a id="reset" href="">Reset</a></p>
+			<script>document.getElementById("reset").href = window.location.origin + window.location.pathname;</script>
+		</section>
+		<section>
+			<h2>References</h2>
+			<ul>
+				<li><a href="https://www.w3.org/TR/wai-aria-1.2/#status">ARIA 1.2 Status Role</a></li>
+				<li><a href="https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA22">Technique ARIA22: Using role=status to present status messages</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-08-28</footer>
+</body>
+</html>

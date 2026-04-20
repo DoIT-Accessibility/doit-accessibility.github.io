@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Passkey Test</title>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Passkey Test</h1>
+	<p><button id="passkeyButton">Test "Choose a Passkey" Dialog</button></p>
+	<p>For more info, see <a href="https://webauthn.io/">WebAuthn.io</a></p>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-01-31</footer>
+<script>
+	document.getElementById('passkeyButton').addEventListener('click', async () => {
+		try {
+			const credentials = await navigator.credentials.get({
+				publicKey: {
+					challenge: new Uint8Array(Array.from("FakeChallenge", char => char.charCodeAt(0))),
+					allowCredentials: [
+						{
+							type: 'public-key',
+							id: new Uint8Array(Array.from("FakeID", char => char.charCodeAt(0))),
+						},
+					],
+				},
+			});
+
+			if (credentials) {
+				// Handle successful authentication
+				console.log('Passkey chosen:', credentials);
+			} else {
+				// Handle failure or user cancellation
+				console.log('Passkey selection canceled.');
+			}
+		} catch (error) {
+			console.error('Error getting passkey:', error);
+		}
+	});
+</script>
+</body>
+</html>
