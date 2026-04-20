@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Contenteditable Example</title>
+	<style>
+		div[contenteditable='true'] { height: 5em; padding: .125em .5em; border: 1px solid #767676; border-radius: .25em; overflow-y: scroll; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Contenteditable Example</h1>
+	<section id="about">
+		<h2>About This Example</h2>
+		<p>The following example demonstrates an element made editable using the <code><a href="https://html.spec.whatwg.org/#contenteditable">contenteditable</a></code> attribute.</p>
+	</section>
+	<section id="examples">
+		<h2>Example</h2>
+		<div class="example">
+			<label id="contenteditable-label">Test:</label>
+			<div contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="contenteditable-label">
+				<p>This is a test.</p>
+				<p>This is only a test.</p>
+			</div>
+		</div>
+	</section>
+	<section id="keyboardinteraction">
+		<h2>Keyboard Interaction</h2>
+		<ul>
+			<li><kbd>Tab</kbd>: Moves focus in to and out of the editable element.</li>
+			<li>When focus is in the editable element, printable keys will enter characters into the element and navigation keys will move the cursor within the element.</li>
+			<li>If a screen reader activates its forms/focus mode, pressing <kbd>Esc</kbd> will deactivate that mode and allow use of <kbd>Up/Down Arrow</kbd> to move out of the element.</li>
+		</ul>
+	</section>
+	<section id="wai-ariaroles,states,andproperties">
+		<h2>Roles, States, and Properties</h2>
+		<ul>
+			<li>The editable element has role <code><a href="https://w3c.github.io/aria/#textbox">textbox</a></code>.</li>
+			<li>If the editable element is multiline, it has <code><a href="https://w3c.github.io/aria/#aria-multiline">aria-multiline</a></code> set to <code>true</code>.</li>
+			<li>The editable element has <code><a href="https://w3c.github.io/aria/#aria-labelledby">aria-labelledby</a></code> or <code><a href="https://w3c.github.io/aria/#aria-label">aria-label</a></code> referring to or providing a label.</li>
+			<li>The editable element does <em>not</em> have <code><a href="https://w3c.github.io/aria/#aria-readonly">aria-readonly</a></code> set to <code>true</code>.</li>
+		</ul>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-04-25</footer>
+</body>
+</html>

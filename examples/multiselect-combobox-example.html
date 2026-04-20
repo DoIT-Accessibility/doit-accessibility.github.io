@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Multiselect Combobox Example</title>
+	<style>
+		.combobox-container { display: inline-block; }
+		input[role='combobox'] { width: 5em; }
+		ul[role='listbox'] { position: absolute; background: #fff; }
+		ul[role='listbox'] { list-style-type: none; margin: 2px; padding: 0; border: 1px solid #767676; border-radius: 2px; width: fit-content; max-height: 6.5em; overflow-y: scroll; }
+		li[role='option'] { margin: 0; padding: 1px 2px; }
+		li[role='option']:focus { padding: 0 1px; border: 2px solid #000; }
+		[aria-checked='true'], [aria-selected='true'] { background: Highlight; color: HighlightText; } 
+		@media (forced-colors: active) {
+			[aria-checked='true'], [aria-selected='true'] { forced-color-adjust: none; }
+		}
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Multiselect Combobox Example</h1>
+	<section id="about">
+		<h2>About This Example</h2>
+		<p>The following example demonstrates a multiselect listbox widget following the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/">Listbox Pattern</a> with the <a href="https://w3c.github.io/aria/#aria-multiselectable">aria-multiselectable</a> property. This widget allows the selection of one or more options from a list and is functionally similar to an HTML <code>select</code> element with the <code>multiple</code> attribute.</p>
+	</section>
+	<section id="referenceexample">
+		<h2>Reference</h2>
+		<div class="example">
+			<label for="select">Select:</label>
+			<select id="select">
+				<option>Option 1</option>
+				<option selected>Option 2</option>
+				<option>Option 3</option>
+			</select>
+		</div>
+	</section>	
+	<section id="examples">
+		<h2>Example</h2>
+		<div class="example">
+			<label id="combobox-label-1">Combobox:</label>
+			<span class="combobox-container">
+				<input id="combobox-1" role="combobox" aria-autocomplete="none" aria-haspopup="listbox" aria-controls="listbox-1" aria-expanded="false" aria-activedescendant="" aria-labelledby="combobox-label-1" readonly>
+				<ul id="listbox-1" role="listbox" aria-multiselectable="true" aria-labelledby="combobox-label-1" hidden>
+					<li role="option" aria-checked="false" aria-selected="false">Option 1</li>
+					<li role="option" aria-checked="true" aria-selected="true">Option 2</li>
+					<li role="option" aria-checked="false" aria-selected="false">Option 3</li>
+					<li role="option" aria-checked="true" aria-selected="true">Option 4</li>
+					<li role="option" aria-checked="false" aria-selected="false">Option 5</li>
+				</ul>
+			</span>
+		</div>
+	</section>
+	<section id="keyboardinteraction">
+		<h2>Keyboard Interaction</h2>
+		<ul>
+			<li><kbd>Tab</kbd>: Moves focus into and out of the listbox. When focus moves into the listbox, it is placed on the first selected option, or the first option if none is selected.</li>
+			<li><kbd>Down Arrow</kbd>: Moves focus to the next option <em>without</em> changing selection.</li>
+			<li><kbd>Up Arrow</kbd>: Moves focus to the previous option <em>without</em> changing selection.</li>
+			<li><kbd>Space</kbd>: Toggles the selection state of the focused option.</li>
+			<li><kbd>Enter</kbd>, <kbd>Esc</kbd>: If the listbox was opened from a button or combobox, closes the listbox.</li>
+		</ul>
+	</section>
+	<section id="wai-ariaroles,states,andproperties">
+		<h2>Roles, States, and Properties</h2>
+		<ul>
+			<li>The element that contains or owns the options has role <code><a href="https://w3c.github.io/aria/#listbox">listbox</a></code>.</li>
+			<li>The element with role listbox has <code><a href="https://w3c.github.io/aria/#aria-labelledby">aria-labelledby</a></code> or <code><a href="https://w3c.github.io/aria/#aria-label">aria-label</a></code>.</li>
+			<li>The element with role listbox has <code><a href="https://w3c.github.io/aria/#aria-multiselectable">aria-multiselectable</a></code> set to <code>true</code>.</li>
+			<li>Each option has role <code><a href="https://w3c.github.io/aria/#option">option</a></code>.</li>
+			<li>Each selected option has <em>both</em> <code><a href="">aria-checked</a></code> <em>and</em> <code><a href="">aria-selected</a></code> set to <code>true</code> (see <a href="#note">Note</a>).</li>
+			<li>All options that are not selected have <em>both</em> <code><a href="">aria-checked</a></code> <em>and</em> <code><a href="">aria-selected</a></code> set to <code>false</code> (see <a href="#note">Note</a>).</li>
+		</ul>
+		<section class="note" id="note">
+			<h3>Note</h3>
+			<p>The <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/#wai-ariaroles,states,andproperties">Listbox Pattern</a> recommends using <code>aria-checked</code> for multiselect listboxes and recommends against using <em>both</em> <code>aria-checked</code> <em>and</em> <code>aria-selected</code>. However, this is not supported by current, leading screen readers, JAWS 2024 and NVDA 2024:</p>
+			<ul>
+				<li>Both screen readers say "not selected" if <code>aria-selected</code> is <code>undefined</code>, so options with <em>only</em> <code>aria-checked="true"</code> are indciated as "checked, not selected", which is incorrect.</li>
+				<li>Neither screen reader says "selected" if <code>aria-selected="true"</code>, making it difficult to identify selected options if <em>only</em> <code>aria-selected</code> is used. (This behavior is designed for single-select listboxes where selection follows focus and "selected" is implied.)</li>
+			</ul>
+			<p>Until leading screen readers change the above behaviors, the only effective solution appears to be to use <em>both</em> <code>aria-checked</code> <em>and</em> <code>aria-selected</code>.</p>
+		</section>
+	</section>
+
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-04-22</footer>
+<script>
+	const comboboxes = document.querySelectorAll("[role='combobox']");
+	comboboxes.forEach(combobox => {
+		const popup = document.getElementById(combobox.getAttribute("aria-controls"));
+		combobox.popup = popup;
+		popup.open = function() {
+			popup.removeAttribute("hidden");
+		};
+		popup.close = function () {
+			popup.setAttribute("hidden", "");
+		};
+		popup.toggle = function() {
+			popup.toggleAttribute("hidden");
+		};
+		combobox.addEventListener("click", event => {
+			popup.toggle();
+		});
+		combobox.addEventListener("blur", event => {
+			console.log(event);
+			if (!popup.contains(event.relatedTarget)) {
+				popup.close();
+			}
+		});
+	});
+
+
+	const listboxes = document.querySelectorAll("[role='listbox']");
+	listboxes.forEach(listbox => {
+		const options = listbox.querySelectorAll("[role='option']");
+		listbox.options = options;
+		listbox.options.forEach((option, index) => {
+			option.listbox = listbox;
+			option.index = index;
+			//option.setAttribute("tabindex", "-1");
+			option.toggle = function() {
+				if (option.hasAttribute("aria-checked")) {
+					const toggledValue = option.getAttribute("aria-checked").match(/true/i) ? "false" : "true";
+					option.setAttribute("aria-checked", toggledValue);
+					option.setAttribute("aria-selected", toggledValue);
+				}
+				//if (option.hasAttribute("aria-selected")) {
+				//	option.setAttribute("aria-selected", option.getAttribute("aria-selected").match(/true/i) ? "false" : "true");
+				//}
+			};
+			option.addEventListener("click", event => {
+				option.toggle();
+			});
+			/*
+			option.addEventListener("keyup", event => { 
+				const key = event.key.toLowerCase();
+				if (key === "arrowdown") {
+					options[Math.min(option.index + 1, options.length - 1)].focus();
+				}
+				else if (key === "arrowup") {
+					options[Math.max(option.index - 1, 0)].focus();
+				}
+				else if (key === " ") {
+					option.toggle();
+				}
+			});
+			option.addEventListener("keydown", event => {
+				const key = event.key.toLowerCase();
+				if (["arrowdown","arrowup"," "].includes(key)) {
+					event.preventDefault(); // don't scroll page
+				}
+			});
+			option.addEventListener("focus", event => {
+				options.forEach(option => {
+					option.setAttribute("tabindex", option !== event.currentTarget ? "-1" : "0" );
+				});
+			});
+			*/
+		});
+		listbox.addEventListener("focus", event => {
+			//(listbox.querySelector("[aria-checked='true']") || listbox.querySelector("[aria-selected='true']") || listbox.querySelector("[role='option']")).focus();
+			//listbox.setAttribute("tabindex", "-1");
+		});
+	});
+</script>
+</body>
+</html>

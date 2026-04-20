@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Web Forms Examples</title>
+	<style>
+		section { margin-top: 2em; border-top: 1px solid #ccc; }
+		.example label { font-weight: normal; }
+		button { min-width: 5em; }
+		button[aria-pressed="true"], button[aria-expanded="true"], button[aria-checked="true"] { background-color: #666; color: white; }
+		button[role="switch"] { border: 1px solid #777; border-radius: 1em; text-align: left; min-width: 3.5em; padding: .125em; }	
+		button[role="switch"] .switch-slider { display: inline-block; width: 1.5em; height: 1.5em; border: 1px solid #777; border-radius: 50%; background: #fff; transform: translateX(0); transition: transform 0.2s ease-in-out; }	
+		button[role="switch"][aria-checked="true"] .switch-slider { transform: translateX(1.5em); }
+		ul { list-style: none; margin: 0; padding: 0; }
+		ul[role="menu"] { list-style: none; margin: 0; padding: 0; border: 1px solid #777; background: #fff; width: fit-content; position: absolute; }
+		li[role="menuitem"] { margin: 0; padding: .25em .5em; cursor: pointer; }
+		fieldset { width: fit-content; padding: 0 1em .75em .5em; border-radius: .25em; }
+		textarea { vertical-align: top; }
+		dialog { max-width: 50%; text-align: center; }
+		dialog h2 { margin: 0; }		
+	</style>
+</head>
+<body>
+<header></header>
+<main>	
+	<h1>Web Forms Examples</h1>
+	<p></p>
+	<form action="#" method="post">
+
+		<section>
+			<h2>Textboxes</h2>
+			<p>A textbox allows you to enter text. Screen readers call these "edits". Type any text, but don't press enter, because it may submit the form.</p>
+			<div class="example">
+				<label for="textbox">Example</label>
+				<input type="text" id="textbox">
+			</div>
+			<p>A textarea is a textbox that allows multiple lines of text. Pressing enter will start a new line. Only some screen readers will indicate that it is multi-line.</p>
+			<div class="example">
+				<label for="textarea">Example</label>
+				<textarea id="textarea" rows="2" cols="25"></textarea>
+			</div>
+		</section>
+
+		<section>
+			<h2>Buttons</h2>
+			<p>A button triggers an action, such as submitting a form. Press spacebar to click it.</p>
+			<div class="example">
+				<button type="button" id="button">Example</button>
+				<script>
+					document.getElementById("button").addEventListener("click", function() {
+						alert("Button clicked!");
+					});
+				</script>
+			</div>
+
+			<p>A disclosure button shows or hides content. A screen reader will say "collapsed" or "expanded". Press spacebar to click it and then down arrow to read the content.</p>
+			<div class="example">
+				<button type="button" id="disclosureButton" aria-controls="disclosureContent" aria-expanded="false">Example</button>
+				<span id="disclosureContent" hidden>This is a test.</span>
+				<script>
+					document.getElementById("disclosureButton").addEventListener("click", function() {
+						let expanded = this.getAttribute("aria-expanded") === "true";
+						this.setAttribute("aria-expanded", !expanded);
+						document.getElementById(this.getAttribute("aria-controls")).hidden = expanded;
+					});
+				</script>					
+			</div>
+
+			<p>A menu button shows a menu. A screen reader will say "collapsed" or "expanded". Press spacebar to open the menu, up or down arrow to move between menu items, enter to activate one, or escape to close them menu.</p>
+			<div class="example">
+				<button type="button" id="menuButton" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Example</button>
+				<ul role="menu" id="menu" aria-labelledby="menuButton" hidden>
+					<li role="menuitem" tabindex="-1">Item 1</li>
+					<li role="menuitem" tabindex="-1">Item 2</li>
+					<li role="menuitem" tabindex="-1">Item 3</li>
+				</ul>
+				<script>
+					const menuButton = document.getElementById("menuButton");
+					const menu = document.getElementById(menuButton.getAttribute("aria-controls"));
+					menu.expanded = menuButton.getAttribute("aria-expanded") === "true";
+					menu.items = Array.from(menu.querySelectorAll("[role='menuitem']"));
+					menu.toggle = function() {
+						menu.expanded = !menu.expanded;
+						menu.hidden = !menu.expanded;
+						menuButton.setAttribute("aria-expanded", menu.expanded);
+						menu.expanded ? menu.items[0].focus() : menuButton.focus();
+					};
+					menuButton.addEventListener("click", () => menu.toggle());
+					menu.addEventListener("keydown", (event) => {
+						let index = menu.items.indexOf(document.activeElement);
+						if (event.key === "Escape" || event.key === "Enter") {
+							menu.toggle();
+							event.preventDefault();
+						} else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+							index = event.key === "ArrowDown" ? (index + 1) % menu.items.length : (index - 1 + menu.items.length) % menu.items.length;
+							menu.items[index].focus();
+							event.preventDefault();
+						}
+					});				
+				</script>
+			</div>
+
+		</section>
+
+		<section>
+			<h2>Checkboxes, Toggle Buttons &amp; Switches</h2>
+			<p>A checkbox allows you to make a simple yes/no choice. A screen reader will say "checked" or "not checked". Press spacebar to check or uncheck it.</p>
+			<div class="example">
+				<input type="checkbox" id="checkbox" aria-checked="false">
+				<label for="checkbox">Example</label>
+			</div>
+
+			<p>A toggle button is basically another kind of checkbox. A screen reader will say "pressed" or "not pressed". Press spacebar to change it.</p>
+			<div class="example">
+				<button type="button" id="toggleButton" aria-pressed="false">Example</button>
+				<script>
+					document.getElementById("toggleButton").addEventListener("click", function() {
+						let pressed = this.getAttribute("aria-pressed") === "true";
+						this.setAttribute("aria-pressed", !pressed);
+					});
+				</script>				
+			</div>
+
+			<p>A switch is also another kind of checkbox. A screen reader will say "on" or "off". Press spacebar to change it. </p>
+			<div class="example">
+				<button type="button" role="switch" id="switch" aria-label="Example" aria-checked="false"><span class="switch-slider">&nbsp;</span></button>
+			</div>
+			<script>
+				document.getElementById("switch").addEventListener("click", function() {
+					let checked = this.getAttribute("aria-checked") === "true";
+					this.setAttribute("aria-checked", !checked);
+				});
+			</script>
+		</section>
+
+		<section>
+			<h2>Radio Buttons</h2>
+			<p>Radio buttons allow you to pick one of several options. Press spacebar to check one and up or down arrow to change which one is checked.</p>
+			<div class="example">
+				<fieldset>
+					<legend>Example</legend>
+					<ul>
+						<li>
+							<input type="radio" name="radio" id="radio1">
+							<label for="radio1">Option 1</label>
+						</li>
+						<li>
+							<input type="radio" name="radio" id="radio2">
+							<label for="radio2">Option 2</label>
+						</li>
+						<li>
+							<input type="radio" name="radio" id="radio3">
+							<label for="radio3">Option 3</label>
+						</li>
+					</ul>
+				</fieldset>
+			</div>
+		</section>
+
+		<section>
+			<h2>Comboboxes</h2>
+			<p>A select-only combobox allows you to pick one (or more) of several options in a list. Screen readers may say "collapsed" or "expanded". Press down arrow to move between the options and enter to select one. You can also press enter or alt + down arrow to expand the list of options and escape to close it.</p>
+			<div class="example">
+				<label for="select">Example</label>
+				<select id="select">
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+				</select>
+			</div>
+			<p>An editable combobox (edit combo) lets you enter a value or pick from a list. Press alt + down arrow to open the list, up or down arrow to move between options, enter to pick one, or escape to close the list.</p>
+			<div class="example">
+				<label for="combobox">Example</label>
+				<input role="combobox" id="combobox" list="datalist">
+				<datalist id="datalist">
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+				</datalist>
+			</div>
+		</section>	
+
+		<section>
+			<h2>Spinboxes &amp; Sliders</h2>
+			<p>A spinbox lets you type a number or press up or down arrows to increase or decrease the value.</p>
+			<div class="example">
+				<label for="numberInput">Example</label>
+				<input type="number" id="numberInput" min="1" max="5" size="1">
+			</div>
+			<p>A slider lets you use arrow keys to increase or decrease a value.</p>
+			<div class="example">
+				<label for="rangeInput">Example</label>
+				<input type="range" id="rangeInput" min="1" max="5" value="3">
+			</div>
+		</section>
+
+		<section>
+			<h2>Date Pickers</h2>
+			<p>A date picker is a special kind of combobox that lets you enter a date or pick one from a calendar. The date may be broken into three parts, month, day, and year, each presented as a spinbox. Press alt + down arrow to open the calendar, arrow keys to move between dates, enter to pick one, or escape to close the calendar.</p>
+			<div class="example">
+				<label for="dateInput">Example</label>
+				<input type="date" id="dateInput">
+			</div>
+		</section>		
+
+		<section>
+			<h2>Dialogs</h2>
+			<p>A dialog is a window that opens in front of the main page. When a dialog is open, you cannot read or interact with anything behind it. Press down arrow or tab to read within the dialog and escape to close it.</p>
+			<div class="example">
+				<button type="button" id="dialogOpenButton">Open Dialog</button>
+				<dialog id="dialog" aria-labelledby="dialogLabel">
+					<h2 id="dialogLabel">Example</h2>
+					<p>This is a dialog.</p>
+					<p><button type="button" id="dialogCloseButton">OK</button></p>
+				</dialog>
+			</div>
+			<script>
+				const dialog = document.getElementById("dialog");
+				const dialogOpenButton = document.getElementById("dialogOpenButton");
+				const dialogCloseButton = document.getElementById("dialogCloseButton");
+				dialogOpenButton.addEventListener("click", function(event) {
+					dialog.showModal();
+				});
+				dialogCloseButton.addEventListener("click", function() {
+					dialog.close();
+				});
+			</script>
+
+		</section>
+
+	</form>	
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2025-04-01</footer>
+</body>
+</html>	

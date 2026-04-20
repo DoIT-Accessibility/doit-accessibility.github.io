@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Skip to Main Content Example</title>
+	<style>
+		.example nav h3 { display: inline; }
+		.example nav ul { display: inline; list-style-type: none; padding: 0; }
+		.example nav li { display: inline; }
+		.codeblock { font-family: monospace; white-space: pre; }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>Skip to Main Content Example</h1>
+	<section id="about">
+		<h2>About This Example</h2>
+		<p>The following example demonstrates how use a "Skip to Main Content" link to meet <a href="https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html">Success Criterion 2.4.1 Bypass Blocks</a> using <a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G1">Technique G1</a>.</p>
+		<p>There are other techniques, such as <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H69">H69: Providing heading elements</a> and <a href="https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA11">ARIA11: Using ARIA landmarks</a>, that satisfy 2.4.1, but providing a skip link is currently the only technique that works for keyboard-users who do <em>not</em> use screen readers or other assistive technologies.</p>
+	</section>
+	<section id="examples">
+		<h2>Example</h2>
+		<div class="example">
+			<div id="body">
+				<div id="header">
+					<div><a href="#main" class="visually-hidden">Skip to Main Content</a></div>
+					<nav>
+						<h3>Navigation:</h3>
+						<ul>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div id="main">
+					<h3>Main</h3>
+					<p>This is the main content. Here's a <a href="#">Link</a> to confirm that focus moved here after clicking Skip to Main Content.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h2>Code</h2>
+		<div class="codeblock">
+	&lt;style&gt;
+		.visually-hidden:not(:focus) { position: absolute; height: 1px; width: 1px; margin: -1px; padding: 0; overflow: hidden; }
+	&lt;/style&gt;
+
+	&lt;header&gt;
+		&lt;div&gt;&lt;a href="#main" class="visually-hidden"&gt;Skip to Main Content&lt;/a&gt;&lt;/div&gt;
+		&lt;nav&gt;&lt;a href="#"&gt;Nav&lt;/a&gt;&lt;/nav&gt;
+	&lt;/header&gt;
+
+	&lt;main id="main"&gt;
+		&lt;a href="#"&gt;Main&lt;/a&gt;
+	&lt;/main&gt;
+		</div>
+	</section>
+	<section id="keyboardinteraction">
+		<h2>Keyboard Interaction</h2>
+		<ul>
+			<li><kbd>Tab</kbd>: Moves focus in to and out of the editable element.</li>
+
+		</ul>
+	</section>
+	<section id="wai-ariaroles,states,andproperties">
+		<h2>Roles, States, and Properties</h2>
+		<ul>
+			<li>The editable element has role <code><a href="https://w3c.github.io/aria/#textbox">textbox</a></code>.</li>
+
+		</ul>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-04-01</footer>
+</body>
+</html>

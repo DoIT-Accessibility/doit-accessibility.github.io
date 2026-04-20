@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>ARIA Menu Button</title>
+	<style>
+		button[aria-haspopup="menu"] {  }
+		ul[role="menu"] { list-style-type: none; width: fit-content; margin: 0; padding: 0; border: 1px solid rgba(117,117,117,1); border-radius: .125em; background: rgba(117,117,117,.1); }
+		ul[role="menu"] li { margin: 0; padding: .25em .5em; }
+</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>ARIA Menu Button</h1>
+	<section id="about">
+		<!-- h2>About This Example</h2 -->
+		<p>A menu button is a button that opens a menu.</p>
+	</section>
+	<section id="examples">
+		<h2>Example</h2>
+		<div class="example">
+			<button role="button" aria-haspopup="menu" aria-expanded="true">Menu Button <span aria-hidden="true">▼</span></button>
+			<ul role="menu">
+				<li role="menuitem" tabindex="-1">Menu Item 1</li>
+				<li role="menuitem" tabindex="-1">Menu Item 2</li>
+				<li role="menuitem" tabindex="-1">Menu Item 3</li>
+			</ul>
+		</div>
+	</section>
+	<section id="keyboardinteraction">
+		<h2>Keyboard Interaction</h2>
+		<ul>
+			<li><kbd>Tab</kbd>: Moves focus into and out of the widget. If focus was in the menu, closes the menu.</li>
+			<li><kbd>Enter</kbd> or <kbd>Space</kbd>: If focus is on the button, opens the menu and places focus on the first menu item. If focus is on a menu item, activates the item and closes the menu.</li>
+			<li><kbd>Down Arrow</kbd> or <kbd>Up Arrow</kbd>: If focus is in the menu, moves focus to the next or previous item.</li>
+			<li><kbd>Escape</kbd>: If focus is in the menu, closes the menu and returns focus to the button.</li>
+		</ul>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-08-16</footer>
+</body>
+</html>
