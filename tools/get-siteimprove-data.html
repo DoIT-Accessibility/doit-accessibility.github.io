@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Get Siteimprove Data</title>
+	<style>
+		body { font-family: system-ui, sans-serif; }
+		input, button { font: inherit; }
+		h1 { font-weight: 500; }
+		p { margin: .5em 0; }
+		label { display: inline-block; min-width: 3em; }
+		table { border-collapse: collapse; }
+		th, td { border: 1px solid #777; padding: .25em; text-align: left; vertical-align: top; }
+		.save-csv-link { display: block; width: fit-content; background: #eee; border: 1px solid #777; border-radius: 3px; padding: .125em .5em; margin: 1em 0; text-decoration: none; cursor: pointer; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Get Siteimprove Data</h1>
+		<form action="#" onsubmit="event.preventDefault()">
+			<p>
+				<label for="user-input">User:</label>
+				<input id="user-input" autocomplete="username">
+			</p>
+			<p>
+				<label for="key-input">Key:</label>
+				<input id="key-input" autocomplete="current-password">
+			</p>
+			<p>
+				<label for="siteid-input">Sites:</label>
+				<input id="siteurl-input" placeholder="All" value="https://doit.illinois.gov">
+			</p>
+			<p>
+				<label></label>
+				<button id="fetch-button">Get Data</button>
+			</p>
+		</form>
+	</main>
+	<script>
+
+		const base = "https://api.siteimprove.com/v2/";
+		const headers = { "Accept": "application/json", "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Authorization": "Basic" };
+
+		const userInput = document.getElementById("user-input");
+		const keyInput = document.getElementById("key-input");
+		const siteUrlInput = document.getElementById("siteurl-input");
+		const fetchButton = document.getElementById("fetch-button");
+
+		const today = new Date().toLocaleDateString('en-CA');
+
+		let sitesCount = 0;
+		let sitesJson = {};
+		let sitesArray = [];
+
+		async function getHeaders() {
+			const user = userInput.value.trim();
+			const key = keyInput.value.trim();
+			headers.Authorization = "Basic " + btoa(user + ":" + key);
+		}
+
+		async function getJson(path = "", params = {}) {
+			const url = new URL(path, base);
+			for (const key in params) { url.searchParams.append(key, params[key]); }
+			console.log(url);
+			console.log(headers);
+			const response = await fetch(url, { headers });
+			const json = await response.json();
+			return json;
+		}
+
+		async function getData() {
+			// get sites count
+			console.log("Getting Site Count...");
+			sitesCount = (await getJson("sites", {})).total_items;
+			console.log(sitesCount);
+
+			// get basic info for all sites
+			console.log("Getting Sites Array...");
+			sitesJson = await getJson("sites", { "page_size" : sitesCount });
+			sitesArray = sitesJson.items.map(site => ({ id: site.id, name: site.site_name, url: site.url, pages: site.pages}));
+
+			// filter sites array to selected sites
+			console.log("Filtering Sites Array...")
+			siteURLs = siteUrlInput.value.split(",").map(url => url.trim()).filter(id => id.length > 0);
+			if (siteURLs.length > 0) { sitesArray = sitesArray.filter(site => siteURLs.includes(site.url)); }
+
+			// get site target scores
+			if (sitesArray.length > 0) {
+				console.log("Getting Site Target Scores...");
+				for (const [i, site] of sitesArray.entries()) {
+					console.log(i);
+					const json = await getJson("sites/" + site.id + "/a11y/overview/site_target/history", { "page_size" : 1 });
+					const newest = json.items.at(-1);
+					const { site_target_percentage, timestamp } = newest;
+					Object.assign(site, { site_target_percentage });
+				}
+			}
+
+			// get number of pdfs
+			if (sitesArray.length > 0) {
+				console.log("Getting PDFs...");
+				for (const [i, site] of sitesArray.entries()) {
+					console.log(i);
+					const json = await getJson("sites/" + site.id + "/quality_assurance/inventory/documents", { "page_size" : 1, "query" : ".pdf" });
+					Object.assign(site, { "pdfs" : json.total_items });
+				}
+			}			
+
+			// get number of pdfs with issues
+			if (sitesArray.length > 0) {
+				console.log("Getting PDFs with Issues...");
+				for (const [i, site] of sitesArray.entries()) {
+					console.log(i);
+					const json = await getJson("sites/" + site.id + "/a11y/validation/pdfs", { "page_size" : 1 });
+					//Object.assign(site, { "pdfs_with_issues" : json.total_items });
+					Object.assign(site,	{ "pdfs_percentage" : parseFloat((100 - (json.total_items / site.pdfs * 100)).toFixed(2)) });
+				}
+			}			
+	
+			// add dates
+			if (sitesArray.length > 0) {
+				console.log("Adding Dates...")
+				for (const [i, site] of sitesArray.entries()) {
+					Object.assign(site, { "date" : today })
+				}				
+			}
+			
+			console.log("Done");
+		}		
+
+		function showTable(jsonArray) {
+			const table = document.createElement("table");
+			const thead = document.createElement("thead");
+			const tr = document.createElement("tr");
+			Object.keys(jsonArray[0]).forEach(key => {
+				const th = document.createElement("th");
+				th.append(key);
+				tr.append(th);
+			});
+			thead.append(tr);
+			table.append(thead);
+			const tbody = document.createElement("tbody");
+			jsonArray.forEach(obj => {
+				const tr = document.createElement("tr");
+				Object.keys(obj).forEach(key => {
+					const td = document.createElement("td");
+					td.append(obj[key]);
+					tr.append(td);
+				});
+				tbody.append(tr);
+			});
+			table.append(tbody);
+			document.body.append(table);
+		}		
+
+		function showSaveLink(jsonArray) {
+			let csvString = Object.keys(jsonArray[0]).join(",") + "\n";
+			csvString += jsonArray.map(obj => {
+				const values = Object.values(obj);
+				return values.map(value => JSON.stringify(value)).join(",");
+			}).join("\n");
+			const csvBlob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+			const url = URL.createObjectURL(csvBlob);
+			const link = document.createElement("a");
+			link.className = "save-csv-link";
+			link.href = url;
+			link.download = "Siteimprove-data-" + today + ".csv";
+			link.appendChild(document.createTextNode("Save CSV"));
+			document.body.appendChild(link);
+		}
+
+		fetchButton.addEventListener("click", async () => {
+			await getHeaders();
+			await getData();
+			showTable(sitesArray);
+			showSaveLink(sitesArray);
+		});
+		
+	</script>
+</body>
+</html>

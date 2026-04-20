@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="color-scheme" content="dark light">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Browser Size</title>
+	<style>
+		dialog { font: 1rem system-ui, sans-serif; position: absolute; box-sizing: border-box; width: 50%; height: 50%; top: 25%; left: 25%; margin: 0; padding: 2%; border: 1px solid #757575; border-radius: 1em; text-align: center; background: rgba(117,117,117,0.1);  }
+		data { display: block; font-size: calc(1rem + 2vh); height: calc(50% - 1rem); }
+		data.height { text-align: right; }
+		select { font: inherit; min-width: 5em; text-align: center; }
+	</style>
+</head>
+<body>
+	<dialog class="container" open>
+		<data class="width">Width</data>
+		<data class="height">Height</data>
+		<div>
+			<select class="width">
+				<option>Width</option>
+				<option>640</option>
+				<option>1024</option>
+				<option>1280</option>
+				<option>1366</option>
+				<option>1600</option>
+				<option>1920</option>
+			</select>
+			<select class="height">
+				<option>Height</option>
+				<option>360</option>
+				<option>480</option>
+				<option>640</option>
+				<option>720</option>
+				<option>768</option>
+				<option>1080</option>
+			</select>
+		</div>
+	</dialog>
+<script>
+
+let browserSize = (function() {
+
+	let width = document.querySelector("data.width");
+	let height = document.querySelector("data.height");
+	let widthSelect = document.querySelector("select.width");
+	let heightSelect = document.querySelector("select.height");
+
+	function showSize() {
+		width.textContent = document.documentElement.clientWidth;
+		height.textContent = document.documentElement.clientHeight;
+		if (widthSelect.value != document.documentElement.clientWidth) { widthSelect.selectedIndex = 0; }
+		if (heightSelect.value != document.documentElement.clientHeight) { heightSelect.selectedIndex = 0; }
+	}
+
+	function setSize() {
+		let width = parseInt(widthSelect.value) || document.documentElement.clientWidth;
+		let height = parseInt(heightSelect.value) || document.documentElement.clientHeight;
+		width += (window.outerWidth - document.documentElement.clientWidth);
+		height += (window.outerHeight - document.documentElement.clientHeight);
+		chrome.runtime.sendMessage({ width, height });
+	}
+
+	(function init() {
+		window.addEventListener("load", showSize);
+		window.addEventListener("resize", showSize);
+		widthSelect.addEventListener("change", setSize);
+		heightSelect.addEventListener("change", setSize);
+	})();
+
+	return { showSize, setSize }
+})();
+
+</script>
+</body>
+</html>

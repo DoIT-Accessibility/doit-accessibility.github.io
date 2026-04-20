@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Speak</title>
+	<style>
+		label { display: inline-block; min-width: 2.5em; }
+		.row { margin: .75em 0 0; }
+		#text { width: calc(100% - 10em); }  
+		#transcript { margin-left: 2.75em; width: calc(100% - 6em); min-height: calc(100vh - 15em); }
+	</style>
+</head>
+<body>
+<header></header>
+<main>
+	<h1 class="visually-hidden">Speak</h1>
+	<form>
+		<div class="row" style="display: flex; flex-flow: row wrap; gap: .75em;">
+			<div>
+				<label for="voice">Voice</label>
+				<select id="voice">
+					<option value="">Default</option>
+				</select>
+			</div>
+			<div>
+				<label for="rate">Speed</label>
+				<select id="rate">
+					<option value="0.25">25%</option>
+					<option value="0.5">50%</option>
+					<option value="0.75">75%</option>
+					<option value="1" selected>100%</option>
+					<option value="1.25">125%</option>
+					<option value="1.5">150%</option>
+					<option value="1.75">175%</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				<label for="text">Text</label>
+				<input type="text" id="text">
+				<button>Speak</button>
+			</div>
+		</div>
+		<div class="row">
+			<textarea id="transcript" readonly></textarea>
+		</div>
+	</form>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2024-10-25</footer>
+<script>
+	
+	let settings = { 
+		lang: "en-US", 
+		voice: "", 
+		rate: 1, 
+		pitch: 1
+	};
+	settings = JSON.parse(localStorage.getItem("settings")) || settings;
+
+	let controls = { 
+		form: document.querySelector("form"),
+		voice: document.querySelector("#voice"),
+		rate: document.querySelector("#rate"),
+		//pitch: document.querySelector("#pitch"),
+		text: document.querySelector("#text"),
+		transcript: document.querySelector("#transcript")
+	}
+	controls.rate.value = settings.rate;
+	//controls.pitch = settings.pitch;
+
+	let voices = [];
+	function getVoices() {
+		// TODO: make "Multilingual", "Microsoft", and "Online (Natural)" into constants
+		voices = speechSynthesis.getVoices();
+		voices = voices.filter(voice => voice.lang == settings.lang); 
+		voices = voices.filter(voice => !voice.name.includes("Multilingual"));
+		controls.voice.innerHTML = "";
+		voices.forEach(voice => {
+			const option = document.createElement("option");
+			option.value = voice.name;
+			option.textContent = voice.name.split("-")[0].replace("Microsoft ", "").replace("Online (Natural)", "(Online)");
+			controls.voice.appendChild(option);
+		});
+		if (settings.voice) { controls.voice.value = settings.voice };
+	}
+	getVoices();
+	if (voices.length == 0) {
+		speechSynthesis.addEventListener("voiceschanged", getVoices); 
+		speechSynthesis.addEventListener("voiceschanged", () => { speechSynthesis.removeEventListener("voiceschanged", getVoices) });
+	}
+
+	function speak() {
+		// TODO: make "Hi, I'm" a constant
+		let text = controls.text.value || "Hi, I'm " + controls.voice.options[controls.voice.selectedIndex].text;
+		if (text !== "") {
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.voice = voices.find(voice => voice.name == settings.voice);
+			//utterance.pitch = controls.pitch.value;
+			utterance.rate = settings.rate;
+			speechSynthesis.speak(utterance);
+		}
+		if (controls.text.value != "") {
+			controls.transcript.value = text + "\n" + controls.transcript.value;
+			controls.text.value = "";
+		}
+	}
+
+	function saveSettings() {
+		localStorage.setItem("settings", JSON.stringify(settings));
+	};	
+
+	controls.form.addEventListener("submit", (event) => {
+		event.preventDefault();
+		speak();
+	});
+
+	controls.voice.addEventListener("change", () => {
+		settings.voice = controls.voice.value;
+		saveSettings();
+		speak();
+	});
+
+	controls.rate.addEventListener("change", () => {
+		settings.rate = controls.rate.value;
+		saveSettings();
+		speak();
+	});
+
+</script>
+</body>
+</html>

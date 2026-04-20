@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Color Contrast</title>
+	<style>
+		body { font: 1.2rem/1.5 system-ui, sans-serif; max-width: 32em; margin: 1em auto; }
+		h1, h2 { margin-bottom: .5em; font-weight: 500; }
+		form { font-weight: 600; }
+		button, input { font: inherit; text-align: center; }
+		table { border-collapse: collapse; }
+		th, td { padding: .25em .5em; border: 1px solid #ccc; text-align: center; }
+		thead th { background: #f6f6f6; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Color Contrast</h1>
+		<p><a href="https://www.w3.org/TR/WCAG21/#contrast-minimum"><abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 1.4.3</a> requires text to have adequate contrast so that people who are color blind can comfortably read it. Contrast is measured using a <a href="https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio">formula</a> that gives a ratio ranging from 1:1 (no contrast) to 21:1 (black &amp; white). Using this formula, the mininum requirements are:</p>
+		<ul>
+			<li>3.0:1 - minimum contrast for <a href="https://www.w3.org/TR/WCAG21/#dfn-large-scale">large scale</a> text (24px or 20px bold)</li>
+			<li>4.5:1 - minimum contrast for regular sized text (Level AA)</li>
+			<li>7.0:1 - enhanced contrast for regular sized text (Level AAA)</li>
+		</ul>
+		<p>To check contrast, use the <a href="https://www.tpgi.com/color-contrast-checker/">Colour Contrast Analyser</a> or the tools below:</p>
+		<div id="ContrastRatioCalculator">
+			<form action="#" method="get">
+				<label>Colors:</label>
+				<input type="text" id="ForegroundTextBox" size="5" maxlength="7" value="#000" title="Foreground Color" />
+				<input type="text" id="BackgroundTextBox" size="5" maxlength="7" value="#fff" title="Background Color" />
+				<input type="button" class="button" id="CalculateButton" value="Calculate" />
+				<input type="text" id="RatioTextBox" size="4" value="21:1" readonly="readonly" title="Contrast Ratio" />
+				<input type="text" id="NormalTextBox" size="2" value="AAA" readonly="readonly" title="Normal Text Compliance Level" style="font-weight: normal;" />
+				<input type="text" id="LargeTextBox" size="2" value="AAA" readonly="readonly" title="Large Text Compliance Level" style="font-weight: bold;" />
+			</form>
+		</div>
+		<h2>Samples</h2>
+		<table summary="Contrast Ratio Samples">
+			<thead>
+				<tr>
+					<th scope="colgroup" colspan="2">Color</th>
+					<th scope="colgroup" colspan="3">vs White</th>
+					<th scope="colgroup" colspan="3">vs Black</th>
+				</tr>
+				<tr>
+					<th scope="col">Value</th>
+					<th scope="col">Sample</th>
+					<th scope="col">Ratio</th>
+					<th scope="col">Normal</th>
+					<th scope="col">Large</th>
+					<th scope="col">Ratio</th>
+					<th scope="col">Normal</th>
+					<th scope="col">Large</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>#000</th>
+					<td style="color: #000; background-color: #000"></td>
+					<td>21</td>
+					<td style="color: #fff; background-color: #000">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #000">AAA</td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#300</th>
+					<td style="color: #300; background-color: #300"></td>
+					<td>18.4</td>
+					<td style="color: #fff; background-color: #300">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #300">AAA</td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#330</th>
+					<td style="color: #330; background-color: #330"></td>
+					<td>13</td>
+					<td style="color: #fff; background-color: #330">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #330">AAA</td>
+					<td>1.6</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#030</th>
+					<td style="color: #030; background-color: #030"></td>
+					<td>14.3</td>
+					<td style="color: #fff; background-color: #030">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #030">AAA</td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#033</th>
+					<td style="color: #033; background-color: #033"></td>
+					<td>13.8</td>
+					<td style="color: #fff; background-color: #033">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #033">AAA</td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#003</th>
+					<td style="color: #003; background-color: #003"></td>
+					<td>20</td>
+					<td style="color: #fff; background-color: #003">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #003">AAA</td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#303</th>
+					<td style="color: #303; background-color: #303"></td>
+					<td>17.7</td>
+					<td style="color: #fff; background-color: #303">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #303">AAA</td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#600</th>
+					<td style="color: #600; background-color: #600"></td>
+					<td>13.4</td>
+					<td style="color: #fff; background-color: #600">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #600">AAA</td>
+					<td>1.6</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#630</th>
+					<td style="color: #630; background-color: #630"></td>
+					<td>10.3</td>
+					<td style="color: #fff; background-color: #630">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #630">AAA</td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#660</th>
+					<td style="color: #660; background-color: #660"></td>
+					<td>6.1</td>
+					<td style="color: #fff; background-color: #660">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #660">AAA</td>
+					<td>3.5</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #660">AA</td>
+				</tr>
+				<tr>
+					<th>#360</th>
+					<td style="color: #360; background-color: #360"></td>
+					<td>6.9</td>
+					<td style="color: #fff; background-color: #360">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #360">AAA</td>
+					<td>3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #360">AA</td>
+				</tr>
+				<tr>
+					<th>#060</th>
+					<td style="color: #060; background-color: #060"></td>
+					<td>7.2</td>
+					<td style="color: #fff; background-color: #060">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #060">AAA</td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#063</th>
+					<td style="color: #063; background-color: #063"></td>
+					<td>7.1</td>
+					<td style="color: #fff; background-color: #063">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #063">AAA</td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#066</th>
+					<td style="color: #066; background-color: #066"></td>
+					<td>6.8</td>
+					<td style="color: #fff; background-color: #066">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #066">AAA</td>
+					<td>3.1</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #066">AA</td>
+				</tr>
+				<tr>
+					<th>#036</th>
+					<td style="color: #036; background-color: #036"></td>
+					<td>12.6</td>
+					<td style="color: #fff; background-color: #036">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #036">AAA</td>
+					<td>1.7</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#006</th>
+					<td style="color: #006; background-color: #006"></td>
+					<td>17.6</td>
+					<td style="color: #fff; background-color: #006">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #006">AAA</td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#306</th>
+					<td style="color: #306; background-color: #306"></td>
+					<td>15.8</td>
+					<td style="color: #fff; background-color: #306">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #306">AAA</td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#606</th>
+					<td style="color: #606; background-color: #606"></td>
+					<td>12</td>
+					<td style="color: #fff; background-color: #606">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #606">AAA</td>
+					<td>1.8</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#603</th>
+					<td style="color: #603; background-color: #603"></td>
+					<td>13</td>
+					<td style="color: #fff; background-color: #603">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #603">AAA</td>
+					<td>1.6</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#900</th>
+					<td style="color: #900; background-color: #900"></td>
+					<td>8.9</td>
+					<td style="color: #fff; background-color: #900">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #900">AAA</td>
+					<td>2.4</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#930</th>
+					<td style="color: #930; background-color: #930"></td>
+					<td>7.4</td>
+					<td style="color: #fff; background-color: #930">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #930">AAA</td>
+					<td>2.8</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#960</th>
+					<td style="color: #960; background-color: #960"></td>
+					<td>4.9</td>
+					<td style="font-weight: bold; color: #fff; background-color: #960">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #960">AAA</td>
+					<td>4.3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #960">AA</td>
+				</tr>
+				<tr>
+					<th>#990</th>
+					<td style="color: #990; background-color: #990"></td>
+					<td>3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #990">AA</td>
+					<td>6.9</td>
+					<td style="color: #000; background-color: #990">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #990">AAA</td>
+				</tr>
+				<tr>
+					<th>#690</th>
+					<td style="color: #690; background-color: #690"></td>
+					<td>3.4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #690">AA</td>
+					<td>6.1</td>
+					<td style="color: #000; background-color: #690">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #690">AAA</td>
+				</tr>
+				<tr>
+					<th>#390</th>
+					<td style="color: #390; background-color: #390"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #390">AA</td>
+					<td>5.7</td>
+					<td style="color: #000; background-color: #390">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #390">AAA</td>
+				</tr>
+				<tr>
+					<th>#090</th>
+					<td style="color: #090; background-color: #090"></td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #090">AA</td>
+					<td>5.6</td>
+					<td style="color: #000; background-color: #090">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #090">AAA</td>
+				</tr>
+				<tr>
+					<th>#093</th>
+					<td style="color: #093; background-color: #093"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #093">AA</td>
+					<td>5.6</td>
+					<td style="color: #000; background-color: #093">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #093">AAA</td>
+				</tr>
+				<tr>
+					<th>#096</th>
+					<td style="color: #096; background-color: #096"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #096">AA</td>
+					<td>5.7</td>
+					<td style="color: #000; background-color: #096">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #096">AAA</td>
+				</tr>
+				<tr>
+					<th>#099</th>
+					<td style="color: #099; background-color: #099"></td>
+					<td>3.5</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #099">AA</td>
+					<td>6</td>
+					<td style="color: #000; background-color: #099">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #099">AAA</td>
+				</tr>
+				<tr>
+					<th>#069</th>
+					<td style="color: #069; background-color: #069"></td>
+					<td>6.2</td>
+					<td style="color: #fff; background-color: #069">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #069">AAA</td>
+					<td>3.4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #069">AA</td>
+				</tr>
+				<tr>
+					<th>#039</th>
+					<td style="color: #039; background-color: #039"></td>
+					<td>10.9</td>
+					<td style="color: #fff; background-color: #039">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #039">AAA</td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#009</th>
+					<td style="color: #009; background-color: #009"></td>
+					<td>14.4</td>
+					<td style="color: #fff; background-color: #009">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #009">AAA</td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#309</th>
+					<td style="color: #309; background-color: #309"></td>
+					<td>13.1</td>
+					<td style="color: #fff; background-color: #309">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #309">AAA</td>
+					<td>1.6</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#609</th>
+					<td style="color: #609; background-color: #609"></td>
+					<td>10.4</td>
+					<td style="color: #fff; background-color: #609">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #609">AAA</td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#909</th>
+					<td style="color: #909; background-color: #909"></td>
+					<td>7.5</td>
+					<td style="color: #fff; background-color: #909">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #909">AAA</td>
+					<td>2.8</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#906</th>
+					<td style="color: #906; background-color: #906"></td>
+					<td>8.2</td>
+					<td style="color: #fff; background-color: #906">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #906">AAA</td>
+					<td>2.5</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#903</th>
+					<td style="color: #903; background-color: #903"></td>
+					<td>8.7</td>
+					<td style="color: #fff; background-color: #903">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #903">AAA</td>
+					<td>2.4</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#c00</th>
+					<td style="color: #c00; background-color: #c00"></td>
+					<td>5.9</td>
+					<td style="color: #fff; background-color: #c00">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c00">AAA</td>
+					<td>3.6</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c00">AA</td>
+				</tr>
+				<tr>
+					<th>#c30</th>
+					<td style="color: #c30; background-color: #c30"></td>
+					<td>5.2</td>
+					<td style="color: #fff; background-color: #c30">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c30">AAA</td>
+					<td>4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c30">AA</td>
+				</tr>
+				<tr>
+					<th>#c60</th>
+					<td style="color: #c60; background-color: #c60"></td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #c60">AA</td>
+					<td>5.5</td>
+					<td style="color: #000; background-color: #c60">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c60">AAA</td>
+				</tr>
+				<tr>
+					<th>#c90</th>
+					<td style="color: #c90; background-color: #c90"></td>
+					<td>2.6</td>
+					<td></td>
+					<td></td>
+					<td>8.1</td>
+					<td style="color: #000; background-color: #c90">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c90">AAA</td>
+				</tr>
+				<tr>
+					<th>#cc0</th>
+					<td style="color: #cc0; background-color: #cc0"></td>
+					<td>1.7</td>
+					<td></td>
+					<td></td>
+					<td>12.2</td>
+					<td style="color: #000; background-color: #cc0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cc0">AAA</td>
+				</tr>
+				<tr>
+					<th>#9c0</th>
+					<td style="color: #9c0; background-color: #9c0"></td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+					<td>11</td>
+					<td style="color: #000; background-color: #9c0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9c0">AAA</td>
+				</tr>
+				<tr>
+					<th>#6c0</th>
+					<td style="color: #6c0; background-color: #6c0"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>10.2</td>
+					<td style="color: #000; background-color: #6c0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6c0">AAA</td>
+				</tr>
+				<tr>
+					<th>#3c0</th>
+					<td style="color: #3c0; background-color: #3c0"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>9.8</td>
+					<td style="color: #000; background-color: #3c0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3c0">AAA</td>
+				</tr>
+				<tr>
+					<th>#0c0</th>
+					<td style="color: #0c0; background-color: #0c0"></td>
+					<td>2.2</td>
+					<td></td>
+					<td></td>
+					<td>9.6</td>
+					<td style="color: #000; background-color: #0c0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0c0">AAA</td>
+				</tr>
+				<tr>
+					<th>#0c3</th>
+					<td style="color: #0c3; background-color: #0c3"></td>
+					<td>2.2</td>
+					<td></td>
+					<td></td>
+					<td>9.7</td>
+					<td style="color: #000; background-color: #0c3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0c3">AAA</td>
+				</tr>
+				<tr>
+					<th>#0c6</th>
+					<td style="color: #0c6; background-color: #0c6"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>9.8</td>
+					<td style="color: #000; background-color: #0c6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0c6">AAA</td>
+				</tr>
+				<tr>
+					<th>#0c9</th>
+					<td style="color: #0c9; background-color: #0c9"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>10.1</td>
+					<td style="color: #000; background-color: #0c9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0c9">AAA</td>
+				</tr>
+				<tr>
+					<th>#0cc</th>
+					<td style="color: #0cc; background-color: #0cc"></td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td>10.5</td>
+					<td style="color: #000; background-color: #0cc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0cc">AAA</td>
+				</tr>
+				<tr>
+					<th>#09c</th>
+					<td style="color: #09c; background-color: #09c"></td>
+					<td>3.3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #09c">AA</td>
+					<td>6.4</td>
+					<td style="color: #000; background-color: #09c">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #09c">AAA</td>
+				</tr>
+				<tr>
+					<th>#06c</th>
+					<td style="color: #06c; background-color: #06c"></td>
+					<td>5.6</td>
+					<td style="color: #fff; background-color: #06c">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #06c">AAA</td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #06c">AA</td>
+				</tr>
+				<tr>
+					<th>#03c</th>
+					<td style="color: #03c; background-color: #03c"></td>
+					<td>9</td>
+					<td style="color: #fff; background-color: #03c">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #03c">AAA</td>
+					<td>2.3</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#00c</th>
+					<td style="color: #00c; background-color: #00c"></td>
+					<td>11.2</td>
+					<td style="color: #fff; background-color: #00c">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #00c">AAA</td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#30c</th>
+					<td style="color: #30c; background-color: #30c"></td>
+					<td>10.4</td>
+					<td style="color: #fff; background-color: #30c">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #30c">AAA</td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#60c</th>
+					<td style="color: #60c; background-color: #60c"></td>
+					<td>8.6</td>
+					<td style="color: #fff; background-color: #60c">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #60c">AAA</td>
+					<td>2.4</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#90c</th>
+					<td style="color: #90c; background-color: #90c"></td>
+					<td>6.5</td>
+					<td style="color: #fff; background-color: #90c">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #90c">AAA</td>
+					<td>3.2</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #90c">AA</td>
+				</tr>
+				<tr>
+					<th>#c0c</th>
+					<td style="color: #c0c; background-color: #c0c"></td>
+					<td>4.7</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c0c">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c0c">AAA</td>
+					<td>4.4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c0c">AA</td>
+				</tr>
+				<tr>
+					<th>#c09</th>
+					<td style="color: #c09; background-color: #c09"></td>
+					<td>5.2</td>
+					<td style="color: #fff; background-color: #c09">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c09">AAA</td>
+					<td>4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c09">AA</td>
+				</tr>
+				<tr>
+					<th>#c06</th>
+					<td style="color: #c06; background-color: #c06"></td>
+					<td>5.6</td>
+					<td style="color: #fff; background-color: #c06">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c06">AAA</td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c06">AA</td>
+				</tr>
+				<tr>
+					<th>#c03</th>
+					<td style="color: #c03; background-color: #c03"></td>
+					<td>5.8</td>
+					<td style="color: #fff; background-color: #c03">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #c03">AAA</td>
+					<td>3.6</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #c03">AA</td>
+				</tr>
+				<tr>
+					<th>#f00</th>
+					<td style="color: #f00; background-color: #f00"></td>
+					<td>4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f00">AA</td>
+					<td>5.3</td>
+					<td style="color: #000; background-color: #f00">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f00">AAA</td>
+				</tr>
+				<tr>
+					<th>#f30</th>
+					<td style="color: #f30; background-color: #f30"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f30">AA</td>
+					<td>5.7</td>
+					<td style="color: #000; background-color: #f30">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f30">AAA</td>
+				</tr>
+				<tr>
+					<th>#f60</th>
+					<td style="color: #f60; background-color: #f60"></td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+					<td>7.2</td>
+					<td style="color: #000; background-color: #f60">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f60">AAA</td>
+				</tr>
+				<tr>
+					<th>#f90</th>
+					<td style="color: #f90; background-color: #f90"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>9.8</td>
+					<td style="color: #000; background-color: #f90">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f90">AAA</td>
+				</tr>
+				<tr>
+					<th>#fc0</th>
+					<td style="color: #fc0; background-color: #fc0"></td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+					<td>13.9</td>
+					<td style="color: #000; background-color: #fc0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fc0">AAA</td>
+				</tr>
+				<tr>
+					<th>#ff0</th>
+					<td style="color: #ff0; background-color: #ff0"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>19.6</td>
+					<td style="color: #000; background-color: #ff0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ff0">AAA</td>
+				</tr>
+				<tr>
+					<th>#cf0</th>
+					<td style="color: #cf0; background-color: #cf0"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>17.9</td>
+					<td style="color: #000; background-color: #cf0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cf0">AAA</td>
+				</tr>
+				<tr>
+					<th>#9f0</th>
+					<td style="color: #9f0; background-color: #9f0"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.7</td>
+					<td style="color: #000; background-color: #9f0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9f0">AAA</td>
+				</tr>
+				<tr>
+					<th>#6f0</th>
+					<td style="color: #6f0; background-color: #6f0"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>15.9</td>
+					<td style="color: #000; background-color: #6f0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6f0">AAA</td>
+				</tr>
+				<tr>
+					<th>#3f0</th>
+					<td style="color: #3f0; background-color: #3f0"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.4</td>
+					<td style="color: #000; background-color: #3f0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3f0">AAA</td>
+				</tr>
+				<tr>
+					<th>#0f0</th>
+					<td style="color: #0f0; background-color: #0f0"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.3</td>
+					<td style="color: #000; background-color: #0f0">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0f0">AAA</td>
+				</tr>
+				<tr>
+					<th>#0f3</th>
+					<td style="color: #0f3; background-color: #0f3"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.4</td>
+					<td style="color: #000; background-color: #0f3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0f3">AAA</td>
+				</tr>
+				<tr>
+					<th>#0f6</th>
+					<td style="color: #0f6; background-color: #0f6"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.5</td>
+					<td style="color: #000; background-color: #0f6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0f6">AAA</td>
+				</tr>
+				<tr>
+					<th>#0f9</th>
+					<td style="color: #0f9; background-color: #0f9"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>15.8</td>
+					<td style="color: #000; background-color: #0f9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0f9">AAA</td>
+				</tr>
+				<tr>
+					<th>#0fc</th>
+					<td style="color: #0fc; background-color: #0fc"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.2</td>
+					<td style="color: #000; background-color: #0fc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0fc">AAA</td>
+				</tr>
+				<tr>
+					<th>#0ff</th>
+					<td style="color: #0ff; background-color: #0ff"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.7</td>
+					<td style="color: #000; background-color: #0ff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0ff">AAA</td>
+				</tr>
+				<tr>
+					<th>#0cf</th>
+					<td style="color: #0cf; background-color: #0cf"></td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+					<td>11.1</td>
+					<td style="color: #000; background-color: #0cf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #0cf">AAA</td>
+				</tr>
+				<tr>
+					<th>#09f</th>
+					<td style="color: #09f; background-color: #09f"></td>
+					<td>2.99</td>
+					<td></td>
+					<td></td>
+					<td>7</td>
+					<td style="color: #000; background-color: #09f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #09f">AAA</td>
+				</tr>
+				<tr>
+					<th>#06f</th>
+					<td style="color: #06f; background-color: #06f"></td>
+					<td>4.8</td>
+					<td style="font-weight: bold; color: #fff; background-color: #06f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #06f">AAA</td>
+					<td>4.3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #06f">AA</td>
+				</tr>
+				<tr>
+					<th>#03f</th>
+					<td style="color: #03f; background-color: #03f"></td>
+					<td>7.2</td>
+					<td style="color: #fff; background-color: #03f">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #03f">AAA</td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#00f</th>
+					<td style="color: #00f; background-color: #00f"></td>
+					<td>8.6</td>
+					<td style="color: #fff; background-color: #00f">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #00f">AAA</td>
+					<td>2.4</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#30f</th>
+					<td style="color: #30f; background-color: #30f"></td>
+					<td>8.1</td>
+					<td style="color: #fff; background-color: #30f">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #30f">AAA</td>
+					<td>2.6</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#60f</th>
+					<td style="color: #60f; background-color: #60f"></td>
+					<td>7</td>
+					<td style="color: #fff; background-color: #60f">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #60f">AAA</td>
+					<td>3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #60f">AA</td>
+				</tr>
+				<tr>
+					<th>#90f</th>
+					<td style="color: #90f; background-color: #90f"></td>
+					<td>5.5</td>
+					<td style="color: #fff; background-color: #90f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #90f">AAA</td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #90f">AA</td>
+				</tr>
+				<tr>
+					<th>#c0f</th>
+					<td style="color: #c0f; background-color: #c0f"></td>
+					<td>4.2</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #c0f">AA</td>
+					<td>5</td>
+					<td style="color: #000; background-color: #c0f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c0f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f0f</th>
+					<td style="color: #f0f; background-color: #f0f"></td>
+					<td>3.1</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f0f">AA</td>
+					<td>6.7</td>
+					<td style="color: #000; background-color: #f0f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f0f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f0c</th>
+					<td style="color: #f0c; background-color: #f0c"></td>
+					<td>3.4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f0c">AA</td>
+					<td>6.1</td>
+					<td style="color: #000; background-color: #f0c">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f0c">AAA</td>
+				</tr>
+				<tr>
+					<th>#f09</th>
+					<td style="color: #f09; background-color: #f09"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f09">AA</td>
+					<td>5.7</td>
+					<td style="color: #000; background-color: #f09">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f09">AAA</td>
+				</tr>
+				<tr>
+					<th>#f06</th>
+					<td style="color: #f06; background-color: #f06"></td>
+					<td>3.9</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f06">AA</td>
+					<td>5.4</td>
+					<td style="color: #000; background-color: #f06">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f06">AAA</td>
+				</tr>
+				<tr>
+					<th>#f03</th>
+					<td style="color: #f03; background-color: #f03"></td>
+					<td>4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f03">AA</td>
+					<td>5.3</td>
+					<td style="color: #000; background-color: #f03">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f03">AAA</td>
+				</tr>
+				<tr>
+					<th>#f33</th>
+					<td style="color: #f33; background-color: #f33"></td>
+					<td>3.6</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f33">AA</td>
+					<td>5.8</td>
+					<td style="color: #000; background-color: #f33">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f33">AAA</td>
+				</tr>
+				<tr>
+					<th>#f63</th>
+					<td style="color: #f63; background-color: #f63"></td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+					<td>7.2</td>
+					<td style="color: #000; background-color: #f63">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f63">AAA</td>
+				</tr>
+				<tr>
+					<th>#f93</th>
+					<td style="color: #f93; background-color: #f93"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>9.9</td>
+					<td style="color: #000; background-color: #f93">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f93">AAA</td>
+				</tr>
+				<tr>
+					<th>#fc3</th>
+					<td style="color: #fc3; background-color: #fc3"></td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+					<td>13.9</td>
+					<td style="color: #000; background-color: #fc3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fc3">AAA</td>
+				</tr>
+				<tr>
+					<th>#ff3</th>
+					<td style="color: #ff3; background-color: #ff3"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>19.6</td>
+					<td style="color: #000; background-color: #ff3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ff3">AAA</td>
+				</tr>
+				<tr>
+					<th>#cf3</th>
+					<td style="color: #cf3; background-color: #cf3"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>17.9</td>
+					<td style="color: #000; background-color: #cf3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cf3">AAA</td>
+				</tr>
+				<tr>
+					<th>#9f3</th>
+					<td style="color: #9f3; background-color: #9f3"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.7</td>
+					<td style="color: #000; background-color: #9f3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9f3">AAA</td>
+				</tr>
+				<tr>
+					<th>#6f3</th>
+					<td style="color: #6f3; background-color: #6f3"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>15.9</td>
+					<td style="color: #000; background-color: #6f3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6f3">AAA</td>
+				</tr>
+				<tr>
+					<th>#3f3</th>
+					<td style="color: #3f3; background-color: #3f3"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.5</td>
+					<td style="color: #000; background-color: #3f3">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3f3">AAA</td>
+				</tr>
+				<tr>
+					<th>#3f6</th>
+					<td style="color: #3f6; background-color: #3f6"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>15.6</td>
+					<td style="color: #000; background-color: #3f6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3f6">AAA</td>
+				</tr>
+				<tr>
+					<th>#3f9</th>
+					<td style="color: #3f9; background-color: #3f9"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>15.9</td>
+					<td style="color: #000; background-color: #3f9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3f9">AAA</td>
+				</tr>
+				<tr>
+					<th>#3fc</th>
+					<td style="color: #3fc; background-color: #3fc"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.3</td>
+					<td style="color: #000; background-color: #3fc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3fc">AAA</td>
+				</tr>
+				<tr>
+					<th>#3ff</th>
+					<td style="color: #3ff; background-color: #3ff"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>16.9</td>
+					<td style="color: #000; background-color: #3ff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3ff">AAA</td>
+				</tr>
+				<tr>
+					<th>#3cf</th>
+					<td style="color: #3cf; background-color: #3cf"></td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+					<td>11.2</td>
+					<td style="color: #000; background-color: #3cf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #3cf">AAA</td>
+				</tr>
+				<tr>
+					<th>#39f</th>
+					<td style="color: #39f; background-color: #39f"></td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+					<td>7.1</td>
+					<td style="color: #000; background-color: #39f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #39f">AAA</td>
+				</tr>
+				<tr>
+					<th>#36f</th>
+					<td style="color: #36f; background-color: #36f"></td>
+					<td>4.7</td>
+					<td style="font-weight: bold; color: #fff; background-color: #36f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #36f">AAA</td>
+					<td>4.5</td>
+					<td style="font-weight: bold; color: #000; background-color: #36f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #36f">AAA</td>
+				</tr>
+				<tr>
+					<th>#33f</th>
+					<td style="color: #33f; background-color: #33f"></td>
+					<td>6.9</td>
+					<td style="color: #fff; background-color: #33f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #33f">AAA</td>
+					<td>3.1</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #33f">AA</td>
+				</tr>
+				<tr>
+					<th>#63f</th>
+					<td style="color: #63f; background-color: #63f"></td>
+					<td>6</td>
+					<td style="color: #fff; background-color: #63f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #63f">AAA</td>
+					<td>3.5</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #63f">AA</td>
+				</tr>
+				<tr>
+					<th>#93f</th>
+					<td style="color: #93f; background-color: #93f"></td>
+					<td>4.9</td>
+					<td style="font-weight: bold; color: #fff; background-color: #93f">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #93f">AAA</td>
+					<td>4.3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #93f">AA</td>
+				</tr>
+				<tr>
+					<th>#c3f</th>
+					<td style="color: #c3f; background-color: #c3f"></td>
+					<td>3.8</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #c3f">AA</td>
+					<td>5.5</td>
+					<td style="color: #000; background-color: #c3f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c3f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f3f</th>
+					<td style="color: #f3f; background-color: #f3f"></td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+					<td>7.2</td>
+					<td style="color: #000; background-color: #f3f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f3f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f3c</th>
+					<td style="color: #f3c; background-color: #f3c"></td>
+					<td>3.2</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f3c">AA</td>
+					<td>6.6</td>
+					<td style="color: #000; background-color: #f3c">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f3c">AAA</td>
+				</tr>
+				<tr>
+					<th>#f39</th>
+					<td style="color: #f39; background-color: #f39"></td>
+					<td>3.4</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f39">AA</td>
+					<td>6.2</td>
+					<td style="color: #000; background-color: #f39">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f39">AAA</td>
+				</tr>
+				<tr>
+					<th>#f36</th>
+					<td style="color: #f36; background-color: #f36"></td>
+					<td>3.5</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #f36">AA</td>
+					<td>5.9</td>
+					<td style="color: #000; background-color: #f36">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f36">AAA</td>
+				</tr>
+				<tr>
+					<th>#f66</th>
+					<td style="color: #f66; background-color: #f66"></td>
+					<td>2.9</td>
+					<td></td>
+					<td></td>
+					<td>7.3</td>
+					<td style="color: #000; background-color: #f66">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f66">AAA</td>
+				</tr>
+				<tr>
+					<th>#f96</th>
+					<td style="color: #f96; background-color: #f96"></td>
+					<td>2.1</td>
+					<td></td>
+					<td></td>
+					<td>10</td>
+					<td style="color: #000; background-color: #f96">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f96">AAA</td>
+				</tr>
+				<tr>
+					<th>#fc6</th>
+					<td style="color: #fc6; background-color: #fc6"></td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+					<td>14.1</td>
+					<td style="color: #000; background-color: #fc6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fc6">AAA</td>
+				</tr>
+				<tr>
+					<th>#ff6</th>
+					<td style="color: #ff6; background-color: #ff6"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>19.7</td>
+					<td style="color: #000; background-color: #ff6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ff6">AAA</td>
+				</tr>
+				<tr>
+					<th>#cf6</th>
+					<td style="color: #cf6; background-color: #cf6"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>18.1</td>
+					<td style="color: #000; background-color: #cf6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cf6">AAA</td>
+				</tr>
+				<tr>
+					<th>#9f6</th>
+					<td style="color: #9f6; background-color: #9f6"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>16.9</td>
+					<td style="color: #000; background-color: #9f6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9f6">AAA</td>
+				</tr>
+				<tr>
+					<th>#6f6</th>
+					<td style="color: #6f6; background-color: #6f6"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.1</td>
+					<td style="color: #000; background-color: #6f6">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6f6">AAA</td>
+				</tr>
+				<tr>
+					<th>#6f9</th>
+					<td style="color: #6f9; background-color: #6f9"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.3</td>
+					<td style="color: #000; background-color: #6f9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6f9">AAA</td>
+				</tr>
+				<tr>
+					<th>#6fc</th>
+					<td style="color: #6fc; background-color: #6fc"></td>
+					<td>1.3</td>
+					<td></td>
+					<td></td>
+					<td>16.7</td>
+					<td style="color: #000; background-color: #6fc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6fc">AAA</td>
+				</tr>
+				<tr>
+					<th>#6ff</th>
+					<td style="color: #6ff; background-color: #6ff"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>17.3</td>
+					<td style="color: #000; background-color: #6ff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6ff">AAA</td>
+				</tr>
+				<tr>
+					<th>#6cf</th>
+					<td style="color: #6cf; background-color: #6cf"></td>
+					<td>1.8</td>
+					<td></td>
+					<td></td>
+					<td>11.6</td>
+					<td style="color: #000; background-color: #6cf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #6cf">AAA</td>
+				</tr>
+				<tr>
+					<th>#69f</th>
+					<td style="color: #69f; background-color: #69f"></td>
+					<td>2.8</td>
+					<td></td>
+					<td></td>
+					<td>7.6</td>
+					<td style="color: #000; background-color: #69f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #69f">AAA</td>
+				</tr>
+				<tr>
+					<th>#66f</th>
+					<td style="color: #66f; background-color: #66f"></td>
+					<td>4.3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #66f">AA</td>
+					<td>4.9</td>
+					<td style="font-weight: bold; color: #000; background-color: #66f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #66f">AAA</td>
+				</tr>
+				<tr>
+					<th>#96f</th>
+					<td style="color: #96f; background-color: #96f"></td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #96f">AA</td>
+					<td>5.7</td>
+					<td style="color: #000; background-color: #96f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #96f">AAA</td>
+				</tr>
+				<tr>
+					<th>#c6f</th>
+					<td style="color: #c6f; background-color: #c6f"></td>
+					<td>3</td>
+					<td></td>
+					<td style="font-weight: bold; color: #fff; background-color: #c6f">AA</td>
+					<td>6.9</td>
+					<td style="color: #000; background-color: #c6f">AA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c6f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f6f</th>
+					<td style="color: #f6f; background-color: #f6f"></td>
+					<td>2.4</td>
+					<td></td>
+					<td></td>
+					<td>8.6</td>
+					<td style="color: #000; background-color: #f6f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f6f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f6c</th>
+					<td style="color: #f6c; background-color: #f6c"></td>
+					<td>2.6</td>
+					<td></td>
+					<td></td>
+					<td>8</td>
+					<td style="color: #000; background-color: #f6c">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f6c">AAA</td>
+				</tr>
+				<tr>
+					<th>#f69</th>
+					<td style="color: #f69; background-color: #f69"></td>
+					<td>2.8</td>
+					<td></td>
+					<td></td>
+					<td>7.6</td>
+					<td style="color: #000; background-color: #f69">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f69">AAA</td>
+				</tr>
+				<tr>
+					<th>#f99</th>
+					<td style="color: #f99; background-color: #f99"></td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td>10.3</td>
+					<td style="color: #000; background-color: #f99">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f99">AAA</td>
+				</tr>
+				<tr>
+					<th>#fc9</th>
+					<td style="color: #fc9; background-color: #fc9"></td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+					<td>14.3</td>
+					<td style="color: #000; background-color: #fc9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fc9">AAA</td>
+				</tr>
+				<tr>
+					<th>#ff9</th>
+					<td style="color: #ff9; background-color: #ff9"></td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td>20</td>
+					<td style="color: #000; background-color: #ff9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ff9">AAA</td>
+				</tr>
+				<tr>
+					<th>#cf9</th>
+					<td style="color: #cf9; background-color: #cf9"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>18.3</td>
+					<td style="color: #000; background-color: #cf9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cf9">AAA</td>
+				</tr>
+				<tr>
+					<th>#9f9</th>
+					<td style="color: #9f9; background-color: #9f9"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>17.1</td>
+					<td style="color: #000; background-color: #9f9">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9f9">AAA</td>
+				</tr>
+				<tr>
+					<th>#9fc</th>
+					<td style="color: #9fc; background-color: #9fc"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>17.5</td>
+					<td style="color: #000; background-color: #9fc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9fc">AAA</td>
+				</tr>
+				<tr>
+					<th>#9ff</th>
+					<td style="color: #9ff; background-color: #9ff"></td>
+					<td>1.2</td>
+					<td></td>
+					<td></td>
+					<td>18.1</td>
+					<td style="color: #000; background-color: #9ff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9ff">AAA</td>
+				</tr>
+				<tr>
+					<th>#9cf</th>
+					<td style="color: #9cf; background-color: #9cf"></td>
+					<td>1.7</td>
+					<td></td>
+					<td></td>
+					<td>12.4</td>
+					<td style="color: #000; background-color: #9cf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #9cf">AAA</td>
+				</tr>
+				<tr>
+					<th>#99f</th>
+					<td style="color: #99f; background-color: #99f"></td>
+					<td>2.5</td>
+					<td></td>
+					<td></td>
+					<td>8.4</td>
+					<td style="color: #000; background-color: #99f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #99f">AAA</td>
+				</tr>
+				<tr>
+					<th>#c9f</th>
+					<td style="color: #c9f; background-color: #c9f"></td>
+					<td>2.2</td>
+					<td></td>
+					<td></td>
+					<td>9.6</td>
+					<td style="color: #000; background-color: #c9f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #c9f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f9f</th>
+					<td style="color: #f9f; background-color: #f9f"></td>
+					<td>1.9</td>
+					<td></td>
+					<td></td>
+					<td>11.3</td>
+					<td style="color: #000; background-color: #f9f">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f9f">AAA</td>
+				</tr>
+				<tr>
+					<th>#f9c</th>
+					<td style="color: #f9c; background-color: #f9c"></td>
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td>10.7</td>
+					<td style="color: #000; background-color: #f9c">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #f9c">AAA</td>
+				</tr>
+				<tr>
+					<th>#fcc</th>
+					<td style="color: #fcc; background-color: #fcc"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>14.8</td>
+					<td style="color: #000; background-color: #fcc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fcc">AAA</td>
+				</tr>
+				<tr>
+					<th>#ffc</th>
+					<td style="color: #ffc; background-color: #ffc"></td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td>20.4</td>
+					<td style="color: #000; background-color: #ffc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ffc">AAA</td>
+				</tr>
+				<tr>
+					<th>#cfc</th>
+					<td style="color: #cfc; background-color: #cfc"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>18.7</td>
+					<td style="color: #000; background-color: #cfc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cfc">AAA</td>
+				</tr>
+				<tr>
+					<th>#cff</th>
+					<td style="color: #cff; background-color: #cff"></td>
+					<td>1.1</td>
+					<td></td>
+					<td></td>
+					<td>19.3</td>
+					<td style="color: #000; background-color: #cff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #cff">AAA</td>
+				</tr>
+				<tr>
+					<th>#ccf</th>
+					<td style="color: #ccf; background-color: #ccf"></td>
+					<td>1.5</td>
+					<td></td>
+					<td></td>
+					<td>13.6</td>
+					<td style="color: #000; background-color: #ccf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ccf">AAA</td>
+				</tr>
+				<tr>
+					<th>#fcf</th>
+					<td style="color: #fcf; background-color: #fcf"></td>
+					<td>1.4</td>
+					<td></td>
+					<td></td>
+					<td>15.3</td>
+					<td style="color: #000; background-color: #fcf">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fcf">AAA</td>
+				</tr>
+				<tr>
+					<th>#fff</th>
+					<td style="color: #fff; background-color: #fff"></td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td>21</td>
+					<td style="color: #000; background-color: #fff">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #fff">AAA</td>
+				</tr>
+				<tr>
+					<th>#ccc</th>
+					<td style="color: #ccc; background-color: #ccc"></td>
+					<td>1.6</td>
+					<td></td>
+					<td></td>
+					<td>13.1</td>
+					<td style="color: #000; background-color: #ccc">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #ccc">AAA</td>
+				</tr>
+				<tr>
+					<th>#999</th>
+					<td style="color: #999; background-color: #999"></td>
+					<td>2.8</td>
+					<td></td>
+					<td></td>
+					<td>7.4</td>
+					<td style="color: #000; background-color: #999">AAA</td>
+					<td style="font-weight: bold; color: #000; background-color: #999">AAA</td>
+				</tr>
+				<tr>
+					<th>#666</th>
+					<td style="color: #666; background-color: #666"></td>
+					<td>5.7</td>
+					<td style="color: #fff; background-color: #666">AA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #666">AAA</td>
+					<td>3.7</td>
+					<td></td>
+					<td style="font-weight: bold; color: #000; background-color: #666">AA</td>
+				</tr>
+				<tr>
+					<th>#333</th>
+					<td style="color: #333; background-color: #333"></td>
+					<td>12.6</td>
+					<td style="color: #fff; background-color: #333">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #333">AAA</td>
+					<td>1.7</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>#000</th>
+					<td style="color: #000; background-color: #000"></td>
+					<td>21</td>
+					<td style="color: #fff; background-color: #000">AAA</td>
+					<td style="font-weight: bold; color: #fff; background-color: #000">AAA</td>
+					<td>1</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</main>
+	<script type="text/javascript">
+function getLuminance(color) {
+	const hex = color.trim().replace(/^#/, '');
+	let rHex, gHex, bHex;
+
+	if (/^[0-9a-fA-F]{6}$/.test(hex)) {
+		[rHex, gHex, bHex] = [hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)];
+	} else if (/^[0-9a-fA-F]{3}$/.test(hex)) {
+		[rHex, gHex, bHex] = [...hex].map(c => c + c);
+	} else {
+		return NaN;
+	}
+
+	const [r, g, b] = [rHex, gHex, bHex].map(h => parseInt(h, 16) / 255);
+	const linear = c => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+
+	return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b);
+}
+
+function getContrastRatio(color1, color2) {
+	const [L1, L2] = [getLuminance(color1), getLuminance(color2)];
+	if (isNaN(L1) || isNaN(L2)) return NaN;
+	return Math.round(((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)) * 10) / 10;
+}
+
+function showContrastRatio() {
+	const fgInput = document.getElementById("ForegroundTextBox");
+	const bgInput = document.getElementById("BackgroundTextBox");
+	const ratioBox = document.getElementById("RatioTextBox");
+	const normalBox = document.getElementById("NormalTextBox");
+	const largeBox = document.getElementById("LargeTextBox");
+
+	if (!fgInput || !bgInput || !ratioBox || !normalBox || !largeBox) return;
+
+	const fgColor = `#${fgInput.value.replace(/^#/, '')}`;
+	const bgColor = `#${bgInput.value.replace(/^#/, '')}`;
+	const ratio = getContrastRatio(fgColor, bgColor);
+
+	if (isNaN(ratio)) {
+		ratioBox.value = "error";
+		[normalBox, largeBox].forEach(box => {
+			box.style.color = "";
+			box.style.backgroundColor = "";
+			box.value = "";
+		});
+		return;
+	}
+
+	ratioBox.value = `${ratio}:1`;
+
+	const getRating = (threshold) => {
+		if (ratio < threshold[0]) return "No";
+		if (ratio < threshold[1]) return "AA";
+		return "AAA";
+	};
+
+	[normalBox, largeBox].forEach(box => {
+		box.style.color = fgColor;
+		box.style.backgroundColor = bgColor;
+	});
+
+	normalBox.value = getRating([4.5, 7]);
+	largeBox.value = getRating([3, 4.5]);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+	const fgInput = document.getElementById("ForegroundTextBox");
+	const bgInput = document.getElementById("BackgroundTextBox");
+	const calcBtn = document.getElementById("CalculateButton");
+
+	if (fgInput) fgInput.addEventListener("blur", showContrastRatio);
+	if (bgInput) bgInput.addEventListener("blur", showContrastRatio);
+	if (calcBtn) calcBtn.addEventListener("click", showContrastRatio);
+});
+	</script>
+</body>
+</html>

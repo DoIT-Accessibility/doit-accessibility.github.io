@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Automated Accessibility Testing (Isn't Enough)</title>
+	<style>
+		#question { margin: 5vh 0; text-align: center; }
+		.sr-only { position: absolute; left: -10000px; }
+		.sr-only:focus { position: static; left: 0; }
+	</style>
+</head>
+<body>
+<header><nav></nav></header>
+<main>
+	<h1>Automated Accessibility Testing (Isn't Enough)</h1>
+	<section id="question">
+		<p><img src="../images/automated-test.png" alt=""></p>
+		<p><a class="sr-only" href="#answer">Show answer</a></p>
+	</section>
+	<section id="answer" class="sr-only">
+		<p>The 'button' above is completely inaccessible even though it passes most automated accessibility checks. Here's what's wrong:</p>
+		<ul class="discBullets">
+			<li>It looks like text, but it's really an image -- for people who are blind, there's nothing to read. (WCAG&nbsp;1.1.1)</li>
+			<li>If you can use a mouse, you can click on it, but there is no way to click it if you can't use a mouse. (WCAG&nbsp;2.1.1, 4.1.2)</li>
+			<li>Its colors don't have enough contrast, and because it's an image, the colors can't easily be changed. (WCAG&nbsp;1.4.3,&nbsp;1.4.5)</li>
+		</ul>
+		<p>That's three reasons (and five <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> violations) why this example is not accessible to people with disabilities -- and an important reminder that ensuring accessibility takes more than just running an automated checker.</p>
+		<p>(NOTE: This explanation is hidden in a way that it can be read by a screen reader even when is isn't shown - we didn't want it to be inaccessible too :)</p>
+	</section>
+</main>
+<footer><a href=".."><span>Home</span></a> Last Updated: 2023-06-12</footer>
+<script type="text/javascript">
+	const question = document.querySelector("#question");
+	const answer = document.querySelector("#answer");
+	question.addEventListener("click", function() { answer.classList.toggle("sr-only"); })
+</script>	
+</body>
+</html>
