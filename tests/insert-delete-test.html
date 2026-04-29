@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Insert-Delete Test</title>
+	<link rel="stylesheet" href="../site.css">
+	<style>
+		.test ins::before { content: " [insert start] "; }
+		.test ins::after { content: " [insert end] "; }
+		.test del::before { content: " [delete start] "; }
+		.test del::after { content: " [delete end] "; }	
+		.test ins::before, .test ins::after, .test del::before, .test del::after { position: absolute; height: 1px; width: 1px; margin: -1px; overflow: hidden; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Insert/Delete Test</h1>
+		<p>The HTML <code>&lt;ins&gt;</code> element indicates inserted text; the <code>&lt;del&gt;</code> element indicates deleted text.</p>
+		<section>
+			<h2>Example</h2>
+			<p>This <ins>text</ins> is inserted. This <del>text</del> is deleted.</p>
+			<h3>Result</h3>
+			<ul>
+				<li>JAWS 2025: This <em>insertion, text, end insertion</em> is inserted. This <em>strike-through deletion, text, end strike-through deletion</em> is deleted.</li>
+				<li>NVDA 2025: This <em>inserted, text</em> is inserted. This <em>deleted, text</em> is deleted.</li>
+			</ul>
+		</section>
+		<!-- section class="test">
+			<h2>With CSS Content</h2>
+			<p>This <ins>text</ins> is inserted. This <del>text</del> is deleted.</p>
+		</section -->
+		<section>
+			<h2>More Info</h2>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ins">MDN: HTML Inserted Text Element</a></li>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/del">MDN: HTML Deleted Text Element</a></li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-04-29</footer>
+</body>
+</html>
