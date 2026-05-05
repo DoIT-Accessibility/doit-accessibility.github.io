@@ -11,16 +11,16 @@
 <body>
 	<main>
 		<h1>Timer Test</h1>
-		<div role="status" aria-live="polite" aria-atomic="true">
+		<div>
 			<div class="show-pre-messages-wrapper">
 				<div><p>Pre-zero above timer text</p></div>
 				<div class="timer" role="timer" aria-live="off"><span class="timer-days"></span> days : <span class="timer-hours"></span> hours : <span class="timer-minutes"></span> minutes</div>
 				<div><p>Pre-zero below timer text</p></div>
 			</div>
 			<div class="show-post-messages-wrapper" hidden>
-				<div><p>Post-zero above timer text</p></div>
+				<div role="alert" aria-live="polite"><p>Post-zero above timer text</p></div>
 				<div class="timer" role="timer" aria-live="off"><span class="timer-days"></span> days : <span class="timer-hours"></span> hours : <span class="timer-minutes"></span> minutes</div>
-				<div><p>Post-zero below timer text</p></div>
+				<div role="alert" aria-live="polite"><p>Post-zero below timer text</p></div>
 			</div>
 		</div>
 	</main>
@@ -35,7 +35,9 @@
 				timer.days.textContent = Math.trunc(time / (60 * 24));
 				timer.hours.textContent = Math.trunc((time / 60) % 24);
 				timer.minutes.textContent = (time % 60);
-				if (time == 0) { timer.parentElement.toggleAttribute("hidden"); }
+				if (time == 0) { 
+					timer.parentElement.toggleAttribute("hidden");
+				}
 			}, 1000);
 		});
 	</script>
