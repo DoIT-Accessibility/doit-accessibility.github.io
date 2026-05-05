@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer Test</title>
+	<style>
+		body { font-family: system-ui, sans-serif; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Timer Test</h1>
+		<div role="status" aria-live="polite" aria-atomic="true">
+			<div class="show-pre-messages-wrapper">
+				<div><p>Pre-zero above timer text</p></div>
+				<div class="timer" role="timer" aria-live="off"><span class="timer-days"></span> days : <span class="timer-hours"></span> hours : <span class="timer-minutes"></span> minutes</div>
+				<div><p>Pre-zero below timer text</p></div>
+			</div>
+			<div class="show-post-messages-wrapper" hidden>
+				<div><p>Post-zero above timer text</p></div>
+				<div class="timer" role="timer" aria-live="off"><span class="timer-days"></span> days : <span class="timer-hours"></span> hours : <span class="timer-minutes"></span> minutes</div>
+				<div><p>Post-zero below timer text</p></div>
+			</div>
+		</div>
+	</main>
+	<script>
+		document.querySelectorAll(".timer").forEach(timer => {
+			timer.days = timer.querySelector(".timer-days");
+			timer.hours = timer.querySelector(".timer-hours");
+			timer.minutes = timer.querySelector(".timer-minutes");
+			let time = 5;
+			setInterval(() => {
+				time--;
+				timer.days.textContent = Math.trunc(time / (60 * 24));
+				timer.hours.textContent = Math.trunc((time / 60) % 24);
+				timer.minutes.textContent = (time % 60);
+				if (time == 0) { timer.parentElement.toggleAttribute("hidden"); }
+			}, 1000);
+		});
+	</script>
+</body>
+</html>
