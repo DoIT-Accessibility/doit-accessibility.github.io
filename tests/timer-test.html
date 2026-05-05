@@ -13,23 +13,15 @@
 		<h1>Timer Test</h1>
 		<div>
 			<div>
-				<div role="status">
-					<div><p>Pre above</p></div>
-					<div hidden><p>Post above</p></div>
-				</div>
+				<div><p>Pre-zero above</p></div>
 				<div role="timer" aria-atomic="true"><span class="timer-days">-</span> days : <span class="timer-hours">-</span> hours : <span class="timer-minutes">-</span> minutes</div>
-				<div role="status">
-					<div><p>Pre below</p></div>
-					<div hidden><p>Post below</p></div>
-				</div>
+				<div><p>Pre-zero below</p></div>
 			</div>
-			<!--
 			<div hidden>
-				<div role="status" aria-live="polite"><p>Post-zero above</p></div>
+				<div><p>Post-zero above</p></div>
 				<div role="timer" aria-atomic="true"><span class="timer-days">-</span> days : <span class="timer-hours">-</span> hours : <span class="timer-minutes">-</span> minutes</div>
-				<div role="status" aria-live="polite"><p>Post-zero below</p></div>
+				<div><p>Post-zero below</p></div>
 			</div>
-			-->
 		</div>
 	</main>
 	<script>
@@ -44,8 +36,9 @@
 				timer.hours.textContent = Math.trunc((time / 60) % 24);
 				timer.minutes.textContent = (time % 60);
 				if (time == 0) { 
-					//timer.parentElement.toggleAttribute("hidden");
-					timer.parentElement.querySelectorAll(["[role='status']"]).forEach(status => status.querySelectorAll("div").forEach(div => div.toggleAttribute("hidden")));
+					timer.parentElement.toggleAttribute("hidden");
+					timer.parentElement.setAttribute("role", "alert");
+					setTimeout(() => { timer.parentElement.removeAttribute("role"); }, 999);
 				}
 			}, 1000);
 		});
