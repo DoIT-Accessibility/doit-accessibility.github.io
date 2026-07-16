@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SAP Complex Table Test</title>
+	<style>
+		body { font-family: system-ui, sant3-serif; }
+		h1, h2 { font-weight: 500; }
+		table { border-collapse: collapse; margin: .0 .25em .25em 0; }
+		th, td { border: 1px solid #ccc; padding: .25em; text-align: left; vertical-align: top; width: 7em; }
+		.float { width: 7.4em; float: left; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>SAP Complex Table Test</h1>
+		<section>
+			<h2>Aria-labelledby</h2>
+			<p>JAWS 2025 &amp; NVDA 2026 do not read col or row headers. (Narrator always reads both.)</p>
+			<table>
+				<thead>
+					<tr>
+						<th id="c1">City</th>
+						<th id="c2">State</th>
+						<th id="c3">Country</th>
+					</tr>
+				</thead>
+			</table>
+			<table class="float">
+				<tbody>
+					<tr>
+						<th id="r1" aria-labelledby="c1 r1">Chicago</th>
+					</tr>
+					<tr>
+						<th id="r2" aria-labelledby="c1 r2">New York</th>
+					</tr>
+					<tr>
+						<th id="r3" aria-labelledby="c1 r3">Los Angeles</th>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<tbody>
+					<tr>
+						<td id="r1c2" aria-labelledby="r1 c2 r1c2">Illinois</td>
+						<td id="r1c3" aria-labelledby="r1 c3 r1c3">United States</td>
+					</tr>
+					<tr>
+						<td id="r2c2" aria-labelledby="r2 c2 r2c2">New York</td>
+						<td id="r2c3" aria-labelledby="r2 c3 r2c3">United States</td>
+					</tr>
+					<tr>
+						<td id="r3c2" aria-labelledby="r3 c2 r3c2">California</td>
+						<td id="r3c3" aria-labelledby="r3 c3 r3c3">United States</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<section>
+			<h2>Headers</h2>
+			<p>JAWS 2025 &amp; NVDA 2026 do not read col or row headers. (Narrator doesn't either.) Accessibility Insights says headers must be in same table as cells.</p>
+			<table>
+				<thead>
+					<tr>
+						<th id="t2-c1">City</th>
+						<th id="t2-c2">State</th>
+						<th id="t2-c3">Country</th>
+					</tr>
+				</thead>
+			</table>
+			<table class="float">
+				<tbody>
+					<tr>
+						<th id="t2-r1" headers="t2-c1">Chicago</th>
+					</tr>
+					<tr>
+						<th id="t2-r2" headers="t2-c1">New York</th>
+					</tr>
+					<tr>
+						<th id="t2-r3" headers="t2-c1">Los Angeles</th>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<tbody>
+					<tr>
+						<td headers="t2-r1 t2-c2">Illinois</td>
+						<td headers="t2-r1 t2-c3">United States</td>
+					</tr>
+					<tr>
+						<td headers="t2-r2 t2-c2">New York</td>
+						<td headers="t2-r2 t2-c3">United States</td>
+					</tr>
+					<tr>
+						<td headers="t2-r3 t2-c2">California</td>
+						<td headers="t2-r3 t2-c3">United States</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>		
+		<section>
+			<h2>Headers (single table)</h2>
+			<p>JAWS 2025 &amp; NVDA 2026 read col and row headers. (Narrator only reads col headers.)</p>
+			<table>
+				<thead>
+					<tr>
+						<th id="t3-c1">City</th>
+						<th id="t3-c2">State</th>
+						<th id="t3-c3">Country</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th id="t3-r1" headers="t3-c1">Chicago</th>
+						<td headers="t3-r1 t3-c2">Illinois</td>
+						<td headers="t3-r1 t3-c3">United States</td>
+					</tr>
+					<tr>
+						<th id="t3-r2" headers="t3-c1">New York</th>
+						<td headers="t3-r2 t3-c2">New York</td>
+						<td headers="t3-r2 t3-c3">United States</td>
+					</tr>
+					<tr>
+						<th id="t3-r3" headers="t3-c1">Los Angeles</th>
+						<td headers="t3-r3 t3-c2">California</td>
+						<td headers="t3-r3 t3-c3">United States</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<section>
+			<h2>Scope (single table)</h2>
+			<p>JAWS 2025 &amp; NVDA 2026 read col and row headers. (Narrator only reads col headers.)</p>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">City</th>
+						<th scope="col">State</th>
+						<th scope="col">Country</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Chicago</th>
+						<td>Illinois</td>
+						<td>United States</td>
+					</tr>
+					<tr>
+						<th scope="row">New York</th>
+						<td>New York</td>
+						<td>United States</td>
+					</tr>
+					<tr>
+						<th scope="row">Los Angeles</th>
+						<td>California</td>
+						<td>United States</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>				
+	</main>
+</body>
+</html>
