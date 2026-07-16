@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MenuItemRadio Test</title>
+	<style>
+		body { font-family: system-ui, sans-serif; max-width: 800px; margin: auto; }
+		h1, h2 { font-weight: 500; }
+		button { font: inherit; }
+		label { display: block; margin: .25em .5em; }
+		[role="menu"] { border: 1px solid GrayText; background-color: ButtonFace; border-radius: .25em; width: fit-content; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>MenuItemRadio Test</h1>
+		<section>
+			<h2>Example</h2>
+			<p>This example menu with radio buttons includes group labels – It's not clear if this is allowed by the ARIA spec, but it's passing Axe, ARC &amp; Siteimprove.</p>
+			<button class="menubutton" aria-haspopup="menu" aria-controls="menu1" aria-expanded="false">Font ▼</button>
+			<div role="menu" id="menu1" hidden>
+				<div role="group" aria-labelledby="label1">
+					<label id="label1">Weight</label>
+					<label><input type="radio" name="radiogroup1" role="menuitemradio"> Normal</label>
+					<label><input type="radio" name="radiogroup1" role="menuitemradio"> Bold</label>
+				</div>
+				<div role="group" aria-labelledby="label2">
+					<label id="label2">Style</label>
+					<label><input type="radio" name="radiogroup2" role="menuitemradio"> Normal</label>
+					<label><input type="radio" name="radiogroup2" role="menuitemradio"> Italic</label>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/">ARIA Menu Pattern</a></li>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/examples/menubar-editor/">ARIA Editor Menubar Example</a></li>
+				<li><a href="https://www.w3.org/TR/wai-aria-1.3/#menuitemradio">ARIA menuitemradio Role</a></li>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/menuitemradio_role">MDN menuitemradio Role</a></li>
+			</ul>
+		</section>
+	</main>
+	<script>
+document.querySelectorAll(".menubutton").forEach(menubutton => {
+	const menu = document.getElementById(menubutton.getAttribute("aria-controls"));
+	const menuItems = Array.from(menu.querySelectorAll('[role="menuitemradio"]'));
+	const isOpen = () => menubutton.getAttribute("aria-expanded") === "true";
+
+	function toggleMenu(open) {
+		menu.hidden = !open;
+		menubutton.setAttribute("aria-expanded", open);
+		if (open) menuItems[0].focus();
+	}
+
+	menubutton.addEventListener("click", () => toggleMenu(!isOpen()));
+
+	menu.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") {
+			toggleMenu(false);
+			menubutton.focus();
+			return;
+		}
+
+		const delta = event.key === "ArrowDown" ? 1 : event.key === "ArrowUp" ? -1 : 0;
+		if (!delta) return;
+
+		event.preventDefault();
+		const currentIndex = menuItems.indexOf(document.activeElement);
+		menuItems[(currentIndex + delta + menuItems.length) % menuItems.length].focus();
+	});
+
+	document.addEventListener("click", (event) => {
+		if (isOpen() && !menu.contains(event.target) && event.target !== menubutton) {
+			toggleMenu(false);
+		}
+	});
+});
+	</script>
+</body>
+</html>
