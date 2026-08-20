@@ -17,7 +17,7 @@
 	<main>
 		<h1>Chatbot Test</h1>
 		<section id="about">
-			<p>This example demonstrates a typical chatbot. There is no official chatbot design pattern, so it uses the common design of showing responses above a question form.</p>
+			<p>This example demonstrates a chatbot. Since there is no official chatbot design pattern, it uses the common design of showing responses above a question form.</p>
 		</section>
 		<section id="examples">
 
@@ -41,7 +41,7 @@
 		</section>
 		<section class="note">
 			<h2>Recommendation</h2>
-			<p>This simplest solution is to:</p>
+			<p>The simplest solution is to:</p>
 			<ul>
 				<li><strong>Start each response with a heading</strong> - in the above example, the question is repeated before each response and marked up as a <code>h2</code> heading. This enables screen reader users to easily navigate between previous questions/responses. (If this is excessive for long questions, short hidden headings such as "Question 1", "Question 2", etc. could be used instead.)</li>
 				<li><strong>Move focus to the response heading</strong> - by setting <code>tabindex="-1"</code> and dynamically focusing the new heading, screen readers automatically read the heading and position the reading cursor so the user can read the response in the correct order.</li>
@@ -69,13 +69,13 @@ document.querySelectorAll(".chatbot").forEach(chatbot => {
 		question.input = question.querySelector("input");
 		question.addEventListener("submit", e => {
 			e.preventDefault();
-			if (question.input.value.length > 0) {
+			if (question.input.value.trim().length > 0) {
 				const response = Object.assign(document.createElement("div"), { className: "response" });
 				const heading = Object.assign(document.createElement("h2"), { tabIndex: -1 });
-				heading.append(Object.assign(document.createElement("label"), { className: "visually-hidden", textContent: "You asked: "}));
+				heading.append(Object.assign(document.createElement("span"), { className: "visually-hidden", textContent: "You asked: "}));
 				heading.append(question.input.value);
 				response.append(heading);
-				response.append(Object.assign(document.createElement("label"), { className: "visually-hidden", textContent: "AI replied: "}));				
+				response.append(Object.assign(document.createElement("span"), { className: "visually-hidden", textContent: "AI replied: "}));				
 				response.append(`This is test response #${chatbot.responses.children.length + 1}.`);
 				chatbot.responses.append(response);
 				heading.focus();
