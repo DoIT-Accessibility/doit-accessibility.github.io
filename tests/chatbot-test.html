@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../site.css">
+	<title>Chatbot Test</title>
+	<style>
+		.chatbot .responses:not(:empty) { border: 1px solid GrayText; border-radius: .25em; padding-bottom: .75em; }
+		.chatbot .response { margin: 1em; }
+		.chatbot .response h2 { margin: 0; outline: none; }
+		.chatbot .question { margin: 1em 0; }
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<h1>Chatbot Test</h1>
+		<section id="about">
+			<p>This example demonstrates a typical chatbot. There is no official chatbot design pattern, so it uses the common design of showing responses above a question form.</p>
+		</section>
+		<section id="examples">
+
+			<div role="region" aria-label="Chatbot" class="chatbot">
+				<div class="responses"></div>
+				<form class="question">
+					<label>Question: <input type="text" value="This is a test"></label>
+					<button type="submit">Ask</button>
+				</form>
+			</div>
+
+		</section>
+		<section class="note problem">
+			<h2>Problem</h2>
+			<p>The common chatbot design poses several problems for screen reader users:</p>
+			<ul>
+				<li><strong>Knowing that a response has appeared</strong> - responses are typically displayed dynamically without the page reloading. By default, screen readers do not announce when this happens, so users may not recognize that anything happened after entering their question.</li>
+				<li><strong>Knowing where the response is</strong> - responses are typically displayed above the question textbox, which comes <em>before</em> the question in the default reading and focus order, so users need to know to read <em>backwards</em> to find the response and may end up reading long responses in reverse order.</li>
+				<li><strong>Moving between previous responses</strong> - it can be difficult to navigate between multiple responses in the chat history. </li>
+			</ul>
+		</section>
+		<section class="note">
+			<h2>Recommendation</h2>
+			<p>This simplest solution is to:</p>
+			<ul>
+				<li><strong>Start each response with a heading</strong> - in the above example, the question is repeated before each response and marked up as a <code>h2</code> heading. This enables screen reader users to easily navigate between previous questions/responses. (If this is excessive for long questions, short hidden headings such as "Question 1", "Question 2", etc. could be used instead.)</li>
+				<li><strong>Move focus to the response heading</strong> - by setting <code>tabindex="-1"</code> and dynamically focusing the new heading, screen readers automatically read the heading and position the reading cursor so the user can read the response in the correct order.</li>
+			</ul>
+			<p>It is also worth considering:</p>
+			<ul>
+				<li><strong>Labelling questions &amp; responses</strong> - hidden text or icons with alt text can indicate "You asked:" and "AI replied:" (or similar) before each question and answer to help clarify. (This is done in the above example.)</li>
+				<li><strong>Providing a status message</strong> - if there is a delay of more than a few seconds before showing a response, a status message should say "Thinking..." or similar.</li>
+				<li><strong>Using aria-live</strong> - setting <code>aria-live="polite"</code> on the response region will cause screen readers to automatically read the new responses. This is useful for short responses but overwhelming for long responses. It may be best to provide this as an option rather than default behavior.</li>
+			</ul>
+		</section>
+		<section>
+			<h2>References</h2>
+			<ul>
+				<li><a href="https://designsystem.utah.gov/library/patterns/aiChatbot">Utah Design System: AI Chatbot</a> - an alternate approach with responses below the question form.</li>
+			</ul>
+		</section>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-08-20</footer>
+	<script>
+
+document.querySelectorAll(".chatbot").forEach(chatbot => {
+	chatbot.responses = chatbot.querySelector(".responses");
+	chatbot.querySelectorAll(".question").forEach(question => {
+		question.input = question.querySelector("input");
+		question.addEventListener("submit", e => {
+			e.preventDefault();
+			if (question.input.value.length > 0) {
+				const response = Object.assign(document.createElement("div"), { className: "response" });
+				const heading = Object.assign(document.createElement("h2"), { tabIndex: -1 });
+				heading.append(Object.assign(document.createElement("label"), { className: "visually-hidden", textContent: "You asked: "}));
+				heading.append(question.input.value);
+				response.append(heading);
+				response.append(Object.assign(document.createElement("label"), { className: "visually-hidden", textContent: "AI replied: "}));				
+				response.append(`This is test response #${chatbot.responses.children.length + 1}.`);
+				chatbot.responses.append(response);
+				heading.focus();
+			}
+		})
+	})
+});
+
+	</script>
+</body>
+</html>
