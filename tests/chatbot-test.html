@@ -17,7 +17,7 @@
 	<main>
 		<h1>Chatbot Test</h1>
 		<section id="about">
-			<p>This example demonstrates a chatbot. Since there is no official chatbot design pattern, it uses the common design of showing responses above a question form.</p>
+			<p>This example demonstrates a chatbot. Since there is no official chatbot pattern, it uses the common design of showing responses above a question form.</p>
 		</section>
 		<section id="examples">
 
@@ -36,21 +36,21 @@
 			<ul>
 				<li><strong>Knowing that a response has appeared</strong> - responses are typically displayed dynamically without the page reloading. By default, screen readers do not announce when this happens, so users may not recognize that anything happened after entering their question.</li>
 				<li><strong>Knowing where the response is</strong> - responses are typically displayed above the question textbox, which comes <em>before</em> the question in the default reading and focus order, so users need to know to read <em>backwards</em> to find the response and may end up reading long responses in reverse order.</li>
-				<li><strong>Moving between previous responses</strong> - it can be difficult to navigate between multiple responses in the chat history. </li>
+				<li><strong>Moving between previous responses</strong> - it can be difficult to find and navigate between multiple responses in the chat history. </li>
 			</ul>
 		</section>
 		<section class="note">
 			<h2>Recommendation</h2>
 			<p>The simplest solution is to:</p>
 			<ul>
-				<li><strong>Start each response with a heading</strong> - in the above example, the question is repeated before each response and marked up as a <code>h2</code> heading. This enables screen reader users to easily navigate between previous questions/responses. (If this is excessive for long questions, short hidden headings such as "Question 1", "Question 2", etc. could be used instead.)</li>
-				<li><strong>Move focus to the response heading</strong> - by setting <code>tabindex="-1"</code> and dynamically focusing the new heading, screen readers automatically read the heading and position the reading cursor so the user can read the response in the correct order.</li>
+				<li><strong>Start each response with a heading</strong> - in the above example, the question is repeated before each response and marked as an <code>h2</code> heading. This enables screen reader users to easily navigate between previous questions/responses. (If this is excessive for long questions, short, visibibly-hidden headings such as "Question 1", "Question 2", etc. could be used instead.)</li>
+				<li><strong>Move focus to the response heading</strong> - by setting <code>tabindex="-1"</code> and moving focus to each new heading, screen readers automatically read the heading and activate and position the reading cursor so the user can read the response in the correct order (by pressing down arrow).</li>
 			</ul>
 			<p>It is also worth considering:</p>
 			<ul>
-				<li><strong>Labelling questions &amp; responses</strong> - hidden text or icons with alt text can indicate "You asked:" and "AI replied:" (or similar) before each question and answer to help clarify. (This is done in the above example.)</li>
+				<li><strong>Labelling questions &amp; responses</strong> - hidden text (or icons with alt text) can indicate "You asked:" and "AI replied:" (or similar) before each question and answer to help clarify which is which. (This is done in the above example.)</li>
 				<li><strong>Providing a status message</strong> - if there is a delay of more than a few seconds before showing a response, a status message should say "Thinking..." or similar.</li>
-				<li><strong>Using aria-live</strong> - setting <code>aria-live="polite"</code> on the response region will cause screen readers to automatically read the new responses. This is useful for short responses but overwhelming for long responses. It may be best to provide this as an option rather than default behavior.</li>
+				<li><strong>Using aria-live</strong> - setting <code>aria-live="polite"</code> on the response region will cause screen readers to automatically read new responses. This is useful for short responses but overwhelming for long ones. If used, it may be best to provide this as an option, e.g.: <label><input type="checkbox" id="use-aria-live"> Automatically read responses</label>.</li>
 			</ul>
 		</section>
 		<section>
@@ -82,7 +82,15 @@ document.querySelectorAll(".chatbot").forEach(chatbot => {
 			}
 		})
 	})
-});
+})
+
+document.querySelectorAll("#use-aria-live").forEach(checkbox => {
+	checkbox.addEventListener("change", e => {
+		document.querySelectorAll(".chatbot .responses").forEach(chatbot => {
+			chatbot.setAttribute("aria-live", e.currentTarget.checked ? "polite" : "off");
+		})
+	})
+})
 
 	</script>
 </body>
