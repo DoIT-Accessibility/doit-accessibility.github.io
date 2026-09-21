@@ -9,10 +9,10 @@
 		fieldset { border: 0; margin: 0; padding: 0; }
 		legend { float: left; margin: .25em 0; }
 		legend, .grouplabel { display: inline-block; max-width: 20em; margin-right: .25em; vertical-align: top; }
-		label { display: inline-block; padding: .25em; padding-right: 1.5em; border: 1px solid GrayText; border-radius: 3px; background: ButtonFace; color: ButtonText; font-weight: 500; }
+		label:has(input[type="radio"]) { display: inline-block; padding: .25em; padding-right: 1.5em; border: 1px solid GrayText; border-radius: 3px; background: ButtonFace; color: ButtonText; font-weight: 500; }
 		label:has(input[type="radio"]:focus), label:has(input[type="radio"]:hover) { outline: 1px solid ButtonText; }
 		label:has(input[type="radio"]:checked) { background: Highlight; color: HighlightText; forced-color-adjust: none; }
-		/* input[type="radio"] { opacity: 0; } */
+		.hide-radios input[type="radio"] { opacity: 0; }
 		p { margin-bottom: 1em; }
 	</style>
 </head>
@@ -20,7 +20,10 @@
 	<header></header>
 	<main>
 		<h1>Yes/No Button Test</h1>
-		<p>Radio buttons can be styled to look like buttons</p>
+		<p>Radio buttons can be styled to look like buttons. Optionally, you can 
+			<label><input type="checkbox" id="hide-radios"> hide the radio buttons</label> or 
+			<label><input type="checkbox" id="allow-uncheck"> allow unchecking</label>
+		</p>
 		<section>
 			<h2>Example 1: Fieldset &amp; Legend</h2>
 			<p>This example uses a <code>fieldset</code> element to group the radio buttons with a <code>legend</code> element as the group label.</p>
@@ -47,5 +50,45 @@
 		</section>
 	</main>
 	<footer><a href=".."><span>Home</span></a> Last Updated: 2025-08-31</footer>
+	<script>
+		document.querySelectorAll("input#hide-radios").forEach(checkbox => {
+			checkbox.addEventListener("change", event => {
+				if (event.currentTarget.checked) {
+					document.body.classList.add("hide-radios");
+				}
+				else {
+					document.body.classList.remove("hide-radios");
+				}
+			})
+		})
+		document.querySelectorAll("input#allow-uncheck").forEach(checkbox => {
+			checkbox.addEventListener("change", event => {
+				if (event.currentTarget.checked) {
+					const checkedRadio = {};
+					document.querySelectorAll("input[type='radio']").forEach(radio => {
+						radio.addEventListener("click", event => {
+							const group = radio.name || "none";
+							if (checkedRadio[group] === radio) {
+								radio.checked = false;
+								checkedRadio[group] = null;
+							} else {
+								checkedRadio[group] = radio;
+							}
+						});
+						radio.addEventListener("keydown", event => {
+							if (event.key === " " || event.code === "Space") {
+								const group = radio.name || "default";
+								if (radio.checked && checkedRadio[group] === radio) {
+									event.preventDefault(); 
+									radio.checked = false;
+									checkedRadio[group] = null;
+								}
+							}
+						});
+					});
+				}
+			})
+		})
+	</script>
 </body>
 </html>
