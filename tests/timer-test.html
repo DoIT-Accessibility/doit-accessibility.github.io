@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
 	<title>Timer Test</title>
 	<style>
-		body { font-family: system-ui, sans-serif; }
+		
 	</style>
 </head>
 <body>
+	<header></header>
 	<main>
 		<h1>Timer Test</h1>
-		<div>
-			<div>
-				<div><p>Pre-zero above</p></div>
-				<div role="timer" aria-atomic="true"><span class="timer-days">-</span> days : <span class="timer-hours">-</span> hours : <span class="timer-minutes">-</span> minutes</div>
-				<div><p>Pre-zero below</p></div>
+		<p>Intro goes here...</p>
+		<section>
+			<h2>Example</h2>
+			<div role="timer" aria-controls="timer-status-1" data-duration="65">
+				<span class="timer-hours">0</span>
+				<span>hours :</span>
+				<span class="timer-minutes">0</span>
+				<span>minutes :</span>
+				<span class="timer-seconds">0</span>
+				<span>seconds</span>
 			</div>
-			<div hidden>
-				<div><p>Post-zero above</p></div>
-				<div role="timer" aria-atomic="true"><span class="timer-days">-</span> days : <span class="timer-hours">-</span> hours : <span class="timer-minutes">-</span> minutes</div>
-				<div><p>Post-zero below</p></div>
+			<div role="status" id="timer-status-1">
+				<p data-time="">&nbsp;</p>
+				<p hidden data-time="60">1 minute remaining</p>
+				<p hidden data-time="30">30 seconds remaining</p>
+				<p hidden data-time="10">10 seconds remaining</p>
+				<p hidden data-time="0">Timer done</p>
 			</div>
-		</div>
+		</section>
+		<section>
+			<h2>More Information</h2>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/timer_role">MDN ARIA Timer Role</a></li>
+				<li><a href="">ARIA Timer</a></li>
+				<li><a href="">ARIA Status</a></li>
+			</ul>
+		</section>
 	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-05-06</footer>
 	<script>
+
 		document.querySelectorAll("[role='timer']").forEach(timer => {
-			timer.days = timer.querySelector(".timer-days");
-			timer.hours = timer.querySelector(".timer-hours");
-			timer.minutes = timer.querySelector(".timer-minutes");
-			let time = 5;
-			setInterval(() => {
+			const hours = timer.querySelector(".timer-hours");
+			const minutes = timer.querySelector(".timer-minutes");
+			const seconds = timer.querySelector(".timer-seconds");
+			const status = document.getElementById(timer.getAttribute("aria-controls"));
+			const messages = status ? status.querySelectorAll("[data-time]") : [];
+			let time = parseInt(timer.dataset.duration) || 0;
+			const interval = setInterval(() => {
 				time--;
-				timer.days.textContent = Math.trunc(time / (60 * 24));
-				timer.hours.textContent = Math.trunc((time / 60) % 24);
-				timer.minutes.textContent = (time % 60);
-				if (time == 0) { 
-					timer.parentElement.toggleAttribute("hidden");
-					timer.parentElement.setAttribute("role", "alert");
-					setTimeout(() => { timer.parentElement.removeAttribute("role"); }, 999);
+				hours.textContent = Math.trunc(time / 3600);
+				minutes.textContent = Math.trunc((time % 3600) / 60);
+				seconds.textContent = time % 60;
+				messages.forEach(message => {
+					if (parseInt(message.dataset.time) === time) {
+						messages.forEach(message => message.setAttribute("hidden", ""));
+						message.removeAttribute("hidden");
+					}
+				});
+				if (time === 0) {
+					clearInterval(interval);
 				}
 			}, 1000);
 		});
+
 	</script>
 </body>
 </html>
