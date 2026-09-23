@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/site.css">
+	<title>JAWS Lisbox Fix</title>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>JAWS Listbox Fix</h1>
+	<p>A recent update to JAWS and/or Chromium has caused a bug with listboxes (select elements with size attribute greater than 1). In Chrome or Edge, JAWS incorrectly clicks the wrong button after making a selection from the listbox. For more information, see <a href="/tests/jaws-listbox-test.html">JAWS Listbox Bug</a></p>
+	<div>
+		<h2>Fix</h2>
+		<p>This JAWS Listbox Fix browser extension temporarily fixes this issue by setting the multiple attribute on selects with size greater than 1 and removing the multiple attribute while the listbox has focus (to prevent multiple selections).</p>
+		<ol>
+			<li>Download: <a href="jaws-listbox-fix.zip">JAWS-Listbox-Fix.zip</a>.</li>
+			<li>Extract the zip file to a folder on your computer.</li>
+			<li>Open Edge or Chrome.</li>
+			<li>In the address bar, type chrome://extensions and press Enter.</li>
+			<li>Check the "Developer mode" checkbox/toggle button.</li>
+			<li>Click the "Load unpacked" button.</li>
+			<li>Select the folder you extracted in step 2.</li>
+			<li>Whenever you are asked if you want to turn off extensions in developer mode, click Not Now.</li>
+			<li>When this problem is fixed in Chrome/Edge or IES, remove this extension.</li>
+		</ol>
+		<p>This extension is provided without warranty and could have unexpected side effects; please use it only at your own risk.</p>
+	</div>
+</main>
+<footer><a href="/"><span>Home</span></a> Last Updated: 2025-02-25</footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/site.css">
+	<title>IES Image Button Fix</title>
+</head>
+<body>
+<header></header>
+<main>
+	<h1>IES Image Button Fix</h1>
+	<p>An update to Google Chrome and Microsoft Edge (possibly version 131) caused these browsers to stop recognizing alt text on image buttons that have type="IMAGE" in all caps.</p>
+	<div>
+		<h2>Fix</h2>
+		<p>The IES Image Button Fix browser extension temporarily fixes this issue by resetting all input type="IMAGE" to type="image".</p>
+		<ol>
+			<li>Download: <a href="ies-image-button-fix.zip">IES-Image-Button-Fix.zip</a>.</li>
+			<li>Extract the zip file to a folder on your computer.</li>
+			<li>Open Edge or Chrome.</li>
+			<li>In the address bar, type chrome://extensions and press Enter.</li>
+			<li>Check the "Developer mode" checkbox/toggle button.</li>
+			<li>Click the "Load unpacked" button.</li>
+			<li>Select the folder you extracted in step 2.</li>
+			<li>Whenever you are asked if you want to turn off extensions in developer mode, click Not Now.</li>
+			<li>When this problem is fixed in Chrome/Edge or IES, remove this extension.</li>
+		</ol>
+		<p>This extension is provided without warranty and could have unexpected side effects; please use it only at your own risk.</p>
+		<p>This extension is configured only to run on the following web sites. It will not run on other URLs:</p>
+		<ul>
+			<li>iitaa.dev</li>
+			<li>vt2-perf-ies.illinois.gov</li>
+			<li>ies-ext.illinois.gov</li>
+			<li>wp.illinois.gov (added 6/5/2025)</li>	
+		</ul>
+	</div>
+	<form action="#">
+		<h2>Tests</h2>
+		<div>
+			<h3>Test 1: type="image"</h3>
+			<p><input type="image" src="ies-image-button-test-1.png" alt="Test 1"></p>
+			<p>Read as "Test 1 button" as expected.</p>
+		</div>
+		<div>
+			<h3>Test 2: type="IMAGE"</h3>
+			<p><input type="IMAGE" src="ies-image-button-test-2.png" alt="Test 2"></p>
+			<p>Read as "button" (NVDA, Narrator) or "Unlabeled 0 button" (JAWS). Should be read as "Test 2 button".</p>
+		</div>
+	</form>
+</main>
+<footer><a href="/"><span>Home</span></a> Last Updated: 2025-06-05</footer>
+</body>
+</html>
