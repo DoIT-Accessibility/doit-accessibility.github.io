@@ -6,8 +6,8 @@
 	<title>Toggle Button Test</title>
 	<link rel="stylesheet" href="../site.css">
 	<style>
-		button { border: 1px solid #808080; border-radius: 3px; padding: .25em .5em .5em; }
-		button[aria-pressed="true"] { background: #00A1FF; }
+		button { background: ButtonFace; color: ButtonText; border: 1px solid GrayText; border-radius: 3px; }
+		button[aria-pressed="true"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
 	</style>
 </head>
 <body>
@@ -15,7 +15,8 @@
 <main>
 	<h1>Toggle Button Test</h1>
 	<p>A toggle button uses aria-pressed="true" or "false" to indicate whether it is "pressed" or "not pressed".</p>
-	<p>
+	<p role="group" aria-labelledby="group-label">
+		<span id="group-label">Do you like long weekends?</span>
 		<button aria-label="Like" aria-pressed="true">&#x1F44D;</button>
 		<button aria-label="Dislike" aria-pressed="false">&#x1F44E;</button>
 	</p>
@@ -25,7 +26,7 @@
 <script>
 	document.querySelectorAll("button[aria-label]").forEach(button => {
 		button.addEventListener("click", event => { 
-			button.setAttribute("aria-pressed", button.getAttribute("aria-pressed").match(/true/i) ? "false" : "true");
+			button.setAttribute("aria-pressed", button.getAttribute("aria-pressed") !== "true");
 		})
 	})
 </script>
