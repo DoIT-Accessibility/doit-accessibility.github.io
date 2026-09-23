@@ -1,1 +1,0 @@
-document.querySelectorAll('input[type="IMAGE"]').forEach(input => { input.type = "image"; });
