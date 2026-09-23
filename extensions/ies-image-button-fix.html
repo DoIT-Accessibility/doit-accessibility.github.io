@@ -10,10 +10,11 @@
 <header></header>
 <main>
 	<h1>IES Image Button Fix</h1>
-	<p>An update to Google Chrome and Microsoft Edge (possibly version 131) caused these browsers to stop recognizing alt text on buttons with type="IMAGE" in all caps.</p>
-	<div>
-		<h2>Fix</h2>
-		<p>The IES Image Button Fix browser extension temporarily fixes this issue by resetting all input type="IMAGE" to type="image".</p>
+	<p>An update to Google Chrome and Microsoft Edge (around version 131) caused these browsers to stop recognizing alt text on buttons with type="IMAGE" in all caps.</p>
+	<p>This browser extension temporarily fixes this issue by resetting all input type="IMAGE" (uppercase) to type="image" (lowercase).</p>
+	<p><strong>IMPORTANT: </strong>This extension is provided without warranty and could have unexpected side effects; please use it only at your own risk.</p>
+	<section>
+		<h2>Instructions</h2>
 		<ol>
 			<li>Download: <a href="ies-image-button-fix.zip">IES-Image-Button-Fix.zip</a>.</li>
 			<li>Extract the zip file to a folder on your computer.</li>
@@ -25,7 +26,9 @@
 			<li>Whenever you are asked if you want to turn off extensions in developer mode, click Not Now.</li>
 			<li>When this problem is fixed in Chrome/Edge or IES, remove this extension.</li>
 		</ol>
-		<p>This extension is provided without warranty and could have unexpected side effects; please use it only at your own risk.</p>
+	</section>
+	<section>
+		<h2>Note</h2>
 		<p>This extension is configured only to run on the following web sites. It will not run on other URLs:</p>
 		<ul>
 			<li>iitaa.dev</li>
@@ -33,20 +36,26 @@
 			<li>ies-ext.illinois.gov</li>
 			<li>wp.illinois.gov (added 6/5/2025)</li>	
 		</ul>
-	</div>
-	<form action="#">
+	</section>
+	<section>
 		<h2>Tests</h2>
-		<div>
-			<h3>Test 1: type="image"</h3>
-			<p><input type="image" src="ies-image-button-test-1.png" alt="Test 1"></p>
-			<p>Read as "Test 1 button" as expected.</p>
-		</div>
-		<div>
-			<h3>Test 2: type="IMAGE"</h3>
-			<p><input type="IMAGE" src="ies-image-button-test-2.png" alt="Test 2"></p>
-			<p>Read as "button" (NVDA, Narrator) or "Unlabeled 0 button" (JAWS). Should be read as "Test 2 button".</p>
-		</div>
-	</form>
+		<form action="#">
+			<div>
+				<h3>Test 1: type="image" (lowercase)</h3>
+				<p><input type="image" src="ies-image-button-test-1.png" alt="Test 1"></p>
+				<p>Result: Read as "Test 1 button" as expected.</p>
+			</div>
+			<div>
+				<h3>Test 2: type="IMAGE" (uppercase)</h3>
+				<p><input type="IMAGE" src="ies-image-button-test-2.png" alt="Test 2"></p>
+				<p>Result: Read as "button" (NVDA, Narrator) or "Unlabeled 0 button" (JAWS) instead of "Test 2 button".</p>
+			</div>
+		</form>
+	</section>
+	<section>
+		<h2>Questions</h2>
+		<p>Please email DoIT.Accessibility@Illinois.gov</p>
+	</section>
 </main>
 <footer><a href="/"><span>Home</span></a> Last Updated: 2025-06-05</footer>
 </body>
