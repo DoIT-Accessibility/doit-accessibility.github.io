@@ -1,0 +1,29 @@
+{
+	"manifest_version": 3,
+	"name": "IES Image Button Fix",
+	"version": "2026.10.01",
+	"description": "Changes input type='IMAGE' to lowercase",
+	"developer": {
+		"name": "DoIT.Accessibility@Illinois.gov",
+		"url": "https://doit-accessibility.github.io/extensions/ies-image-button-fix.html"
+	},
+	"permissions": [
+	  "tabs",
+	  "activeTab",
+	  "scripting"
+	],
+	"background": {
+	  "service_worker": "background.js"
+	},
+	"content_scripts": [
+	  {
+		"matches": [
+		  "https://doit-accessibility.github.io/*",
+		  "https://vt2-perf-ies.illinois.gov/*",
+		  "https://ies-ext.illinois.gov/*",
+		  "https://wp.illinois.gov/*"
+		],
+		"js": ["content.js"]
+	  }
+	]
+  }
