@@ -1,0 +1,20 @@
+{
+	"manifest_version": 3,
+	"name": "Hide Dotty",
+	"version": "1.0.0",
+	"description": "Hide DoIT Dotty Virtual Agent on doit.illinois.gov.",
+	"content_scripts": [
+		{
+			"matches": [
+				"https://doit.illinois.gov/*"
+			],
+			"css": [
+				"hide-dotty.css"
+			],
+			"run_at": "document_start"
+		}
+	],
+	"host_permissions": [
+		"https://doit.illinois.gov/*"
+	]
+}
