@@ -31,7 +31,7 @@ th, td { border: 1px solid #ccc; padding: .125em .5em; text-align: left; vertica
 thead { background: #eee; }
 .salesChart { float: left; max-width: 100%; }
 .salesChart + .salesTable { margin-top: 15px; line-height: 1.8; }
-.salesTable [colspan] { text-align: center; }
+.salesTable thead th, .salesTable td { text-align: center; }
 .fullwidth { width: 100%; }
 .clear { clear: both; }
 form { display: block; }
