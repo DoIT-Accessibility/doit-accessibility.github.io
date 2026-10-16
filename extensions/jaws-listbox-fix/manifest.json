@@ -1,0 +1,24 @@
+{
+	"manifest_version": 3,
+	"name": "JAWS Listbox Fix",
+	"version": "2025.02.25",
+	"description": "Works around a JAWS bug by setting listboxes to 'multiple' except when they have focus",
+	"developer": {
+		"name": "DoIT.Accessibility@Illinois.gov",
+		"url": "https://iitaa.dev/extensions/jaws-listbox-fix.html"
+	},
+	"permissions": [
+	  "tabs",
+	  "activeTab",
+	  "scripting"
+	],
+	"background": {
+	  "service_worker": "background.js"
+	},
+	"content_scripts": [
+	  {
+		"matches": ["https://*/*"],
+		"js": ["content.js"]
+	  }
+	]
+  }
