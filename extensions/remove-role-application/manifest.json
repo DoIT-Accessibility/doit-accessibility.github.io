@@ -1,0 +1,20 @@
+{
+	"manifest_version": 3,
+	"name": "Remove role=application",
+	"version": "2025.09.26",
+	"description": "Removes role=application. Note: does not work inside iframes or shadowDOMs.",
+	"developer": {
+		"name": "DoIT.Accessibility@Illinois.gov",
+		"url": "https://iitaa.dev/extensions/remove-role-application.html"
+	},
+	"permissions": [
+	  "activeTab",
+	  "scripting"
+	],
+	"background": {
+	  "service_worker": "background.js"
+	},
+	"action": {
+		"default_title": "Remove role=application"
+	}
+  }
