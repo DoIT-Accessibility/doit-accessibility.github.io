@@ -1,0 +1,19 @@
+window.CPPool244Init = function() { cp.model['244Data']={
+};cp.poolSlideResources['pool244']={
+};
+cp.poolSlideVideoResources['pool244']={
+};
+cp.model.data['244']={
+pqs:[],
+gqs:[],
+sqs:[],
+rgqs:[],
+rsqs:[],
+hasCC:true
+};
+cp.poolResources["244Images"]=[];
+cp.poolResources["244Videos"]=[
+];
+cp.poolResources["244SlideVideos"]=[
+];
+}
