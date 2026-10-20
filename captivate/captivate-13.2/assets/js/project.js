@@ -1913,7 +1913,7 @@ efph:{
 eflh:[],
 iflbx:false,
 ipflbx:true,
-text:'{"blocks":[{"key":"9fuib","text":"Course Title","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":0,"length":12,"style":"hlnk:"},{"offset":0,"length":12,"style":"hlnkt:wp"},{"offset":0,"length":12,"style":"textOutlineEnable:false"},{"offset":0,"length":12,"style":"opacity:1"},{"offset":0,"length":12,"style":"hlnke:true"},{"offset":0,"length":12,"style":"backgroundColor:unset"},{"offset":0,"length":12,"style":"defaultBackgroundColor:#E8D01B"},{"offset":0,"length":12,"style":"textHighlightEnable:false"},{"offset":0,"length":12,"style":"textShadowEnable:false"},{"offset":0,"length":12,"style":"overridden:false"}],"entityRanges":[],"data":{"presetId":"text-subheading-5","listDepth":"0","listType":"S_Bullets08","listIndent":"100%","listSize":"100%","listColor":"#666666","overridden":"false","verticalAlign":"middle"}}],"entityMap":{}}',
+text:'{"blocks":[{"key":"9fuib","text":"Course Title","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":0,"length":12,"style":"hlnkt:wp"},{"offset":0,"length":12,"style":"textOutlineEnable:false"},{"offset":0,"length":12,"style":"opacity:1"},{"offset":0,"length":12,"style":"hlnke:true"},{"offset":0,"length":12,"style":"backgroundColor:unset"},{"offset":0,"length":12,"style":"defaultBackgroundColor:#E8D01B"},{"offset":0,"length":12,"style":"textHighlightEnable:false"},{"offset":0,"length":12,"style":"textShadowEnable:false"},{"offset":0,"length":12,"style":"overridden:false"},{"offset":0,"length":12,"style":"hlnk:"}],"entityRanges":[],"data":{"presetId":"text-subheading-5","listDepth":"0","listType":"S_Bullets08","listIndent":"100%","listSize":"100%","listColor":"#666666","overridden":"false","verticalAlign":"middle"}}],"entityMap":{}}',
 autoGrow:false,
 tbqt:0,
 trin:0,
@@ -2580,15 +2580,15 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
+11361:{
+ts:''
+}
+,
 11394:{
 ts:''
 }
 ,
 11310:{
-ts:''
-}
-,
-11361:{
 ts:''
 }
 
@@ -2620,8 +2620,8 @@ visible:'1'
 Slide429:{
 lb:'Blank _ branding blocks 1',
 id:429,
-from:91,
-to:180,
+from:3061,
+to:3150,
 iols:0,
 i360qs:false,
 sdu:3,
@@ -2669,13 +2669,13 @@ bc:'#f8f7f4',
 fa:1,
 fe:true,
 imgf:{
-ip:'dr/0453.png',
-tiletype:3,
+ip:'dr/011924.png',
+tiletype:1,
 imageFocus:0,
-extraImageProps:'{"bgImageOpacity":100,"bgImageBlur":0,"bgImageBrightness":0,"bgImageContrast":0}',
-id:453,
-w:220,
-h:91,
+extraImageProps:'{"bgImageOpacity":100,"bgImageBlur":0,"bgImageBrightness":0,"bgImageContrast":0,"viewBox":{"width":1,"height":1,"x":0,"y":0}}',
+id:11924,
+w:1366,
+h:768,
 tsp:50
 }
 ,
@@ -11423,7 +11423,7 @@ ofct:0,
 enabled:1,
 pa:-1,
 ma:-1,
-pfc:1,
+pfc:0,
 dclk:false,
 amc:true,
 eh:cp.cbKH,
@@ -16152,11 +16152,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-1645:{
+1625:{
 ts:''
 }
 ,
-1625:{
+1645:{
 ts:''
 }
 
@@ -37973,11 +37973,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-3597:{
+3580:{
 ts:''
 }
 ,
-3580:{
+3597:{
 ts:''
 }
 
@@ -49648,7 +49648,7 @@ ofct:0,
 enabled:1,
 pa:-1,
 ma:-1,
-pfc:1,
+pfc:0,
 dclk:false,
 amc:true,
 eh:cp.cbKH,
@@ -51601,11 +51601,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-4442:{
+4425:{
 ts:''
 }
 ,
-4425:{
+4442:{
 ts:''
 }
 
@@ -65857,11 +65857,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-5264:{
+5281:{
 ts:''
 }
 ,
-5281:{
+5264:{
 ts:''
 }
 
@@ -71969,7 +71969,7 @@ ofct:0,
 enabled:1,
 pa:-1,
 ma:-1,
-pfc:0,
+pfc:1,
 dclk:false,
 amc:true,
 eh:cp.cbKH,
@@ -75963,7 +75963,7 @@ ofct:0,
 enabled:1,
 pa:-1,
 ma:-1,
-pfc:0,
+pfc:1,
 dclk:false,
 amc:true,
 eh:cp.cbKH,
@@ -109848,11 +109848,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-7711:{
+7694:{
 ts:''
 }
 ,
-7694:{
+7711:{
 ts:''
 }
 
@@ -119660,11 +119660,11 @@ ts:''
 ts:''
 }
 ,
-8517:{
+8469:{
 ts:''
 }
 ,
-8469:{
+8517:{
 ts:''
 }
 
@@ -128583,11 +128583,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-8921:{
+8904:{
 ts:''
 }
 ,
-8904:{
+8921:{
 ts:''
 }
 
@@ -137234,11 +137234,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-9229:{
+9274:{
 ts:''
 }
 ,
-9274:{
+9229:{
 ts:''
 }
 
@@ -143676,11 +143676,11 @@ bookmarks:[]
 ,
 qs:'',
 iph:{
-9602:{
+9585:{
 ts:''
 }
 ,
-9585:{
+9602:{
 ts:''
 }
 
@@ -180695,7 +180695,7 @@ prjBgColor:'#ffffff',
 pkt:1,
 htmlBgColor:'#f5f4f1',
 shc:false,
-pN:'Captivate-13.2-Test.cpt'
+pN:'captivate-13.2.cpt'
 },
 projectThemeData:{
 customisations:'{"user_renames":{}}',
@@ -180737,7 +180737,7 @@ slideVideos:['si1671','si1714','si1749','si1784'],
 questions:'Slide10083q2,Slide10345q3,Slide10628q4,Slide10894q5,Slide11921q1,Slide9603q0',
 autoplay:false,
 preloader:true,
-preloaderFileName:'dr/0451.png',
+preloaderFileName:'dr/011924.png',
 preloaderPercentage:100,
 pprtd:false,
 peon:false,
@@ -181018,6 +181018,15 @@ ipiv:{
 }
 ,{
 ip:'dr/01170.png',
+ipiv:{
+430:1,
+768:1,
+1366:1
+}
+
+}
+,{
+ip:'dr/011924.png',
 ipiv:{
 430:1,
 768:1,
@@ -181368,25 +181377,7 @@ ipiv:{
 
 }
 ,{
-ip:'dr/0451.png',
-ipiv:{
-430:1,
-768:1,
-1366:1
-}
-
-}
-,{
 ip:'dr/04510.svg',
-ipiv:{
-430:1,
-768:1,
-1366:1
-}
-
-}
-,{
-ip:'dr/0453.png',
 ipiv:{
 430:1,
 768:1,
@@ -181929,7 +181920,7 @@ ipiv:{
 cp.model.imageresources=[{
 slideID:0,
 ResourceList:{
-resources:['dr/011247.png','dr/011291.svg','dr/01606.svg','dr/01626.svg','dr/0453.png']
+resources:['dr/011247.png','dr/011291.svg','dr/011924.png','dr/01606.svg','dr/01626.svg']
 }
 
 }
@@ -182138,7 +182129,7 @@ resources:['dr/07720.png','dr/07730.png','dr/07870.png']
 }
 ];
 cp.model.audioresources=[{
-slideID:0,
+slideID:1,
 ResourceList:{
 resources:['ar/KeyClick.mp3']
 }
