@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../site.css">
+	<title>Type</title>
+	<style>
+		main { display: flex; flex-flow: column nowrap; gap: 1em; height: 100dvh; }
+		#input, #output { flex: 1 1 0; font-size: 1.5em; padding: .5em; }
+		#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border: 1px solid #777; }
+		#controls { text-align: center; }
+	</style>
+</head>
+
+<body>
+	<header></header>
+	<main>
+		<div id="output"></div>
+		<textarea id="input" placeholder="Type here..." autofocus></textarea>
+		<div id="controls"><button id="clear-button">Clear</button></div>
+	</main>
+	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-11-10</footer>
+	<script>
+		const input = document.getElementById('input');
+		const output = document.getElementById('output');
+		input.addEventListener('input', () => {
+			output.textContent = input.value;
+			output.scrollTop = output.scrollHeight;
+		});
+		const clearButton = document.getElementById("clear-button");
+		clearButton.addEventListener('click', () => {
+			input.value = '';
+			output.textContent = '';
+			input.focus();
+		});
+	</script>
+</body>
+</html>
