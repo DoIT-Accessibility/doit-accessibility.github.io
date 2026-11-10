@@ -10,23 +10,27 @@
 		#input, #output { flex: 1 1 0; font-size: 1.5em; padding: .5em; }
 		#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border: 1px solid #777; }
 		#controls { text-align: center; }
+		#controls button { min-width: 10em; }
 	</style>
 </head>
 <body>
 	<header></header>
 	<main>
+		<h1 class="visually-hidden">Type</h1>
 		<div id="output"></div>
 		<textarea id="input" placeholder="Type here..." autofocus></textarea>
 		<div id="controls"><button id="clear-button">Clear</button></div>
 	</main>
 	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-11-10</footer>
 	<script>
+
 		const input = document.getElementById('input');
 		const output = document.getElementById('output');
 		input.addEventListener('input', () => {
 			output.textContent = input.value;
 			output.scrollTop = output.scrollHeight;
 		});
+
 		const clearButton = document.getElementById("clear-button");
 		clearButton.addEventListener('click', () => {
 			input.value = '';
@@ -34,8 +38,7 @@
 			input.focus();
 		});
 
-		// Handle iPad virtual keyboard resizing via Visual Viewport API
-		function updateLayoutForKeyboard() {
+		function resizeVisualViewport() {
 			if (window.visualViewport) {
 				document.body.style.minHeight = "0";
 				document.body.style.height = `${window.visualViewport.height}px`;
@@ -43,8 +46,8 @@
 			}
 		}
 		if (window.visualViewport) {
-			window.visualViewport.addEventListener('resize', updateLayoutForKeyboard);
-			window.visualViewport.addEventListener('scroll', updateLayoutForKeyboard);
+			window.visualViewport.addEventListener('resize', resizeVisualViewport);
+			window.visualViewport.addEventListener('scroll', resizeVisualViewport);
 		}		
 	</script>
 </body>
