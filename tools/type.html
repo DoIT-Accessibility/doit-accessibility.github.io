@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="../site.css">
 	<title>Type</title>
 	<style>
-		body { min-height: auto; height: 100dvh; }
 		main { display: flex; flex-flow: column nowrap; gap: 1em; padding-bottom: 1em; }
 		#input, #output { flex: 1 1 0; font-size: 1.5em; padding: .5em; }
 		#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border: 1px solid #777; }
@@ -34,6 +33,19 @@
 			output.textContent = '';
 			input.focus();
 		});
+
+		// Handle iPad virtual keyboard resizing via Visual Viewport API
+		function updateLayoutForKeyboard() {
+			if (window.visualViewport) {
+				document.body.style.minHeight = "0";
+				document.body.style.height = `${window.visualViewport.height}px`;
+				output.scrollTop = output.scrollHeight;
+			}
+		}
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener('resize', updateLayoutForKeyboard);
+			window.visualViewport.addEventListener('scroll', updateLayoutForKeyboard);
+		}		
 	</script>
 </body>
 </html>
