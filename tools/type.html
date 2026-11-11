@@ -10,18 +10,18 @@
 		#input, #output { flex: 1 1 0; font-size: 1.5em; padding: .5em; }
 		#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border: 1px solid #777; }
 		#controls { text-align: center; }
-		#controls button { min-width: 10em; }
+		#controls button { min-width: 5em; }
 	</style>
 </head>
 <body>
-	<header></header>
+	<!-- header></header -->
 	<main>
 		<h1 class="visually-hidden">Type</h1>
 		<textarea id="output" readonly></textarea>
 		<textarea id="input" placeholder="Type here..." autofocus></textarea>
 		<div id="controls"><button id="clear-button">Clear</button></div>
 	</main>
-	<footer><a href=".."><span>Home</span></a> Last Updated: 2026-11-10</footer>
+	<!-- footer><a href=".."><span>Home</span></a> Last Updated: 2026-11-10</footer -->
 	<script>
 
 		const input = document.getElementById('input');
