@@ -17,7 +17,7 @@
 	<header></header>
 	<main>
 		<h1 class="visually-hidden">Type</h1>
-		<div id="output"></div>
+		<textarea id="output" readonly></textarea>
 		<textarea id="input" placeholder="Type here..." autofocus></textarea>
 		<div id="controls"><button id="clear-button">Clear</button></div>
 	</main>
@@ -27,14 +27,14 @@
 		const input = document.getElementById('input');
 		const output = document.getElementById('output');
 		input.addEventListener('input', () => {
-			output.textContent = input.value;
+			output.value = input.value;
 			output.scrollTop = output.scrollHeight;
 		});
 
 		const clearButton = document.getElementById("clear-button");
 		clearButton.addEventListener('click', () => {
 			input.value = '';
-			output.textContent = '';
+			output.value = '';
 			input.focus();
 		});
 
