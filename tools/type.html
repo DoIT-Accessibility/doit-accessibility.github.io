@@ -6,13 +6,13 @@
 <title>Type</title>
 <style>
 	* { box-sizing: border-box; margin: 0; padding: 0; }
-	body { font: 1.125rem/1.25 system-ui, sans-serif; height: 100vh; overflow: hidden; }
+	body { font: 1.125rem/1.25 system-ui, sans-serif; height: 100dvh; overflow: hidden; }
 	main { display: flex; flex-flow: column nowrap; height: 100%; position: relative; overflow: hidden; }
 	.chat { flex: 1; display: flex; flex-flow: column nowrap; padding: 1.25rem; background: Canvas; overflow: hidden; }
 	.partner { transform: rotate(180deg); background: ButtonFace; border-bottom: 2px solid CanvasText; }
 	.history { flex: 1; display: flex; flex-direction: column; gap: .75rem; padding: .5rem; list-style: none; overflow-y: auto; }
 	.history li { max-width: 85%; padding: .75rem 1rem; border-radius: 1rem; word-break: break-word; }
-	.sent { align-self: flex-end; background: Highlight; color: HighlightText; }
+	.sent { align-self: flex-start; background: ButtonFace; color: CanvasText; }
 	.received { align-self: flex-start; background: ButtonFace; color: CanvasText; }
 	.partner .received { background: Canvas; color: CanvasText; }
 	textarea { font: inherit; height: 3.25rem; padding: .75rem 1rem; border: 1px solid GrayText; border-radius: 1.5rem; background: Canvas; color: CanvasText; resize: none; outline: none; }
@@ -26,7 +26,7 @@
 	<section class="chat partner" aria-label="Partner">
 		<ul class="history">
 		</ul>
-		<textarea rows="2" placeholder="Type reply..." aria-label="Partner Message"></textarea>
+		<textarea rows="2" placeholder="Type reply..." aria-label="Partner Message" hidden></textarea>
 	</section>
 	<div class="toolbar">
 		<button id="clear-button" aria-label="Clear Messages">X</button>
@@ -75,12 +75,11 @@
 	function resizeVisualViewport() {
 		if (window.visualViewport) {
 			document.body.style.height = `${window.visualViewport.height}px`;
-			//document.querySelector("main").style.height = `${window.visualViewport.height}px`;
-			document.body.scrollTop = 0;
 			chats.forEach(chat => {
 				const history = chat.querySelector('.history');
 				history.scrollTop = history.scrollHeight;
 			});
+			document.body.scrollTop = 0;
 		}
 	}
 	if (window.visualViewport) {
