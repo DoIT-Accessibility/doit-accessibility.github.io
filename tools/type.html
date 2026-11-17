@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
 <title>Type</title>
 <style>
 	* { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,8 +11,7 @@
 	.chat { flex: 1; display: flex; flex-flow: column nowrap; padding: 1.25rem; background: Canvas; overflow: hidden; }
 	.partner { transform: rotate(180deg); background: ButtonFace; border-bottom: 2px solid CanvasText; }
 	.history { flex: 1; display: flex; flex-direction: column; gap: .75rem; padding: .5rem; list-style: none; overflow-y: auto; }
-	.history li { max-width: 85%; padding: .75rem 1rem; border-radius: 1rem; font-size: 1.125rem; line-height: 1.4; word-break: break-word; cursor: pointer; }
-	.history li:hover { opacity: 0.85; }
+	.history li { max-width: 85%; padding: .75rem 1rem; border-radius: 1rem; font-size: 1.125rem; line-height: 1.4; word-break: break-word; }
 	.sent { align-self: flex-end; background: Highlight; color: HighlightText; }
 	.received { align-self: flex-start; background: ButtonFace; color: CanvasText; }
 	.partner .received { background: Canvas; color: CanvasText; }
@@ -24,19 +23,19 @@
 </head>
 <body>
 <main>
-	<div class="chat partner" aria-label="Partner">
+	<section class="chat partner" aria-label="Partner">
 		<ul class="history">
 		</ul>
 		<textarea rows="2" placeholder="Type reply..." aria-label="Partner Message"></textarea>
-	</div>
+	</section>
 	<div class="toolbar">
 		<button id="clear-button" aria-label="Clear Messages">X</button>
 	</div>
-	<div class="chat" aria-label="Host">
+	<section class="chat" aria-label="Host">
 		<ul class="history">
 		</ul>
 		<textarea rows="2" placeholder="Type here..." aria-label="Host Message"></textarea>
-	</div>
+	</section>
 </main>
 
 <script>
@@ -72,7 +71,7 @@
 			chat.querySelector('.history').innerHTML = '';
 		});
 	});
-
+/*
 	function resizeVisualViewport() {
 		if (window.visualViewport) {
 			document.body.style.height = `${window.visualViewport.height}px`;
@@ -86,7 +85,7 @@
 		window.visualViewport.addEventListener('resize', resizeVisualViewport);
 		window.visualViewport.addEventListener('scroll', resizeVisualViewport);
 	}
-
+*/
 </script>
 </body>
 </html>
