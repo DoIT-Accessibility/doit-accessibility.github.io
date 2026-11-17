@@ -6,8 +6,8 @@
 <title>Type</title>
 <style>
 	* { box-sizing: border-box; margin: 0; padding: 0; }
-	body { font: 1.125rem/1.25 system-ui, sans-serif; height: 100dvh; color: CanvasText; background: pink; }
-	main { display: flex; flex-flow: column nowrap; height: 100%; position: relative; }
+	body { font: 1.125rem/1.25 system-ui, sans-serif; }
+	main { display: flex; flex-flow: column nowrap; height: 100dvh; position: relative; }
 	.chat { flex: 1; display: flex; flex-flow: column nowrap; padding: 1.25rem; background: Canvas; overflow: hidden; }
 	.partner { transform: rotate(180deg); background: ButtonFace; border-bottom: 2px solid CanvasText; }
 	.history { flex: 1; display: flex; flex-direction: column; gap: .75rem; padding: .5rem; list-style: none; overflow-y: auto; }
@@ -74,8 +74,7 @@
 
 	function resizeVisualViewport() {
 		if (window.visualViewport) {
-			//document.body.style.minHeight = "0";
-			//document.body.style.height = `${window.visualViewport.height}px`;
+			document.querySelector("main").style.height = `${window.visualViewport.height}px`;
 			chats.forEach(chat => {
 				const history = chat.querySelector('.history');
 				history.scrollTop = history.scrollHeight;
