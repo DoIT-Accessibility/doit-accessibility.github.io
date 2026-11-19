@@ -6,10 +6,9 @@
 	<title>Illinois.gov Language Launch Pad</title>
 	<style>
 		* { box-sizing: border-box; margin: 0; padding: 0; }
-		body { font: 1rem/1.5 system-ui, sans-serif; min-height: 100dvh; margin: 0; padding: 0; display: flex; flex-flow: column nowrap; gap: .5em;  background: ButtonFace; }
-		h1, h2, strong { font-weight: 500; }
+		body { font: 1rem/1.25 system-ui, sans-serif; min-height: 100dvh; margin: 0; padding: 0; display: flex; flex-flow: column nowrap; gap: .5em;  background: ButtonFace; }
+		h2, strong { font-weight: 500; }
 		button { font: inherit; }
-		body > header { background: #003e62; color: #fff; padding: .75em 1em .5em; line-height: 1; }
 		main { flex: 1; display: flex; flex-flow: column nowrap; margin: .5em; }
 		main > section { display: none; flex: 1; flex-flow: column nowrap; gap: 0.75em; }
 		main > section:target { display: flex; }
@@ -17,8 +16,10 @@
 		#home { flex: 1; display: flex; flex-flow: column nowrap; gap: 0.5em; }
 		#home .grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); gap: 0.5em; }
 		@media (orientation: landscape) { #home .grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); } }
-		#home .grid a, .phrases button, .actions a, section header a { border: 2px solid ButtonBorder; border-radius: 0.5rem; background: Canvas; color: ButtonText; text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
-		#home .grid a:focus, .phrases button:focus, .actions a:focus, section header a:focus { background: Highlight; color: HighlightText; outline: none; }
+		#home .grid a, .phrases button, .actions a, section header a { border: none; border-radius: 1em; background: Canvas; color: ButtonText; text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
+		#home .grid a:focus, .phrases button:focus, .actions a:focus, section header a:focus, 
+		#home .grid a:active, .phrases button:active, .actions a:active, section header a:active 
+		{ background: Highlight; color: HighlightText; outline: none; }
 		.actions { display: flex; gap: 0.5em; }
 		.actions a { flex: 1; padding: 0.75em; }
 		section header { display: flex; justify-content: space-between; align-items: center; }
@@ -28,10 +29,9 @@
 	</style>
 </head>
 <body>
-	<header><img src="/images/illinois-gov.svg" alt="Illinois.gov"></header>
 	<main>
 		<nav id="home" aria-label="Language Launch Pad">
-			<h1>Language Launch Pad</h1>
+			<!-- h1>Language Launch Pad</h1 -->
 			<div class="grid">
 				<a href="#es"><strong>Español</strong><span>(Spanish)</span></a>
 				<a href="#pl"><strong>Polski</strong><span>(Polish)</span></a>
@@ -43,11 +43,11 @@
 				<a href="#asl"><strong>ASL</strong><span>(Propio ONE Video)</span></a>
 			</div>
 			<div class="actions">
-				<a href="translate://">
+				<a href="shortcuts://run-shortcut?name=Open%20Translate">
 					<strong>Apple Translate</strong>
 					<span>(For quick automatic translations)</span>
 				</a>
-				<a href="propioone://">
+				<a href="https://one.propio-ls.com/">
 					<strong>Propio ONE</strong>
 					<span>(For a live human interpreter)</span>
 				</a>
@@ -69,12 +69,12 @@
 				<button><strong lang="es">Gracias por su visita.</strong> <span>(Thank you for your visit.)</span></button>
 			</div>
 			<div class="actions">
-				<a href="translate://">
+				<a href="shortcuts://run-shortcut?name=Open%20Translate">
 					<strong>Apple Translate</strong>
 					<span lang="es">Para traducciones automáticas rápidas</span>
 					<span>(For quick automatic translations)</span>
 				</a>
-				<a href="propioone://">
+				<a href="https://one.propio-ls.com/">
 					<strong>Propio ONE</strong>
 					<span lang="es">Para un intérprete humano en vivo</span>
 					<span>(For a live human interpreter)</span>
