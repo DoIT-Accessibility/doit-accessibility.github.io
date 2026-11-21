@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pagination Toolbar Test</title>
+	<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+	<main>
+		<section>
+			<div role="toolbar" aria-label="Pagination" aria-controls="table-id">
+				<button aria-label="Previous Page" disabled tabindex="-1">Prev</button>
+				<span>
+					<button aria-label="Page 1" tabindex="0">1</button>
+					<button aria-label="Page 2" tabindex="-1">2</button>
+				</span>
+				<button aria-label="Next Page" tabindex="-1">Next</button>
+			</div>
+		</section>
+		<section>
+			<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 3 of 6 entries</div>
+			<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+				<button disabled="" class="paginate_button previous disabled" aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" id="DataTables_Table_0_previous">Previous</button>
+				<span>
+					<a class="paginate_button current" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0">1</a>
+					<a class="paginate_button " aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0">2</a>
+				</span>
+				<a class="paginate_button next" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" id="DataTables_Table_0_next">Next</a>
+			</div>
+		</section>
+		<section>
+			<h2>More Info</h2>
+			<ul>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/">ARIA Toolbar Pattern</a></li>
+				<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/examples/toolbar/">ARIA Toolbar Example</a></li>
+			</ul>
+		</section>
+	</main>
+</body>
+</html>
