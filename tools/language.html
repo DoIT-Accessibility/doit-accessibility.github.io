@@ -6,9 +6,10 @@
 	<title>Illinois.gov Language Launch Pad</title>
 	<style>
 		* { box-sizing: border-box; margin: 0; padding: 0; }
-		body { font: 1rem/1.25 system-ui, sans-serif; min-height: 100dvh; margin: 0; padding: 0; display: flex; flex-flow: column nowrap; gap: .5em;  background: ButtonFace; }
-		h2, strong { font-weight: 500; }
+		body { font: 1rem/1.25 system-ui, sans-serif; background: ButtonFace; }
+		h1, h2, strong { font-weight: 500; }
 		button { font: inherit; }
+		body { display: flex; flex-flow: column nowrap; gap: .5em; min-height: 100dvh; }
 		main { flex: 1; display: flex; flex-flow: column nowrap; margin: .5em; }
 		main > section { display: none; flex: 1; flex-flow: column nowrap; gap: 0.75em; }
 		main > section:target { display: flex; }
@@ -20,30 +21,38 @@
 		#home .grid a:focus, .phrases button:focus, .actions a:focus, section header a:focus, 
 		#home .grid a:active, .phrases button:active, .actions a:active, section header a:active 
 		{ background: Highlight; color: HighlightText; outline: none; }
-		.actions { display: flex; gap: 0.5em; }
-		.actions a { flex: 1; padding: 0.75em; }
 		section header { display: flex; justify-content: space-between; align-items: center; }
 		section header a { padding: 0.25rem 0.75rem; }
-		.phrases { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); gap: 0.5em; }
+		.phrases { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); gap: 0.5em; }
+		.actions { display: flex; gap: 0.5em; }
+		.actions a { flex: 1; padding: 0.75em; }
 		#home .grid a strong, .phrases button strong { font-size: 1.5em; }
 	</style>
 </head>
 <body>
 	<main>
 		<nav id="home" aria-label="Language Launch Pad">
-			<!-- h1>Language Launch Pad</h1 -->
+			<h1>Choose your language</h1>
+			<p>
+				<span lang="es">Señala tu idioma</span> | 
+				<span lang="pl">Wybierz swój język</span> | 
+				<span lang="zh">选择你的语言</span> | 
+				<span lang="tl">Piliin ang iyong wika</span> | 
+				<span lang="ar">اختر لغتك</span> | 
+				<span lang="hi">अपनी भाषा चुनें</span>
+			</p>
 			<div class="grid">
-				<a href="#es"><strong>Español</strong><span>(Spanish)</span></a>
-				<a href="#pl"><strong>Polski</strong><span>(Polish)</span></a>
-				<a href="#zh"><strong>中文</strong><span>(Chinese - Simplified)</span></a>
-				<a href="#tl"><strong>Tagalog</strong><span>(Tagalog)</span></a>
-				<a href="#ar"><strong>العربية</strong><span>(Arabic)</span></a>
-				<a href="#hi"><strong>हिन्दी</strong><span>(Hindi)</span></a>
-				<a href="#captions"><strong>Live Captions</strong><span>(Real-Time Subtitles)</span></a>
-				<a href="#asl"><strong>ASL</strong><span>(Propio ONE Video)</span></a>
+				<a href="#es"><strong lang="es">Español</strong><span>(Spanish)</span></a>
+				<a href="#pl"><strong lang="pl">Polski</strong><span>(Polish)</span></a>
+				<a href="#zh"><strong lang="zh">中文</strong><span>(Chinese)</span></a>
+				<a href="#tl"><strong lang="tl">Tagalog</strong><span>(Tagalog)</span></a>
+				<a href="#ar"><strong lang="ar">العربية</strong><span>(Arabic)</span></a>
+				<a href="#hi"><strong lang="hi">हिन्दी</strong><span>(Hindi)</span></a>
+				<a href="#cc"><strong>Captions</strong><span>(CC)</span></a>
+				<a href="#asl"><strong>Sign Language</strong><span>(ASL)</span></a>
 			</div>
 			<div class="actions">
-				<a href="shortcuts://run-shortcut?name=Open%20Translate">
+				<a href="shortcuts://run-shortcut?name=Translate">
 					<strong>Apple Translate</strong>
 					<span>(For quick automatic translations)</span>
 				</a>
@@ -59,14 +68,16 @@
 				<h2>Español (Spanish)</h2>
 				<a href="#home" aria-label="Close">X</a>
 			</header>
-			<p><strong lang="es">Señale una frase para mostrarla en pantalla o comuníquese mediante el traductor</strong> (Point to a phrase)</p>
+			<p><strong lang="es">Señale una frase</strong> (point to a phrase)</p>
 			<div class="phrases">
-				<button><strong lang="es">Hola, ¿cómo puedo ayudarle hoy?</strong> <span>(Hello, how can I help you today?)</span></button>
-				<button><strong lang="es">Por favor, espere un momento.</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="es">Necesito su identificación.</strong> <span>(I need your identification.)</span></button>
-				<button><strong lang="es">Por favor, firme aquí.</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="es">¿Tiene alguna pregunta?</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="es">Gracias por su visita.</strong> <span>(Thank you for your visit.)</span></button>
+				<button><strong lang="es">¿Necesitas un intérprete?</strong> <span>(Do you need an interpreter?)</span></button>
+				<button><strong lang="es">¿Podemos probar la app de Traducir?</strong> <span>(Can we try the Translate app?)</span></button>
+				<button><strong lang="es">¿Tienes una cita?</strong> <span>(Do you have an appointment?)</span></button>
+				<button><strong lang="es">¿Puedo ver tu identificación?</strong> <span>(May I see your identification?)</span></button>
+				<button><strong lang="es">Por favor, rellena esto</strong> <span>(Please fill this out)</span></button>
+				<button><strong lang="es">Por favor, espera allí</strong> <span>(Please wait there)</span></button>
+				<button><strong lang="es">Sí</strong> <span>(Yes)</span></button>
+				<button><strong lang="es">No</strong> <span>(No)</span></button>
 			</div>
 			<div class="actions">
 				<a href="shortcuts://run-shortcut?name=Open%20Translate">
@@ -83,195 +94,31 @@
 		</section>
 
 		<section id="pl">
-			<header>
-				<h2>Polski (Polish)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p><strong lang="pl">Wskaż zwrot, aby go wyświetlić, lub skorzystaj z tłumacza</strong> (Point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="pl">Witaj, w czym mogę pomóc?</strong> <span>(Hello, how can I help?)</span></button>
-				<button><strong lang="pl">Proszę chwilę poczekać.</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="pl">Potrzebuję Twojego dokumentu tożsamości.</strong> <span>(I need your ID.)</span></button>
-				<button><strong lang="pl">Proszę podpisać tutaj.</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="pl">Czy masz jakieś pytania?</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="pl">Dziękuję za wizytę.</strong> <span>(Thank you for your visit.)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span lang="pl">Do szybkich tłumaczeń automatycznych</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span lang="pl">Dla tłumacza na żywo</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 
 		<section id="zh">
-			<header>
-				<h2>中文 (Chinese - Simplified)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p><strong lang="zh-Hans">请指示一句话或使用翻译工具 </strong> (Point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="zh-Hans">您好，我能为您做些什么？</strong> <span>(Hello, how can I help you?)</span></button>
-				<button><strong lang="zh-Hans">请稍等片刻。</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="zh-Hans">我需要您的身份证件。</strong> <span>(I need your ID.)</span></button>
-				<button><strong lang="zh-Hans">请在此处签名。</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="zh-Hans">您有什么问题吗？</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="zh-Hans">感谢您的光临。</strong> <span>(Thank you for your visit.)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span lang="zh-Hans">用于快速自动翻译</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span lang="zh-Hans">获取真人现场口译</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 
 		<section id="tl">
-			<header>
-				<h2>Tagalog (Tagalog)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p><strong lang="tl">Ituro ang isang parirala o gamitin ang tagasalin</strong> (Point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="tl">Kumusta, paano kita matutulungan ngayon?</strong> <span>(Hello, how can I help you today?)</span></button>
-				<button><strong lang="tl">Mangyaring maghintay ng sandali.</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="tl">Kailangan ko ang iyong ID.</strong> <span>(I need your ID.)</span></button>
-				<button><strong lang="tl">Mangyaring pumirma dito.</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="tl">Mayroon ka bang mga katanungan?</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="tl">Salamat sa iyong pagbisita.</strong> <span>(Thank you for your visit.)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span lang="tl">Para sa mabilis na awtomatikong pagsasalin</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span lang="tl">Para sa live na tagapagsalin</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 
 		<section id="ar" dir="rtl">
-			<header>
-				<h2>العربية (Arabic)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p><strong lang="ar">أشر إلى عبارة أو استخدم المترجم</strong> (Point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="ar">أهلاً بك، كيف يمكنني مساعدتك اليوم؟</strong> <span>(Hello, how can I help you today?)</span></button>
-				<button><strong lang="ar">الرجاء الانتظار قليلاً.</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="ar">أحتاج إلى إثبات هويتك.</strong> <span>(I need your ID.)</span></button>
-				<button><strong lang="ar">الرجاء التوقيع هنا.</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="ar">هل لديك أي أسئلة؟</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="ar">شكرا لزيارتك.</strong> <span>(Thank you for your visit.)</span></button>
-			</div>
-			<div class="actions" dir="ltr">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span lang="ar">للترجمة الفورية السريعة</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span lang="ar">لمترجم بشري حي</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 
 		<section id="hi">
-			<header>
-				<h2>हिन्दी (Hindi)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p><strong lang="hi">एक वाक्यांश पर इंगित करें या अनुवादक का उपयोग करें</strong> (Point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="hi">नमस्ते, आज मैं आपकी कैसे सहायता कर सकता हूँ?</strong> <span>(Hello, how can I help you today?)</span></button>
-				<button><strong lang="hi">कृपया एक क्षण प्रतीक्षा करें।</strong> <span>(Please wait a moment.)</span></button>
-				<button><strong lang="hi">मुझे आपकी आईडी चाहिए।</strong> <span>(I need your ID.)</span></button>
-				<button><strong lang="hi">कृपया यहाँ हस्ताक्षर करें।</strong> <span>(Please sign here.)</span></button>
-				<button><strong lang="hi">क्या आपके कोई प्रश्न हैं?</strong> <span>(Do you have any questions?)</span></button>
-				<button><strong lang="hi">आपकी यात्रा के लिए धन्यवाद।</strong> <span>(Thank you for your visit.)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span lang="hi">त्वरित स्वचालित अनुवाद के लिए</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span lang="hi">एक लाइव मानव दुभाषिया के लिए</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 
-		<section id="captions">
-			<header>
-				<h2>Live Captions</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p>Enable live device transcription for real-time conversation support.</p>
-			<div class="phrases">
-				<button><strong>Please speak clearly into the microphone.</strong> <span>(Speech Input Active)</span></button>
-				<button><strong>Live captions are currently active on this device.</strong> <span>(Status Check)</span></button>
-				<button><strong>Let me know if you need me to repeat anything.</strong> <span>(Clarity Prompt)</span></button>
-				<button><strong>We are ready to proceed with your request.</strong> <span>(Next Step)</span></button>
-				<button><strong>Please take all the time you need.</strong> <span>(Reassurance)</span></button>
-				<button><strong>Thank you for your patience.</strong> <span>(Closing)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+		<section id="cc">
+			<!-- placeholder -->
 		</section>
 
 		<section id="asl">
-			<header>
-				<h2>ASL (Propio ONE)</h2>
-				<a href="#home" aria-label="Close">X</a>
-			</header>
-			<p>Connect with a live American Sign Language interpreter instantly.</p>
-			<div class="phrases">
-				<button><strong>Launching Propio ONE video interpreter service...</strong> <span>(Connect ASL)</span></button>
-				<button><strong>Please position yourself in front of the camera.</strong> <span>(Setup)</span></button>
-				<button><strong>An interpreter will be with you in a moment.</strong> <span>(Please Wait)</span></button>
-				<button><strong>Is the video and audio quality acceptable?</strong> <span>(Check)</span></button>
-				<button><strong>We can switch to typed chat if preferred.</strong> <span>(Alternative)</span></button>
-				<button><strong>Thank you for connecting with us today.</strong> <span>(Closing)</span></button>
-			</div>
-			<div class="actions">
-				<a href="translate://">
-					<strong>Apple Translate</strong>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="propioone://">
-					<strong>Propio ONE</strong>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+			<!-- placeholder -->
 		</section>
 	</main>
 </body>

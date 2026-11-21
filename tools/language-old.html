@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>State of Illinois — Communication &amp; Translation Launch Pad</title>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS — MINIMALIST CIVIC PALETTE (SPARING ILLINOIS BLUE)
+       ========================================================================== */
+    :root {
+      --il-navy: #002D72;
+      --il-navy-dark: #001F4D;
+      --il-navy-tint: #EFF6FF;
+      --il-navy-border: #BFDBFE;
+
+      --bg-page: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+
+      --border-light: #E2E8F0;
+      --border-default: #CBD5E1;
+      --focus-ring: #D97706;
+
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 20px rgba(0, 45, 114, 0.09);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* ==========================================================================
+       RESET & BASE TYPOGRAPHY
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: rgba(0, 45, 114, 0.12);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      border-top: 5px solid var(--il-navy);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==========================================================================
+       CLEAN LIGHT CIVIC HEADER
+       ========================================================================== */
+    .civic-header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      padding: 0.875rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .civic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: var(--il-navy-tint);
+      color: var(--il-navy);
+      border: 1px solid var(--il-navy-border);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .brand-titles h1 {
+      margin: 0;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .brand-titles p {
+      margin: 0.1rem 0 0;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Header Right Controls (Orientation Tester + Sub-screen Nav) */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .orientation-switcher {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: 999px;
+      padding: 0.2rem;
+      gap: 0.2rem;
+    }
+
+    .orientation-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      min-height: 32px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .orientation-btn[aria-pressed="true"] {
+      background-color: var(--bg-surface);
+      color: var(--il-navy);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .subnav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .subnav-controls[hidden] {
+      display: none;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 48px;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 700;
+      background-color: var(--il-navy);
+      color: #FFFFFF;
+      border: 2px solid var(--il-navy);
+      transition: background-color 0.15s ease, transform 0.12s ease;
+    }
+
+    .btn-back:hover {
+      background-color: var(--il-navy-dark);
+      border-color: var(--il-navy-dark);
+    }
+
+    .btn-back:active {
+      transform: scale(0.98);
+    }
+
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      min-height: 40px;
+    }
+
+    .timer-toggle {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      color: var(--il-navy);
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      min-height: 28px;
+    }
+
+    .timer-toggle:hover {
+      background-color: var(--il-navy-tint);
+      border-color: var(--il-navy);
+    }
+
+    /* ==========================================================================
+       MAIN VIEWPORT CONTAINER & ORIENTATION SIMULATION
+       ========================================================================== */
+    .main-container {
+      flex: 1;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: max-width 0.25s ease;
+    }
+
+    /* Simulated Portrait Frame when user explicitly chooses Portrait preview */
+    body.force-portrait .main-container {
+      max-width: 768px;
+    }
+
+    /* Simulated Landscape Frame when user explicitly chooses Landscape preview */
+    body.force-landscape .main-container {
+      max-width: 1280px;
+    }
+
+    /* ==========================================================================
+       VIEW 1: HOME 8-CARD GRID (2x4 PORTRAIT / 4x2 LANDSCAPE)
+       ========================================================================== */
+    #home-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #home-view[hidden] {
+      display: none;
+    }
+
+    .home-intro {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .home-intro h2 {
+      margin: 0 0 0.3rem;
+      font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .home-intro p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Default Auto Orientation:
+       - Portrait / Narrow (< 900px or orientation: portrait): 2 columns x 4 rows
+       - Landscape / Wide (>= 900px and landscape): 4 columns x 2 rows */
+    .launch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      flex: 1;
+    }
+
+    @media (min-width: 900px) and (orientation: landscape) {
+      .launch-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+    }
+
+    /* Explicit Preview Overrides */
+    body.force-portrait .launch-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      grid-template-rows: repeat(4, auto) !important;
+    }
+
+    body.force-landscape .launch-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+      grid-template-rows: repeat(2, 1fr) !important;
+    }
+
+    .launch-card {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-top: 4px solid var(--il-navy);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.6rem;
+      min-height: 164px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.14s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    .launch-card:hover {
+      border-color: var(--il-navy);
+      background-color: var(--il-navy-tint);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .launch-card:active {
+      transform: scale(0.98);
+    }
+
+    .launch-card--access {
+      border-top-color: #0F172A;
+      background-color: #FFFFFF;
+    }
+
+    .card-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background-color: var(--il-navy-tint);
+      color: var(--il-navy);
+      border: 1px solid var(--il-navy-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .launch-card--access .card-badge {
+      background-color: var(--bg-subtle);
+      color: var(--il-navy);
+      border-color: var(--border-default);
+    }
+
+    .card-native {
+      font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .card-english {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       VIEW 2: DETAIL SUB-SCREEN
+       ========================================================================== */
+    .detail-view {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    .detail-view[hidden] {
+      display: none;
+    }
+
+    .detail-header-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-left: 6px solid var(--il-navy);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.4rem;
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .detail-header-card h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 2.8vw, 1.95rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .detail-header-card p {
+      margin: 0.2rem 0 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* High-Contrast "Selected Request" Banner for Pointing/Showing Staff */
+    .selected-banner {
+      background-color: var(--bg-surface);
+      border: 3px solid var(--il-navy);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      display: none;
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .selected-banner.is-visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .selected-banner-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .selected-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--il-navy);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+    }
+
+    .btn-dismiss {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 0.95rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-height: 44px;
+    }
+
+    .btn-dismiss:hover {
+      background-color: #E2E8F0;
+    }
+
+    .selected-native {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      font-weight: 800;
+      color: var(--il-navy);
+      line-height: 1.3;
+    }
+
+    .selected-english {
+      margin: 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border-light);
+      font-size: clamp(1.2rem, 2.1vw, 1.5rem);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Section Container Card */
+    .section-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .section-header {
+      margin: 0 0 1.1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .section-header span {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* 6 Common Phrases Grid */
+    .phrases-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 768px) {
+      .phrases-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    body.force-portrait .phrases-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .phrase-card {
+      background-color: var(--bg-page);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.2rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 88px;
+      transition: border-color 0.14s ease, background-color 0.14s ease;
+    }
+
+    .phrase-card:hover {
+      border-color: var(--il-navy);
+      background-color: var(--il-navy-tint);
+    }
+
+    .phrase-card.is-selected {
+      background-color: var(--il-navy-tint);
+      border-color: var(--il-navy);
+      border-width: 3px;
+    }
+
+    .phrase-native {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .phrase-english {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Dual-Language Instruction Boxes */
+    .instruction-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: 820px) {
+      .instruction-pair.two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    body.force-portrait .instruction-pair.two-col {
+      grid-template-columns: 1fr !important;
+    }
+
+    .instruction-note {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+    }
+
+    .lang-tag {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--il-navy);
+      background-color: var(--il-navy-tint);
+      border: 1px solid var(--il-navy-border);
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      margin-bottom: 0.45rem;
+    }
+
+    .instruction-note p {
+      margin: 0;
+      font-size: 1.04rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Simple Action Launch Links */
+    .action-links-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .action-links-grid.two-col {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    body.force-portrait .action-links-grid.two-col {
+      grid-template-columns: 1fr !important;
+    }
+
+    .action-link-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.35rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      min-height: 92px;
+      border: 2px solid var(--il-navy);
+      transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    }
+
+    .action-link-card:active {
+      transform: scale(0.99);
+    }
+
+    .action-link-card.primary-action {
+      background-color: var(--il-navy);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .action-link-card.primary-action:hover {
+      background-color: var(--il-navy-dark);
+      border-color: var(--il-navy-dark);
+    }
+
+    .action-link-card.secondary-action {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--il-navy);
+    }
+
+    .action-link-card.secondary-action:hover {
+      background-color: var(--il-navy-tint);
+    }
+
+    .action-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .primary-action .action-icon-box {
+      background-color: rgba(255, 255, 255, 0.16);
+      color: #FFFFFF;
+    }
+
+    .secondary-action .action-icon-box {
+      background-color: var(--il-navy-tint);
+      color: var(--il-navy);
+      border: 1px solid var(--il-navy-border);
+    }
+
+    .action-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .action-title-native {
+      font-size: 1.18rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .secondary-action .action-title-native {
+      color: var(--il-navy);
+    }
+
+    .action-title-en {
+      font-size: 0.98rem;
+      font-weight: 700;
+      opacity: 0.95;
+    }
+
+    .action-desc {
+      font-size: 0.92rem;
+      opacity: 0.9;
+      line-height: 1.4;
+      margin-top: 0.15rem;
+    }
+
+    /* Info Box for Live Captions (Non-URL System Feature) */
+    .info-action-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem 1.35rem;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-page);
+      border: 2px solid var(--border-default);
+      min-height: 92px;
+    }
+
+    .info-action-card .action-icon-box {
+      background-color: var(--il-navy-tint);
+      color: var(--il-navy);
+      border: 1px solid var(--il-navy-border);
+    }
+
+    /* ==========================================================================
+       GRACEFUL APP LAUNCH FALLBACK MODAL (NO alert() USED)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      z-index: 100;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      max-width: 520px;
+      width: 100%;
+      padding: 1.65rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-default);
+      border-top: 6px solid var(--il-navy);
+    }
+
+    .modal-dialog h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .modal-dialog p {
+      margin: 0 0 0.9rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .modal-uri-box {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      color: var(--il-navy);
+      margin-bottom: 1.2rem;
+      word-break: break-all;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .btn-modal {
+      min-height: 48px;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
+      font-weight: 700;
+      border: 2px solid var(--il-navy);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-modal-primary {
+      background-color: var(--il-navy);
+      color: #FFFFFF;
+    }
+
+    .btn-modal-primary:hover {
+      background-color: var(--il-navy-dark);
+    }
+
+    .btn-modal-secondary {
+      background-color: #FFFFFF;
+      color: var(--il-navy);
+    }
+
+    .btn-modal-secondary:hover {
+      background-color: var(--il-navy-tint);
+    }
+
+    /* ==========================================================================
+       CLEAN MINIMALIST FOOTER
+       ========================================================================== */
+    .civic-footer {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-light);
+      padding: 0.85rem 1.5rem;
+      margin-top: auto;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .footer-inner strong {
+      color: var(--text-primary);
+    }
+
+    /* RTL Typography Helpers */
+    [dir="rtl"] {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Reader Live Region -->
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ========================================================================
+       CLEAN CIVIC HEADER
+       ======================================================================== -->
+  <header class="civic-header">
+    <div class="header-inner">
+      <div class="brand-block">
+        <span class="civic-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 21h18"/>
+            <path d="M5 21V11l7-4 7 4v10"/>
+            <path d="M9 21v-6h6v6"/>
+          </svg>
+          State of Illinois
+        </span>
+        <div class="brand-titles">
+          <h1>Communication &amp; Translation Launch Pad</h1>
+          <p>Public Service Office &amp; Resource Center Assistance</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Preview Orientation Switcher (Auto / Portrait 2x4 / Landscape 4x2) -->
+        <div class="orientation-switcher" role="group" aria-label="Screen orientation preview">
+          <button type="button" class="orientation-btn" data-orient="auto" aria-pressed="true">Auto</button>
+          <button type="button" class="orientation-btn" data-orient="portrait" aria-pressed="false">Portrait 2&times;4</button>
+          <button type="button" class="orientation-btn" data-orient="landscape" aria-pressed="false">Landscape 4&times;2</button>
+        </div>
+
+        <!-- Sub-Screen Navigation Controls -->
+        <nav id="subnav-controls" class="subnav-controls" aria-label="Language navigation" hidden>
+          <div class="timer-pill" title="Automatically returns to Home after 2 minutes of inactivity">
+            <span id="timer-display">Reset: 2:00</span>
+            <button type="button" id="btn-timer-toggle" class="timer-toggle" aria-pressed="false">Pause</button>
+          </div>
+          <button type="button" id="btn-back-home" class="btn-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5"/>
+              <path d="M12 19l-7-7 7-7"/>
+            </svg>
+            Back / Languages
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN CONTENT AREA
+       ======================================================================== -->
+  <main id="main-content" class="main-container">
+    <!-- View 1: 8-Card Home Screen -->
+    <section id="home-view" aria-labelledby="home-heading">
+      <div class="home-intro">
+        <h2 id="home-heading">Select Your Language or Communication Option</h2>
+        <p>Toque su idioma &bull; Wybierz język &bull; 请选择语言 &bull; Piliin ang wika &bull; اختر لغتك &bull; अपनी भाषा चुनें</p>
+      </div>
+
+      <div id="launch-grid" class="launch-grid" role="list">
+        <!-- 8 Cards injected dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- View 2: Sub-Screen Detail View -->
+    <section id="detail-view" class="detail-view" hidden aria-live="polite">
+      <!-- Populated dynamically when a card is selected -->
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       GRACEFUL APP LAUNCH / PREVIEW MODAL (NO alert() USED)
+       ======================================================================== -->
+  <div id="launch-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-dialog">
+      <h3 id="modal-title">Opening Application</h3>
+      <p id="modal-desc">Attempting to open the application on this iPad.</p>
+      <div id="modal-uri-box" class="modal-uri-box"></div>
+      <div class="modal-actions">
+        <a id="modal-web-fallback" href="#" target="_blank" rel="noopener noreferrer" class="btn-modal btn-modal-secondary" hidden>Open Web Portal</a>
+        <button type="button" id="modal-close-btn" class="btn-modal btn-modal-primary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MINIMALIST CIVIC FOOTER
+       ======================================================================== -->
+  <footer class="civic-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Free Language Access:</strong> Interpretation and communication services are provided at no cost.
+      </div>
+      <div>
+        Press <strong>Esc</strong> or tap <strong>Back / Languages</strong> to return to the start screen.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       APPLICATION DATA & INTERACTIVE LOGIC
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ----------------------------------------------------------------------
+         1. STRUCTURED CONTENT FOR ALL 8 LAUNCH CARDS
+         ---------------------------------------------------------------------- */
+      const LAUNCH_OPTIONS = [
+        {
+          id: 'es',
+          type: 'language',
+          langCode: 'es',
+          dir: 'ltr',
+          nativeName: 'Español',
+          englishName: 'Spanish',
+          badgeText: 'ES',
+          section1Native: 'Señale o toque una solicitud común',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: 'Opciones de traducción e intérprete',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: 'Toque una frase arriba para mostrarla en grande al personal, o elija una herramienta abajo para usar un intérprete en vivo (Propio ONE) o traducción rápida (Apple Translate).',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: 'Tengo una cita.', en: 'I have an appointment.' },
+            { native: 'Necesito ayuda con una solicitud o beneficios.', en: 'I need help with an application or benefits.' },
+            { native: 'Vengo a entregar documentos.', en: 'I am dropping off documents.' },
+            { native: 'Necesito un intérprete.', en: 'I need an interpreter.' },
+            { native: 'Tengo una pregunta rápida.', en: 'I have a quick question.' },
+            { native: 'Necesito adaptaciones por discapacidad.', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE (Intérprete en vivo)',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: 'Conéctese por video o audio con un intérprete profesional en español.',
+              descEn: 'Connect via video or audio with a live Spanish interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate (Conversación rápida)',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: 'Use la aplicación integrada del iPad para traducir voz o texto.',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'pl',
+          type: 'language',
+          langCode: 'pl',
+          dir: 'ltr',
+          nativeName: 'Polski',
+          englishName: 'Polish',
+          badgeText: 'PL',
+          section1Native: 'Wskaż lub dotknij typową prośbę',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: 'Opcje tłumaczenia i tłumacza',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: 'Dotknij zdania powyżej, aby wyświetlić je wyraźnie dla personelu, lub wybierz narzędzie poniżej, aby połączyć się z tłumaczem na żywo (Propio ONE) albo uruchomić szybkie tłumaczenie (Apple Translate).',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: 'Mam umówioną wizytę.', en: 'I have an appointment.' },
+            { native: 'Potrzebuję pomocy przy wniosku lub świadczeniach.', en: 'I need help with an application or benefits.' },
+            { native: 'Przyniosłem/am dokumenty do złożenia.', en: 'I am dropping off documents.' },
+            { native: 'Potrzebuję tłumacza.', en: 'I need an interpreter.' },
+            { native: 'Mam krótkie pytanie.', en: 'I have a quick question.' },
+            { native: 'Potrzebuję udogodnień dla osób z niepełnosprawnością.', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE (Tłumacz na żywo)',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: 'Połącz się przez wideo lub audio z tłumaczem języka polskiego na żywo.',
+              descEn: 'Connect via video or audio with a live Polish interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate (Szybka rozmowa)',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: 'Użyj wbudowanej aplikacji iPada do szybkiego tłumaczenia mowy lub tekstu.',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'zh',
+          type: 'language',
+          langCode: 'zh-Hans',
+          dir: 'ltr',
+          nativeName: '简体中文',
+          englishName: 'Simplified Chinese',
+          badgeText: '中文',
+          section1Native: '请点击或指出您的常见需求',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: '翻译与口译工具选项',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: '点击上方的短语可将其放大显示给工作人员，或选择下方的工具使用实时口译员（Propio ONE）或快速对话翻译（Apple Translate）。',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: '我有预约。', en: 'I have an appointment.' },
+            { native: '我需要帮助办理申请或福利。', en: 'I need help with an application or benefits.' },
+            { native: '我来递交文件。', en: 'I am dropping off documents.' },
+            { native: '我需要口译员。', en: 'I need an interpreter.' },
+            { native: '我有一个简短的问题。', en: 'I have a quick question.' },
+            { native: '我需要残障无障碍协助。', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE（实时视频/语音口译）',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: '通过视频或语音连接实时中文口译员。',
+              descEn: 'Connect via video or audio with a live Chinese interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate（快速对话翻译）',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: '使用 iPad 内置翻译应用进行语音或文字快速对话。',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'tl',
+          type: 'language',
+          langCode: 'tl',
+          dir: 'ltr',
+          nativeName: 'Tagalog',
+          englishName: 'Tagalog / Filipino',
+          badgeText: 'TL',
+          section1Native: 'Ituro o Pindutin ang Karaniwang Kahilingan',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: 'Mga Opsyon sa Pagsasalin at Interpreter',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: 'Pindutin ang isang parirala sa itaas upang ipakita nang malinaw sa kawani, o pumili ng tool sa ibaba para sa live na interpreter (Propio ONE) o mabilisang pagsasalin (Apple Translate).',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: 'Mayroon akong appointment.', en: 'I have an appointment.' },
+            { native: 'Kailangan ko ng tulong sa aplikasyon o mga benepisyo.', en: 'I need help with an application or benefits.' },
+            { native: 'Maghahatid ako ng mga dokumento.', en: 'I am dropping off documents.' },
+            { native: 'Kailangan ko ng interpreter.', en: 'I need an interpreter.' },
+            { native: 'Mayroon akong mabilis na tanong.', en: 'I have a quick question.' },
+            { native: 'Kailangan ko ng akomodasyon para sa kapansanan.', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE (Live na Video / Audio Interpreter)',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: 'Kumonekta sa pamamagitan ng video o audio sa isang live na Tagalog interpreter.',
+              descEn: 'Connect via video or audio with a live Tagalog interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate (Mabilisang Usapan)',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: 'Gamitin ang built-in na app ng iPad para sa mabilisang pagsasalin ng boses o teksto.',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'ar',
+          type: 'language',
+          langCode: 'ar',
+          dir: 'rtl',
+          nativeName: 'العربية',
+          englishName: 'Arabic',
+          badgeText: 'عربي',
+          section1Native: 'أشِر إلى طلب شائع أو اضغط عليه',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: 'خيارات الترجمة والمترجم الفوري',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: 'اضغط على إحدى العبارات أعلاه لعرضها بوضوح للموظف، أو اختر أداة أدناه للتواصل مع مترجم فوري مباشر (Propio ONE) أو للترجمة السريعة (Apple Translate).',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: 'لديّ موعد مسبق.', en: 'I have an appointment.' },
+            { native: 'أحتاج إلى مساعدة في تقديم طلب أو الحصول على مزايا.', en: 'I need help with an application or benefits.' },
+            { native: 'أنا هنا لتسليم مستندات.', en: 'I am dropping off documents.' },
+            { native: 'أحتاج إلى مترجم فوري.', en: 'I need an interpreter.' },
+            { native: 'لديّ سؤال سريع.', en: 'I have a quick question.' },
+            { native: 'أحتاج إلى تسهيلات خاصة بالإعاقة.', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE (مترجم فوري مباشر بالفيديو أو الصوت)',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: 'تواصل عبر الفيديو أو الصوت مع مترجم فوري مباشر باللغة العربية.',
+              descEn: 'Connect via video or audio with a live Arabic interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate (محادثة سريعة)',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: 'استخدم تطبيق الترجمة المدمج في جهاز iPad للترجمة الصوتية أو النصية السريعة.',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'hi',
+          type: 'language',
+          langCode: 'hi',
+          dir: 'ltr',
+          nativeName: 'हिन्दी',
+          englishName: 'Hindi',
+          badgeText: 'हिं',
+          section1Native: 'सामान्य अनुरोध पर टैप करें या इशारा करें',
+          section1En: 'Point or Tap a Common Request',
+          section2Native: 'अनुवाद और दुभाषिया विकल्प',
+          section2En: 'Translation & Interpreter Options',
+          instructionsNative: 'कर्मचारी को स्पष्ट रूप से दिखाने के लिए ऊपर दिए गए किसी वाक्य पर टैप करें, या लाइव दुभाषिया (Propio ONE) या त्वरित अनुवाद (Apple Translate) के लिए नीचे एक विकल्प चुनें।',
+          instructionsEn: 'Tap a phrase above to display it clearly for staff, or choose a tool below for a live interpreter (Propio ONE) or quick translation (Apple Translate).',
+          phrases: [
+            { native: 'मेरा अपॉइंटमेंट है।', en: 'I have an appointment.' },
+            { native: 'मुझे आवेदन या लाभों के लिए सहायता चाहिए।', en: 'I need help with an application or benefits.' },
+            { native: 'मैं दस्तावेज़ जमा करने आया/आई हूँ।', en: 'I am dropping off documents.' },
+            { native: 'मुझे एक दुभाषिया (इंटरप्रेटर) चाहिए।', en: 'I need an interpreter.' },
+            { native: 'मेरा एक छोटा सा प्रश्न है।', en: 'I have a quick question.' },
+            { native: 'मुझे दिव्यांगता संबंधी सुविधाएँ चाहिए।', en: 'I need disability accommodations.' }
+          ],
+          tools: [
+            {
+              titleNative: 'Propio ONE (लाइव वीडियो / ऑडियो दुभाषिया)',
+              titleEn: 'Propio ONE (Live Video / Audio Interpreter)',
+              descNative: 'वीडियो या ऑडियो के माध्यम से लाइव हिंदी दुभाषिया से जुड़ें।',
+              descEn: 'Connect via video or audio with a live Hindi interpreter.',
+              href: 'propioone://',
+              fallbackUrl: 'https://www.propio-ls.com/',
+              fallbackLabel: 'Open Propio Web Portal',
+              primary: true
+            },
+            {
+              titleNative: 'Apple Translate (त्वरित बातचीत अनुवाद)',
+              titleEn: 'Apple Translate (Quick Conversation)',
+              descNative: 'आवाज़ या टेक्स्ट के त्वरित अनुवाद के लिए iPad के अंतर्निहित ऐप का उपयोग करें।',
+              descEn: 'Use the built-in iPad app for quick voice or text translation.',
+              href: 'translate://',
+              fallbackUrl: '',
+              fallbackLabel: '',
+              primary: false
+            }
+          ]
+        },
+        {
+          id: 'captions',
+          type: 'captions',
+          langCode: 'en',
+          dir: 'ltr',
+          nativeName: 'Captions',
+          englishName: 'Live Captions & Type-to-Talk',
+          iconSvg: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M7 11h4"/><path d="M15 11h2"/><path d="M7 15h6"/><path d="M16 15h1"/></svg>',
+          headerTitle: 'Captions / Text Communication',
+          headerSubtitle: 'Real-time speech-to-text captions and typed conversation options',
+          instructionsEn: 'Choose how you prefer to communicate using text. You can turn on iPad Live Captions to read spoken words in real time, or open the Type-to-Talk web tool to type messages back and forth with staff.',
+          phrases: [
+            { native: 'I am Deaf or Hard of Hearing. Please use captions or text.', en: 'Point to show staff' },
+            { native: 'I have an appointment.', en: 'Point to show staff' },
+            { native: 'I need help with an application or benefits.', en: 'Point to show staff' },
+            { native: 'I am dropping off documents.', en: 'Point to show staff' }
+          ]
+        },
+        {
+          id: 'asl',
+          type: 'asl',
+          langCode: 'en',
+          dir: 'ltr',
+          nativeName: 'Sign Language',
+          englishName: 'American Sign Language (ASL)',
+          iconSvg: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v6"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>',
+          headerTitle: 'American Sign Language (ASL)',
+          headerSubtitle: 'On-demand video remote interpreting (VRI)',
+          instructionsEn: 'Tap the button below to launch Propio ONE and connect immediately with a live American Sign Language (ASL) video interpreter. You can also tap the banner above to alert staff.',
+          defaultBanner: {
+            native: 'I need an American Sign Language (ASL) interpreter.',
+            en: 'Please connect Propio ONE Video Interpreting or arrange an ASL interpreter.'
+          }
+        }
+      ];
+
+      /* ----------------------------------------------------------------------
+         2. APPLICATION STATE & DOM REFERENCES
+         ---------------------------------------------------------------------- */
+      const state = {
+        activeOption: null,
+        selectedPhraseIndex: null,
+        idleSecondsRemaining: 120,
+        timerPaused: false,
+        timerIntervalId: null
+      };
+
+      const elHomeView = document.getElementById('home-view');
+      const elDetailView = document.getElementById('detail-view');
+      const elLaunchGrid = document.getElementById('launch-grid');
+      const elSubnavControls = document.getElementById('subnav-controls');
+      const elBtnBackHome = document.getElementById('btn-back-home');
+      const elTimerDisplay = document.getElementById('timer-display');
+      const elBtnTimerToggle = document.getElementById('btn-timer-toggle');
+      const elSrAnnouncer = document.getElementById('sr-announcer');
+
+      const elModal = document.getElementById('launch-modal');
+      const elModalTitle = document.getElementById('modal-title');
+      const elModalDesc = document.getElementById('modal-desc');
+      const elModalUriBox = document.getElementById('modal-uri-box');
+      const elModalWebFallback = document.getElementById('modal-web-fallback');
+      const elModalCloseBtn = document.getElementById('modal-close-btn');
+
+      /* ----------------------------------------------------------------------
+         3. UTILITY FUNCTIONS
+         ---------------------------------------------------------------------- */
+      function announce(message) {
+        elSrAnnouncer.textContent = '';
+        window.requestAnimationFrame(() => {
+          elSrAnnouncer.textContent = message;
+        });
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      /* ----------------------------------------------------------------------
+         4. IDLE AUTO-RESET TIMER (2:00 ON SUB-SCREENS)
+         ---------------------------------------------------------------------- */
+      function resetIdleClock() {
+        state.idleSecondsRemaining = 120;
+        updateTimerUI();
+      }
+
+      function updateTimerUI() {
+        elTimerDisplay.textContent = `Reset: ${formatTime(state.idleSecondsRemaining)}`;
+      }
+
+      function startIdleTimer() {
+        stopIdleTimer();
+        state.timerPaused = false;
+        elBtnTimerToggle.textContent = 'Pause';
+        elBtnTimerToggle.setAttribute('aria-pressed', 'false');
+        resetIdleClock();
+
+        state.timerIntervalId = window.setInterval(() => {
+          if (state.timerPaused || !state.activeOption) return;
+          state.idleSecondsRemaining -= 1;
+          updateTimerUI();
+
+          if (state.idleSecondsRemaining <= 0) {
+            goHome();
+            announce('Session reset due to inactivity. Returned to language selection screen.');
+          }
+        }, 1000);
+      }
+
+      function stopIdleTimer() {
+        if (state.timerIntervalId) {
+          window.clearInterval(state.timerIntervalId);
+          state.timerIntervalId = null;
+        }
+      }
+
+      elBtnTimerToggle.addEventListener('click', () => {
+        state.timerPaused = !state.timerPaused;
+        elBtnTimerToggle.textContent = state.timerPaused ? 'Resume' : 'Pause';
+        elBtnTimerToggle.setAttribute('aria-pressed', String(state.timerPaused));
+      });
+
+      ['pointerdown', 'keydown', 'touchstart'].forEach((evt) => {
+        document.addEventListener(evt, () => {
+          if (state.activeOption && !state.timerPaused) {
+            resetIdleClock();
+          }
+        }, { passive: true });
+      });
+
+      /* ----------------------------------------------------------------------
+         5. ORIENTATION PREVIEW SWITCHER (AUTO / PORTRAIT / LANDSCAPE)
+         ---------------------------------------------------------------------- */
+      const orientationButtons = document.querySelectorAll('.orientation-btn');
+      orientationButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const mode = btn.getAttribute('data-orient');
+          document.body.classList.remove('force-portrait', 'force-landscape');
+          if (mode === 'portrait') {
+            document.body.classList.add('force-portrait');
+          } else if (mode === 'landscape') {
+            document.body.classList.add('force-landscape');
+          }
+
+          orientationButtons.forEach((b) => {
+            b.setAttribute('aria-pressed', String(b === btn));
+          });
+        });
+      });
+
+      /* ----------------------------------------------------------------------
+         6. RENDER HOME 8-CARD GRID
+         ---------------------------------------------------------------------- */
+      function renderHomeGrid() {
+        elLaunchGrid.innerHTML = '';
+
+        LAUNCH_OPTIONS.forEach((option) => {
+          const isAccess = option.type !== 'language';
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `launch-card ${isAccess ? 'launch-card--access' : ''}`;
+          btn.setAttribute('role', 'listitem');
+          btn.setAttribute('aria-label', `${option.nativeName} — ${option.englishName}`);
+
+          const badgeHtml = isAccess
+            ? `<div class="card-badge" aria-hidden="true">${option.iconSvg}</div>`
+            : `<div class="card-badge" aria-hidden="true">${escapeHtml(option.badgeText)}</div>`;
+
+          btn.innerHTML = `
+            ${badgeHtml}
+            <span class="card-native" lang="${escapeHtml(option.langCode)}" dir="${option.dir}">${escapeHtml(option.nativeName)}</span>
+            <span class="card-english">${escapeHtml(option.englishName)}</span>
+          `;
+
+          btn.addEventListener('click', () => openOption(option.id));
+          elLaunchGrid.appendChild(btn);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         7. NAVIGATION: OPEN SUB-SCREEN & RETURN HOME
+         ---------------------------------------------------------------------- */
+      function openOption(optionId) {
+        const option = LAUNCH_OPTIONS.find((item) => item.id === optionId);
+        if (!option) return;
+
+        state.activeOption = option;
+        state.selectedPhraseIndex = option.type === 'asl' ? 0 : null;
+
+        elHomeView.hidden = true;
+        elDetailView.hidden = false;
+        elSubnavControls.hidden = false;
+
+        renderDetailView(option);
+        startIdleTimer();
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        elBtnBackHome.focus();
+        announce(`Opened ${option.englishName} communication options.`);
+      }
+
+      function goHome() {
+        state.activeOption = null;
+        state.selectedPhraseIndex = null;
+        stopIdleTimer();
+
+        elDetailView.hidden = true;
+        elDetailView.innerHTML = '';
+        elSubnavControls.hidden = true;
+        elHomeView.hidden = false;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        announce('Returned to all languages and communication options.');
+      }
+
+      elBtnBackHome.addEventListener('click', goHome);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (elModal.classList.contains('is-open')) {
+            closeModal();
+          } else if (state.activeOption) {
+            goHome();
+          }
+        }
+      });
+
+      /* ----------------------------------------------------------------------
+         8. RENDER SUB-SCREEN DETAIL VIEWS (LANGUAGE, CAPTIONS, ASL)
+         ---------------------------------------------------------------------- */
+      function renderDetailView(option) {
+        if (option.type === 'language') {
+          renderLanguageDetail(option);
+        } else if (option.type === 'captions') {
+          renderCaptionsDetail(option);
+        } else if (option.type === 'asl') {
+          renderAslDetail(option);
+        }
+      }
+
+      function renderLanguageDetail(opt) {
+        const isRtl = opt.dir === 'rtl';
+
+        const phrasesHtml = opt.phrases.map((phrase, idx) => `
+          <button type="button" class="phrase-card" data-phrase-idx="${idx}">
+            <span class="phrase-native" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(phrase.native)}</span>
+            <span class="phrase-english" lang="en" dir="ltr">${escapeHtml(phrase.en)}</span>
+          </button>
+        `).join('');
+
+        const toolsHtml = opt.tools.map((tool, idx) => `
+          <a href="${escapeHtml(tool.href)}"
+             class="action-link-card ${tool.primary ? 'primary-action' : 'secondary-action'}"
+             data-tool-idx="${idx}">
+            <div class="action-icon-box" aria-hidden="true">
+              ${tool.primary
+                ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>'
+                : '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>'
+              }
+            </div>
+            <div class="action-text">
+              <span class="action-title-native" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(tool.titleNative)}</span>
+              <span class="action-title-en" lang="en" dir="ltr">${escapeHtml(tool.titleEn)}</span>
+              <span class="action-desc" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(tool.descNative)}</span>
+              <span class="action-desc" lang="en" dir="ltr">${escapeHtml(tool.descEn)}</span>
+            </div>
+          </a>
+        `).join('');
+
+        elDetailView.innerHTML = `
+          <!-- Header Card -->
+          <div class="detail-header-card">
+            <div>
+              <h2 lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(opt.nativeName)}</h2>
+              <p lang="en">${escapeHtml(opt.englishName)}</p>
+            </div>
+            <span class="civic-badge">Dual-Language View</span>
+          </div>
+
+          <!-- Highlighted "Selected Request" Banner -->
+          <div id="selected-banner" class="selected-banner" role="region" aria-label="Selected request for staff">
+            <div class="selected-banner-top">
+              <span class="selected-pill">Selected Request &bull; Show to Staff</span>
+              <button type="button" id="btn-dismiss-phrase" class="btn-dismiss">Clear</button>
+            </div>
+            <p id="selected-native-text" class="selected-native" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}"></p>
+            <p id="selected-english-text" class="selected-english" lang="en" dir="ltr"></p>
+          </div>
+
+          <!-- Section 1: Common Phrases / Requests -->
+          <section class="section-card" aria-labelledby="sec1-heading">
+            <div class="section-header">
+              <h3 id="sec1-heading" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(opt.section1Native)}</h3>
+              <span lang="en">${escapeHtml(opt.section1En)}</span>
+            </div>
+            <div class="phrases-grid">
+              ${phrasesHtml}
+            </div>
+          </section>
+
+          <!-- Section 2: Translation & Interpreter Options -->
+          <section class="section-card" aria-labelledby="sec2-heading">
+            <div class="section-header">
+              <h3 id="sec2-heading" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">${escapeHtml(opt.section2Native)}</h3>
+              <span lang="en">${escapeHtml(opt.section2En)}</span>
+            </div>
+
+            <div class="instruction-pair two-col">
+              <div class="instruction-note" lang="${escapeHtml(opt.langCode)}" dir="${opt.dir}">
+                <span class="lang-tag">${escapeHtml(opt.nativeName)}</span>
+                <p>${escapeHtml(opt.instructionsNative)}</p>
+              </div>
+              <div class="instruction-note" lang="en" dir="ltr">
+                <span class="lang-tag">English (Staff &amp; Visitor)</span>
+                <p>${escapeHtml(opt.instructionsEn)}</p>
+              </div>
+            </div>
+
+            <div class="action-links-grid two-col">
+              ${toolsHtml}
+            </div>
+          </section>
+        `;
+
+        // Wire up phrase selection
+        const phraseCards = elDetailView.querySelectorAll('.phrase-card');
+        const banner = document.getElementById('selected-banner');
+        const bannerNative = document.getElementById('selected-native-text');
+        const bannerEn = document.getElementById('selected-english-text');
+        const btnDismiss = document.getElementById('btn-dismiss-phrase');
+
+        phraseCards.forEach((card) => {
+          card.addEventListener('click', () => {
+            const idx = Number(card.getAttribute('data-phrase-idx'));
+            const chosen = opt.phrases[idx];
+            if (!chosen) return;
+
+            phraseCards.forEach((c) => c.classList.remove('is-selected'));
+            card.classList.add('is-selected');
+
+            bannerNative.textContent = chosen.native;
+            bannerEn.textContent = chosen.en;
+            banner.classList.add('is-visible');
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            announce(`Selected request: ${chosen.en}`);
+          });
+        });
+
+        btnDismiss.addEventListener('click', () => {
+          phraseCards.forEach((c) => c.classList.remove('is-selected'));
+          banner.classList.remove('is-visible');
+          announce('Cleared selected request.');
+        });
+
+        // Wire up app launch links with graceful browser fallback
+        const toolLinks = elDetailView.querySelectorAll('.action-link-card');
+        toolLinks.forEach((link) => {
+          link.addEventListener('click', (e) => {
+            const idx = Number(link.getAttribute('data-tool-idx'));
+            const tool = opt.tools[idx];
+            if (tool) {
+              handleAppLaunch(e, tool.titleEn, tool.href, tool.fallbackUrl, tool.fallbackLabel);
+            }
+          });
+        });
+      }
+
+      function renderCaptionsDetail(opt) {
+        const phrasesHtml = opt.phrases.map((p, idx) => `
+          <button type="button" class="phrase-card" data-cap-idx="${idx}">
+            <span class="phrase-native" lang="en">${escapeHtml(p.native)}</span>
+            <span class="phrase-english">${escapeHtml(p.en)}</span>
+          </button>
+        `).join('');
+
+        elDetailView.innerHTML = `
+          <div class="detail-header-card">
+            <div>
+              <h2>${escapeHtml(opt.headerTitle)}</h2>
+              <p>${escapeHtml(opt.headerSubtitle)}</p>
+            </div>
+            <span class="civic-badge">Captions &amp; Text</span>
+          </div>
+
+          <div id="selected-banner" class="selected-banner" role="region" aria-label="Selected message for staff">
+            <div class="selected-banner-top">
+              <span class="selected-pill">Message for Staff</span>
+              <button type="button" id="btn-dismiss-phrase" class="btn-dismiss">Clear</button>
+            </div>
+            <p id="selected-native-text" class="selected-native" lang="en"></p>
+          </div>
+
+          <section class="section-card" aria-labelledby="cap-options-heading">
+            <div class="section-header">
+              <h3 id="cap-options-heading">Choose a Text or Caption Option</h3>
+              <span>Use iPad Live Captions or type back and forth with staff</span>
+            </div>
+
+            <div class="instruction-pair">
+              <div class="instruction-note">
+                <span class="lang-tag">How It Works</span>
+                <p>${escapeHtml(opt.instructionsEn)}</p>
+              </div>
+            </div>
+
+            <div class="action-links-grid two-col">
+              <!-- Option 1: Apple Live Captions -->
+              <div class="info-action-card">
+                <div class="action-icon-box" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="3"/>
+                    <path d="M7 11h4"/><path d="M15 11h2"/><path d="M7 15h6"/><path d="M16 15h1"/>
+                  </svg>
+                </div>
+                <div class="action-text">
+                  <span class="action-title-native" style="color: var(--il-navy);">Use Apple Live Captions</span>
+                  <span class="action-desc" style="color: var(--text-primary); opacity: 1;">
+                    Turn on iPad <strong>Live Captions</strong> (triple-click the iPad Top/Home button or open <strong>Control Center &rarr; Live Captions</strong>) to see real-time speech-to-text on screen.
+                  </span>
+                </div>
+              </div>
+
+              <!-- Option 2: Open Type-to-Talk Web Tool -->
+              <a href="#type-to-talk" id="btn-type-to-talk" class="action-link-card primary-action">
+                <div class="action-icon-box" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/>
+                    <path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/>
+                    <path d="M7 16h10"/>
+                  </svg>
+                </div>
+                <div class="action-text">
+                  <span class="action-title-native">Open Type-to-Talk Tool</span>
+                  <span class="action-title-en">Large-Text Two-Way Typing Screen</span>
+                  <span class="action-desc">Launch the web-based Type-to-Talk tool to type messages with staff.</span>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section-card" aria-labelledby="cap-phrases-heading">
+            <div class="section-header">
+              <h3 id="cap-phrases-heading">Quick Cards to Show Staff</h3>
+              <span>Tap any card below to enlarge it at the top of the screen</span>
+            </div>
+            <div class="phrases-grid">
+              ${phrasesHtml}
+            </div>
+          </section>
+        `;
+
+        // Wire up quick phrase cards
+        const cards = elDetailView.querySelectorAll('.phrase-card');
+        const banner = document.getElementById('selected-banner');
+        const bannerText = document.getElementById('selected-native-text');
+        const btnDismiss = document.getElementById('btn-dismiss-phrase');
+
+        cards.forEach((card) => {
+          card.addEventListener('click', () => {
+            const idx = Number(card.getAttribute('data-cap-idx'));
+            const item = opt.phrases[idx];
+            if (!item) return;
+
+            cards.forEach((c) => c.classList.remove('is-selected'));
+            card.classList.add('is-selected');
+            bannerText.textContent = item.native;
+            banner.classList.add('is-visible');
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            announce(`Displayed message: ${item.native}`);
+          });
+        });
+
+        btnDismiss.addEventListener('click', () => {
+          cards.forEach((c) => c.classList.remove('is-selected'));
+          banner.classList.remove('is-visible');
+        });
+
+        // Wire up Type-to-Talk tool placeholder
+        const btnTypeToTalk = document.getElementById('btn-type-to-talk');
+        btnTypeToTalk.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(
+            'Type-to-Talk Web Tool',
+            'This button links to your standalone web-based Type-to-Talk application (currently being developed separately). Once hosted, replace href="#type-to-talk" with the tool URL.',
+            'Target URL: #type-to-talk (External Web App Placeholder)',
+            '',
+            ''
+          );
+        });
+      }
+
+      function renderAslDetail(opt) {
+        elDetailView.innerHTML = `
+          <div class="detail-header-card">
+            <div>
+              <h2>${escapeHtml(opt.headerTitle)}</h2>
+              <p>${escapeHtml(opt.headerSubtitle)}</p>
+            </div>
+            <span class="civic-badge">ASL Video Access</span>
+          </div>
+
+          <!-- Pre-shown Point-to-Show Banner for Staff -->
+          <div id="asl-banner" class="selected-banner is-visible" role="region" aria-label="ASL Interpreter Request Notice">
+            <div class="selected-banner-top">
+              <span class="selected-pill">Show to Staff &bull; ASL Request</span>
+            </div>
+            <p class="selected-native">${escapeHtml(opt.defaultBanner.native)}</p>
+            <p class="selected-english">${escapeHtml(opt.defaultBanner.en)}</p>
+          </div>
+
+          <section class="section-card" aria-labelledby="asl-action-heading">
+            <div class="section-header">
+              <h3 id="asl-action-heading">Video Remote Interpreting (VRI)</h3>
+              <span>Connect with a live American Sign Language interpreter</span>
+            </div>
+
+            <div class="instruction-pair">
+              <div class="instruction-note">
+                <span class="lang-tag">Instructions</span>
+                <p>${escapeHtml(opt.instructionsEn)}</p>
+              </div>
+            </div>
+
+            <div class="action-links-grid">
+              <a href="propioone://" id="btn-asl-propio" class="action-link-card primary-action">
+                <div class="action-icon-box" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="23 7 16 12 23 17 23 7"/>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                  </svg>
+                </div>
+                <div class="action-text">
+                  <span class="action-title-native">Open Propio ONE (ASL Video Interpreter)</span>
+                  <span class="action-title-en">On-Demand American Sign Language Video Connection</span>
+                  <span class="action-desc">Opens the Propio ONE app on this iPad to start a live ASL video session.</span>
+                </div>
+              </a>
+            </div>
+          </section>
+        `;
+
+        const btnAslPropio = document.getElementById('btn-asl-propio');
+        btnAslPropio.addEventListener('click', (e) => {
+          handleAppLaunch(
+            e,
+            'Propio ONE (ASL Video Interpreter)',
+            'propioone://',
+            'https://www.propio-ls.com/',
+            'Open Propio Web Portal'
+          );
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         9. GRACEFUL APP LAUNCH HANDLER (iPadOS URL SCHEMES + BROWSER FALLBACK)
+         ---------------------------------------------------------------------- */
+      function handleAppLaunch(event, appTitle, uriScheme, fallbackUrl, fallbackLabel) {
+        // Attempt to trigger the iPadOS custom URL scheme while also displaying
+        // a helpful non-blocking confirmation dialog for desktop/preview browsers.
+        const isIpadOrIos = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+        if (!isIpadOrIos) {
+          event.preventDefault();
+        }
+
+        openModal(
+          `Launching ${appTitle}`,
+          isIpadOrIos
+            ? `Opening ${appTitle} on this iPad. If the app does not open automatically, please check that it is installed on the Home Screen.`
+            : `On an iPad with ${appTitle} installed, tapping this link triggers the iPadOS app scheme below. In a desktop browser preview, custom app links are simulated.`,
+          `App Link: ${uriScheme}`,
+          fallbackUrl,
+          fallbackLabel
+        );
+      }
+
+      function openModal(title, description, uriText, fallbackUrl, fallbackLabel) {
+        elModalTitle.textContent = title;
+        elModalDesc.textContent = description;
+        elModalUriBox.textContent = uriText;
+
+        if (fallbackUrl) {
+          elModalWebFallback.href = fallbackUrl;
+          elModalWebFallback.textContent = fallbackLabel || 'Open Web Link';
+          elModalWebFallback.hidden = false;
+        } else {
+          elModalWebFallback.hidden = true;
+        }
+
+        elModal.classList.add('is-open');
+        elModalCloseBtn.focus();
+      }
+
+      function closeModal() {
+        elModal.classList.remove('is-open');
+      }
+
+      elModalCloseBtn.addEventListener('click', closeModal);
+      elModal.addEventListener('click', (e) => {
+        if (e.target === elModal) {
+          closeModal();
+        }
+      });
+
+      /* ----------------------------------------------------------------------
+         10. INITIALIZE APP
+         ---------------------------------------------------------------------- */
+      renderHomeGrid();
+    })();
+  </script>
+</body>
+</html>
