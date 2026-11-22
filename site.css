@@ -1,3 +1,7 @@
+/*
+:root { color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { body { background-color: #222; } }
+*/
 body { font: 1rem/1.5 system-ui, sans-serif; margin: 0 auto; display: flex; flex-flow: column nowrap; min-height: 100vh; }
 header, main, footer { padding: .5em max(calc(50vw - 593px), 15px) .5em; }
 header, footer, footer a, footer a span { background: #003e62; color: #fff; }
