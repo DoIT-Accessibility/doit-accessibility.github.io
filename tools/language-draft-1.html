@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/site.css">
+	<title>Launch Pad</title>
+	<style>
+		header { display: flex; flex-flow: row wrap; justify-content: space-between; gap: .5em; }
+		.tiles { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15em, 1fr)); gap: 1em; }
+		.tiles li { margin: 0; }
+		.tiles a { display: block; height: 100%; box-sizing: border-box; padding: .75em 1em; border: 2px solid #003e62; border-radius: .5em; font-size: 1.5em; text-decoration: none; }
+		.tiles small { display: block; font-size: .65em; }
+		button { min-height: 44px; padding: .25em 1em; }
+		textarea { display: block; width: 100%; box-sizing: border-box; min-height: 5em; font-size: 1.5em; }
+		.flipped { transform: rotate(180deg); }
+	</style>
+</head>
+<body>
+<header>
+	<a href="#home">Language &amp; Accessibility Help</a>
+	<a href="#staff-help">Staff help</a>
+</header>
+<main>
+
+	<section id="home">
+		<h1 tabindex="-1">How can we help?</h1>
+		<p><span lang="es">¿Cómo podemos ayudarle?</span> · <span lang="pl">W czym możemy pomóc?</span></p>
+		<ul class="tiles">
+			<li><a href="#languages">Another language
+				<small><span lang="es">Otro idioma</span> · <span lang="pl">Inny język</span> · <span lang="zh">其他语言</span> · <span lang="ar">لغة أخرى</span></small></a></li>
+			<li><a href="#interpreter">Sign language (ASL)
+				<small>Video interpreter</small></a></li>
+			<li><a href="#type-to-talk">Read or type
+				<small>For customers who are hard of hearing</small></a></li>
+			<li><a href="#type-to-talk">Type to speak
+				<small>The iPad reads your words aloud</small></a></li>
+			<li><a href="#interpreter">Get an interpreter
+				<small>Free, by video or phone</small></a></li>
+		</ul>
+	</section>
+
+	<section id="languages">
+		<h1 tabindex="-1">Point to your language</h1>
+		<ul class="tiles">
+			<li><a href="#translate" data-language="Spanish" lang="es">Español<small>Hablo español</small><small lang="en">Spanish · Translate</small></a></li>
+			<li><a href="#translate" data-language="Polish" lang="pl">Polski<small>Mówię po polsku</small><small lang="en">Polish · Translate</small></a></li>
+			<li><a href="#translate" data-language="Arabic" lang="ar">العربية<small>أتكلم العربية</small><small lang="en">Arabic · Translate</small></a></li>
+			<li><a href="#translate" data-language="Chinese (Mandarin)" lang="zh">中文<small>我说中文</small><small lang="en">Chinese (Mandarin) · Translate</small></a></li>
+			<li><a href="#translate" data-language="Vietnamese" lang="vi">Tiếng Việt<small>Tôi nói tiếng Việt</small><small lang="en">Vietnamese · Translate</small></a></li>
+			<li><a href="#translate" data-language="Ukrainian" lang="uk">Українська<small>Я розмовляю українською</small><small lang="en">Ukrainian · Translate</small></a></li>
+			<li><a href="#translate" data-language="Russian" lang="ru">Русский<small>Я говорю по-русски</small><small lang="en">Russian · Translate</small></a></li>
+			<li><a href="#translate" data-language="French" lang="fr">Français<small>Je parle français</small><small lang="en">French · Translate</small></a></li>
+			<li><a href="#interpreter" lang="ht">Kreyòl ayisyen<small>Mwen pale kreyòl</small><small lang="en">Haitian Creole · Interpreter</small></a></li>
+			<li><a href="#interpreter" lang="so">Soomaali<small>Waxaan ku hadlaa Soomaali</small><small lang="en">Somali · Interpreter</small></a></li>
+			<li><a href="#interpreter">My language is not listed<small>Get an interpreter</small></a></li>
+		</ul>
+		<p class="note">Sample list. Final languages and wording to come from office data and Propio.</p>
+	</section>
+
+	<section id="translate">
+		<h1 tabindex="-1">Use the Translate app</h1>
+		<ol>
+			<li>Tap <strong>Translate</strong> in the Dock.</li>
+			<li>Choose <strong>English</strong> and <strong id="translate-language">the customer's language</strong>.</li>
+			<li>Tap <strong>Conversation</strong>, then the layout button and <strong>Face to Face</strong>.</li>
+			<li>Take turns speaking. Keep sentences short.</li>
+		</ol>
+		<p>For Spanish and Polish, you can also use the <a href="#phrasebook">Phrasebook</a>.</p>
+		<p>High-stakes matter, or the translation looks wrong? <a href="#interpreter">Get an interpreter</a>.</p>
+	</section>
+
+	<section id="phrasebook">
+		<h1 tabindex="-1">Phrasebook</h1>
+		<p>
+			<label for="phrase-language">Language</label>
+			<select id="phrase-language">
+				<option value="es">Español</option>
+				<option value="pl">Polski</option>
+			</select>
+		</p>
+		<table>
+			<thead>
+				<tr><th scope="col">English</th><th scope="col" id="phrase-heading">Español</th><th scope="col"><span class="visually-hidden">Speak</span></th></tr>
+			</thead>
+			<tbody>
+				<tr><th colspan="3" scope="colgroup">Greeting</th></tr>
+				<tr><td>Hello. How can I help you today?</td><td data-es="Hola. ¿En qué le puedo ayudar hoy?" data-pl="Dzień dobry. W czym mogę pomóc?"></td><td><button type="button">Speak</button></td></tr>
+			</tbody>
+			<tbody>
+				<tr><th colspan="3" scope="colgroup">Waiting</th></tr>
+				<tr><td>Please wait a moment.</td><td data-es="Por favor, espere un momento." data-pl="Proszę chwilę poczekać."></td><td><button type="button">Speak</button></td></tr>
+				<tr><td>I will call an interpreter for you. It is free.</td><td data-es="Voy a llamar a un intérprete. Es gratis." data-pl="Wezwę tłumacza. To nic nie kosztuje."></td><td><button type="button">Speak</button></td></tr>
+				<tr><td>Please take a number and have a seat.</td><td data-es="Por favor, tome un número y siéntese." data-pl="Proszę pobrać numerek i usiąść."></td><td><button type="button">Speak</button></td></tr>
+			</tbody>
+			<tbody>
+				<tr><th colspan="3" scope="colgroup">Documents</th></tr>
+				<tr><td>Do you have a photo ID?</td><td data-es="¿Tiene una identificación con foto?" data-pl="Czy ma Pan/Pani dokument tożsamości ze zdjęciem?"></td><td><button type="button">Speak</button></td></tr>
+				<tr><td>Please fill out this form.</td><td data-es="Por favor, llene este formulario." data-pl="Proszę wypełnić ten formularz."></td><td><button type="button">Speak</button></td></tr>
+			</tbody>
+			<tbody>
+				<tr><th colspan="3" scope="colgroup">Directions</th></tr>
+				<tr><td>Please go to window 3.</td><td data-es="Por favor, vaya a la ventanilla 3." data-pl="Proszę podejść do okienka nr 3."></td><td><button type="button">Speak</button></td></tr>
+				<tr><td>The restroom is down the hall on the left.</td><td data-es="El baño está al final del pasillo, a la izquierda." data-pl="Toaleta jest na końcu korytarza, po lewej stronie."></td><td><button type="button">Speak</button></td></tr>
+			</tbody>
+			<tbody>
+				<tr><th colspan="3" scope="colgroup">Closing</th></tr>
+				<tr><td>Thank you. Have a good day.</td><td data-es="Gracias. Que tenga un buen día." data-pl="Dziękuję. Miłego dnia."></td><td><button type="button">Speak</button></td></tr>
+			</tbody>
+		</table>
+		<p class="note">Sample translations. Final text to come from Propio's human translators.</p>
+	</section>
+
+	<section id="type-to-talk">
+		<h1 tabindex="-1">Type to Talk</h1>
+		<p>To dictate, tap the microphone key on the keyboard.</p>
+		<div id="customer-side" class="flipped">
+			<label for="customer-text">Customer</label>
+			<textarea id="customer-text">Do I need to bring anything else?</textarea>
+			<p><button type="button" data-speak="customer-text">Speak</button></p>
+		</div>
+		<div>
+			<label for="staff-text">Staff</label>
+			<textarea id="staff-text">Your renewal is ready. Please sign at the bottom of the form.</textarea>
+			<p><button type="button" data-speak="staff-text">Speak</button></p>
+		</div>
+		<p>
+			<label for="speak-language">Speak in</label>
+			<select id="speak-language">
+				<option value="en-US">English</option>
+				<option value="es-US">Español</option>
+				<option value="pl-PL">Polski</option>
+			</select>
+			<button type="button" id="flip" aria-pressed="true">Flip customer side</button>
+			<button type="button" id="larger">Larger text</button>
+			<button type="button" id="smaller">Smaller text</button>
+			<button type="button" id="clear">Clear</button>
+		</p>
+	</section>
+
+	<section id="interpreter">
+		<h1 tabindex="-1">Get an interpreter</h1>
+		<p><span lang="es">Un intérprete gratuito está en camino.</span> · <span lang="pl">Łączymy z bezpłatnym tłumaczem.</span></p>
+		<ol>
+			<li>Open <strong>Propio ONE</strong> in the Dock, or <a href="https://one.propio-ls.com/login">open Propio ONE on the web</a>.</li>
+			<li>Choose the language. For ASL, choose <strong>American Sign Language</strong>.</li>
+			<li>Tap <strong>Video</strong> for ASL, or <strong>Audio</strong> for a spoken language.</li>
+			<li>Turn the iPad so the customer and the interpreter can see each other.</li>
+		</ol>
+		<p>If the video freezes, or the customer asks, offer to schedule an in-person interpreter.</p>
+	</section>
+
+	<section id="staff-help">
+		<h1 tabindex="-1">Staff help</h1>
+		<h2>Quick reference</h2>
+		<table>
+			<thead><tr><th scope="col">Customer</th><th scope="col">Use</th></tr></thead>
+			<tbody>
+				<tr><th scope="row">Common language, routine</th><td>Translate (Face to Face), Phrasebook</td></tr>
+				<tr><th scope="row">Uncommon language</th><td>Point to your language, then Propio</td></tr>
+				<tr><th scope="row">High stakes, any language</th><td>Propio interpreter</td></tr>
+				<tr><th scope="row">Deaf, reads English</th><td>Live Captions, Type to Talk</td></tr>
+				<tr><th scope="row">Deaf, ASL</th><td>Propio video (ASL)</td></tr>
+				<tr><th scope="row">Hard of hearing</th><td>Type to Talk with dictation, Live Captions</td></tr>
+				<tr><th scope="row">Speech impairment</th><td>Type to Talk (Speak), Live Speech</td></tr>
+				<tr><th scope="row">Low literacy</th><td>Propio audio, Phrasebook (Speak)</td></tr>
+				<tr><th scope="row">DeafBlind or low vision</th><td>Schedule an in-person interpreter</td></tr>
+			</tbody>
+		</table>
+		<h2>Shortcuts</h2>
+		<ul>
+			<li>Triple-click the top button for Live Speech, Live Captions or Guided Access.</li>
+			<li>Translate stays in On-device mode. Don't turn it off.</li>
+		</ul>
+		<h2>Before the next customer</h2>
+		<ol>
+			<li>Tap <strong>Clear</strong> in Type to Talk. Text also clears after 2 minutes idle.</li>
+			<li>Clear Translate history if anything personal was said.</li>
+			<li>Wipe the screen.</li>
+		</ol>
+	</section>
+
+</main>
+<footer>Launch Pad mock-up · Last Updated: 2026-11-11</footer>
+<script>
+
+	// Show one section at a time, chosen by the URL hash.
+	const sections = document.querySelectorAll("main > section");
+	function show() {
+		const id = location.hash.slice(1) || "home";
+		const current = document.getElementById(id) || document.getElementById("home");
+		//sections.forEach(section => section.hidden = section !== current);
+		return current;
+	}
+	window.addEventListener("hashchange", () => show().querySelector("h1").focus());
+	show();
+
+	// Speak text aloud with the iPad's on-device voices.
+	function speak(text, lang) {
+		if (!text || !window.speechSynthesis) return;
+		const utterance = new SpeechSynthesisUtterance(text);
+		utterance.lang = lang;
+		speechSynthesis.cancel();
+		speechSynthesis.speak(utterance);
+	}
+
+	// Translate: name the language the customer picked.
+	document.querySelectorAll("[data-language]").forEach(link => {
+		link.addEventListener("click", () => {
+			document.getElementById("translate-language").textContent = link.dataset.language;
+		});
+	});
+
+	// Phrasebook: fill the translation column and speak a row.
+	const phraseLanguage = document.getElementById("phrase-language");
+	const voices = { es: "es-US", pl: "pl-PL" };
+	function fillPhrases() {
+		const lang = phraseLanguage.value;
+		document.getElementById("phrase-heading").textContent = phraseLanguage.selectedOptions[0].text;
+		document.querySelectorAll("[data-es]").forEach(cell => {
+			cell.textContent = cell.dataset[lang];
+			cell.lang = lang;
+		});
+	}
+	phraseLanguage.addEventListener("change", fillPhrases);
+	fillPhrases();
+	document.querySelectorAll("#phrasebook tbody button").forEach(button => {
+		button.addEventListener("click", () => {
+			speak(button.closest("tr").querySelector("[data-es]").textContent, voices[phraseLanguage.value]);
+		});
+	});
+
+	// Type to Talk: speak, flip, resize and clear.
+	const customerText = document.getElementById("customer-text");
+	const staffText = document.getElementById("staff-text");
+	document.querySelectorAll("[data-speak]").forEach(button => {
+		button.addEventListener("click", () => {
+			speak(document.getElementById(button.dataset.speak).value, document.getElementById("speak-language").value);
+		});
+	});
+	const flip = document.getElementById("flip");
+	flip.addEventListener("click", () => {
+		const flipped = document.getElementById("customer-side").classList.toggle("flipped");
+		flip.setAttribute("aria-pressed", flipped);
+	});
+	let size = 1.5;
+	function resize(step) {
+		size = Math.min(4, Math.max(1, size + step));
+		customerText.style.fontSize = staffText.style.fontSize = size + "em";
+	}
+	document.getElementById("larger").addEventListener("click", () => resize(.5));
+	document.getElementById("smaller").addEventListener("click", () => resize(-.5));
+	function clearText() {
+		customerText.value = staffText.value = "";
+		if (window.speechSynthesis) speechSynthesis.cancel();
+	}
+	document.getElementById("clear").addEventListener("click", () => {
+		clearText();
+		staffText.focus();
+	});
+
+	// Privacy: after 2 minutes idle, clear all text and return Home.
+	let idleTimer;
+	function resetIdle() {
+		clearTimeout(idleTimer);
+		idleTimer = setTimeout(() => {
+			clearText();
+			location.hash = "home";
+		}, 120000);
+	}
+	["pointerdown", "keydown", "input"].forEach(type => document.addEventListener(type, resetIdle));
+	resetIdle();
+
+</script>
+</body>
+</html>

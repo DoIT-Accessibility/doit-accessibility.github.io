@@ -5,121 +5,157 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Illinois.gov Language Launch Pad</title>
 	<style>
+		:root {
+			color-scheme:	light;
+			--page:			light-dark(#eee, #333);
+			--card:			light-dark(#fff, #666);
+			--text:			light-dark(#000, #fff);
+			--highlight:		light-dark(#36c, #6cf);
+			--highlight-text:	light-dark(#fff, #000);
+		}	
 		* { box-sizing: border-box; margin: 0; padding: 0; }
-		body { font: 1rem/1.25 system-ui, sans-serif; background: ButtonFace; }
-		h1, h2, strong { font-weight: 500; }
-		button { font: inherit; }
-		body { display: flex; flex-flow: column nowrap; gap: .5em; min-height: 100dvh; }
-		main { flex: 1; display: flex; flex-flow: column nowrap; margin: .5em; }
-		main > section { display: none; flex: 1; flex-flow: column nowrap; gap: 0.75em; }
-		main > section:target { display: flex; }
-		body:has(main > section:target) #home { display: none; }
-		#home { flex: 1; display: flex; flex-flow: column nowrap; gap: 0.5em; }
-		#home .grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); gap: 0.5em; }
-		@media (orientation: landscape) { #home .grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); } }
-		#home .grid a, .phrases button, .actions a, section header a { border: none; border-radius: 1em; background: Canvas; color: ButtonText; text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
-		#home .grid a:focus, .phrases button:focus, .actions a:focus, section header a:focus, 
-		#home .grid a:active, .phrases button:active, .actions a:active, section header a:active 
-		{ background: Highlight; color: HighlightText; outline: none; }
+		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
+		h1, h2 { font-size: 2em; font-weight: 400; }
+		strong { font-weight: 600; }
+		main, main > section { flex: 1; display: flex; flex-direction: column; gap: 0.5em; }
+		main { margin: 0.5em; }
+		main > section:not(#home) { display: none; }
+		main > section:not(#home):target { display: flex; }
+		body:has(main > section:not(#home):target) #home { display: none; }
 		section header { display: flex; justify-content: space-between; align-items: center; }
-		section header a { padding: 0.25rem 0.75rem; }
-		.phrases { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); gap: 0.5em; }
-		.actions { display: flex; gap: 0.5em; }
-		.actions a { flex: 1; padding: 0.75em; }
-		#home .grid a strong, .phrases button strong { font-size: 1.5em; }
+		section header a { border-radius: 1em; background: var(--card); text-decoration: none; padding: .25em .5em }
+		ul.grid, ul.actions { list-style: none; gap: 0.5em; }
+		ul.grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); }
+		@media (orientation: landscape) { ul.grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); } }
+		ul.grid li, ul.actions li { display: flex; }
+		ul.actions { display: flex; }
+		ul.actions li { flex: 1; }
+		ul.grid a, ul.grid label, ul.actions a { flex: 1; border-radius: 1em; background: var(--card); color: var(--text); text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
+		ul.grid a strong, ul.grid label strong { font-size: 1.5em; }
+		ul.grid label { position: relative; }
+		ul.grid input[type="checkbox"] { position: absolute; opacity: 0; }
+		ul.grid label:has(:focus-visible), a:focus-visible { outline: 3px solid var(--highlight); }
+		ul.grid label:has(:checked) { background: var(--highlight); color: var(--highlight-text); }
 	</style>
 </head>
 <body>
 	<main>
-		<nav id="home" aria-label="Language Launch Pad">
-			<h1>Choose your language</h1>
-			<p>
-				<span lang="es">Señala tu idioma</span> | 
-				<span lang="pl">Wybierz swój język</span> | 
-				<span lang="zh">选择你的语言</span> | 
-				<span lang="tl">Piliin ang iyong wika</span> | 
-				<span lang="ar">اختر لغتك</span> | 
+		<section id="home" aria-labelledby="home-title">
+			<h1 id="home-title"><strong>Pick your language</strong></h1>
+			<!-- <p>
+				<span lang="es">Señale su idioma</span> |
+				<span lang="pl">Wybierz swój język</span> |
+				<span lang="zh">选择你的语言</span> |
+				<span lang="tl">Piliin ang iyong wika</span> |
+				<span lang="ar" dir="rtl">اختر لغتك</span> |
 				<span lang="hi">अपनी भाषा चुनें</span>
-			</p>
-			<div class="grid">
-				<a href="#es"><strong lang="es">Español</strong><span>(Spanish)</span></a>
-				<a href="#pl"><strong lang="pl">Polski</strong><span>(Polish)</span></a>
-				<a href="#zh"><strong lang="zh">中文</strong><span>(Chinese)</span></a>
-				<a href="#tl"><strong lang="tl">Tagalog</strong><span>(Tagalog)</span></a>
-				<a href="#ar"><strong lang="ar">العربية</strong><span>(Arabic)</span></a>
-				<a href="#hi"><strong lang="hi">हिन्दी</strong><span>(Hindi)</span></a>
-				<a href="#cc"><strong>Captions</strong><span>(CC)</span></a>
-				<a href="#asl"><strong>Sign Language</strong><span>(ASL)</span></a>
-			</div>
-			<div class="actions">
-				<a href="shortcuts://run-shortcut?name=Translate">
-					<strong>Apple Translate</strong>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="https://one.propio-ls.com/">
-					<strong>Propio ONE</strong>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
-		</nav>
-
+			</p> -->
+			<ul class="grid">
+				<li><a href="#es"><strong lang="es">Español</strong><span>Spanish</span></a></li>
+				<li><a href="#pl"><strong lang="pl">Polski</strong><span>Polish</span></a></li>
+				<li><a href="#zh"><strong lang="zh">中文</strong><span>Chinese</span></a></li>
+				<li><a href="#tl"><strong lang="tl">Tagalog</strong><span>Tagalog</span></a></li>
+				<li><a href="#ar"><strong lang="ar" dir="rtl">العربية</strong><span>Arabic</span></a></li>
+				<li><a href="#hi"><strong lang="hi">हिन्दी</strong><span>Hindi</span></a></li>
+				<li><a href="#cc"><strong>Captions</strong><span>CC</span></a></li>
+				<li><a href="#asl"><strong>Sign Language</strong><span>ASL</span></a></li>
+			</ul>
+			<ul class="actions">
+				<li>
+					<a href="shortcuts://run-shortcut?name=Translate">
+						<strong>Apple Translate</strong>
+						<span>For quick automatic translations</span>
+					</a>
+				</li>
+				<li>
+					<a href="https://one.propio-ls.com/">
+						<strong>Propio ONE</strong>
+						<span>For a live human interpreter</span>
+					</a>
+				</li>
+			</ul>
+		</section>
 		<section id="es">
 			<header>
-				<h2>Español (Spanish)</h2>
-				<a href="#home" aria-label="Close">X</a>
+				<h2>
+					<strong lang="es">Español</strong>
+				</h2>
+				<a href="#home" aria-label="Close"><strong>X</strong></a>
 			</header>
-			<p><strong lang="es">Señale una frase</strong> (point to a phrase)</p>
-			<div class="phrases">
-				<button><strong lang="es">¿Necesitas un intérprete?</strong> <span>(Do you need an interpreter?)</span></button>
-				<button><strong lang="es">¿Podemos probar la app de Traducir?</strong> <span>(Can we try the Translate app?)</span></button>
-				<button><strong lang="es">¿Tienes una cita?</strong> <span>(Do you have an appointment?)</span></button>
-				<button><strong lang="es">¿Puedo ver tu identificación?</strong> <span>(May I see your identification?)</span></button>
-				<button><strong lang="es">Por favor, rellena esto</strong> <span>(Please fill this out)</span></button>
-				<button><strong lang="es">Por favor, espera allí</strong> <span>(Please wait there)</span></button>
-				<button><strong lang="es">Sí</strong> <span>(Yes)</span></button>
-				<button><strong lang="es">No</strong> <span>(No)</span></button>
-			</div>
-			<div class="actions">
-				<a href="shortcuts://run-shortcut?name=Open%20Translate">
+			<!-- <p><span lang="es">Señale una frase</span> (pick a phrase)</p> -->
+			<ul class="grid">
+				<li><label><input type="checkbox">
+					<strong lang="es">Probemos la app Traducir</strong>
+					<span>Try the Translate app</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Necesitamos un intérprete</strong>
+					<span>Need an interpreter</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Mostrar identificación</strong>
+					<span>Show identification</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Con cita</strong>
+					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Llenar este formulario</strong>
+					<span>Fill out this form</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Por favor, espere</strong>
+					<span>Please wait</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Sí</strong>
+					<span>Yes</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">No</strong>
+					<span>No</span>
+				</label></li>
+			</ul>
+			<ul class="actions">
+				<li><a href="shortcuts://run-shortcut?name=Translate">
 					<strong>Apple Translate</strong>
 					<span lang="es">Para traducciones automáticas rápidas</span>
-					<span>(For quick automatic translations)</span>
-				</a>
-				<a href="https://one.propio-ls.com/">
+				</a></li>
+				<li><a href="https://one.propio-ls.com/">
 					<strong>Propio ONE</strong>
 					<span lang="es">Para un intérprete humano en vivo</span>
-					<span>(For a live human interpreter)</span>
-				</a>
-			</div>
+				</a></li>
+			</ul>
 		</section>
-
 		<section id="pl">
 			<!-- placeholder -->
 		</section>
-
 		<section id="zh">
 			<!-- placeholder -->
 		</section>
-
 		<section id="tl">
 			<!-- placeholder -->
 		</section>
-
 		<section id="ar" dir="rtl">
 			<!-- placeholder -->
 		</section>
-
 		<section id="hi">
 			<!-- placeholder -->
 		</section>
-
 		<section id="cc">
 			<!-- placeholder -->
 		</section>
-
 		<section id="asl">
 			<!-- placeholder -->
 		</section>
 	</main>
+	<script>
+		document.querySelectorAll("input[type=checkbox]").forEach(checkbox => { 
+			checkbox.addEventListener("keydown", e => { if (e.key === "Enter") { e.target.click(); }});
+			checkbox.addEventListener("change", e => { if (e.target.checked) { document.querySelectorAll("input:checked").forEach(c => c.checked = (c === e.target))}});
+		});
+		window.addEventListener("hashchange", () => document.querySelectorAll("input:checked").forEach(c => c.checked = false));
+	</script>
 </body>
 </html>
