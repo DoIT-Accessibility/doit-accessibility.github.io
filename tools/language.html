@@ -10,7 +10,8 @@
 			--page:			light-dark(#eee, #333);
 			--card:			light-dark(#fff, #666);
 			--text:			light-dark(#000, #fff);
-			--highlight:		light-dark(#36c, #6cf);
+			--gray-text:	light-dark(#777, #777);
+			--highlight:		light-dark(#2278BB, #2278BB);
 			--highlight-text:	light-dark(#fff, #000);
 		}	
 		* { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,12 +32,14 @@
 		ul.actions { display: flex; }
 		ul.actions li { flex: 1; }
 		ul.grid a, ul.grid label, ul.actions a { flex: 1; border-radius: 1em; background: var(--card); color: var(--text); text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
-		ul.grid a strong, ul.grid label strong { font-size: 1.5em; }
 		ul.grid label { position: relative; }
 		ul.grid input[type="checkbox"] { position: absolute; opacity: 0; }
 		ul.grid label:has(:focus-visible), a:focus-visible { outline: 3px solid var(--highlight); }
 		ul.grid label:has(:checked) { background: var(--highlight); color: var(--highlight-text); }
-	</style>
+		ul.grid strong { font-size: 1.5em; color: var(--highlight); }	
+		ul.grid span { color: var(--gray-text); }
+		ul.grid label:has(:checked) :is(strong, span) { color: inherit; }
+</style>
 </head>
 <body>
 	<main>
