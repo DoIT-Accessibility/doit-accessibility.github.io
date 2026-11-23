@@ -79,9 +79,8 @@
 				document.body.style.minHeight = 0;
 				document.body.style.height = `${window.visualViewport.height}px`;
 				document.body.scrollTop = 0;
-				chats.forEach(chat => {
-					const history = chat.querySelector('.history');
-					history.scrollTop = history.scrollHeight;
+				document.querySelector("#ttt textarea").forEach(textarea => {
+					textarea.scrollTop = textarea.scrollHeight;
 				});
 			}
 		}
