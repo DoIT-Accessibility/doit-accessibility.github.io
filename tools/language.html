@@ -6,54 +6,57 @@
 	<title>Illinois.gov Language Launch Pad</title>
 	<style>
 		:root {
-			color-scheme:	light;
-			--page:			light-dark(#eee, #333);
-			--card:			light-dark(#fff, #666);
-			--text:			light-dark(#000, #fff);
-			--gray-text:	light-dark(#777, #777);
-			--highlight:		light-dark(#2278BB, #2278BB);
-			--highlight-text:	light-dark(#fff, #000);
-		}	
-		* { box-sizing: border-box; margin: 0; padding: 0; }
+			color-scheme: light;
+			--page: light-dark(#eee, #333);
+			--card: light-dark(#fff, #666);
+			--border: light-dark(#ddd, #777);
+			--text: light-dark(#444, #ccc);
+			--gray-text: light-dark(#777, #777);
+			--highlight: light-dark(#2278BB, #2278BB);
+			--highlight-text: light-dark(#fff, #000);
+		}
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
 		h1, h2 { font-size: 2em; font-weight: 400; }
 		strong { font-weight: 600; }
-		main, main > section { flex: 1; display: flex; flex-direction: column; gap: 0.5em; }
-		main { margin: 0.5em; }
-		main > section:not(#home) { display: none; }
-		main > section:not(#home):target { display: flex; }
+		a { text-decoration: none; }
+		a:focus-visible, label:has(:focus-visible) { outline: 3px solid var(--highlight); }
+		main { flex: 1; display: flex; flex-direction: column; gap: 0.5em; margin: 0.5em; min-height: 0; }
+		main > section { flex: 1; display: none; flex-direction: column; gap: 0.5em; overflow-y: auto; }
+		main > section#home, main > section:target { display: flex; }
 		body:has(main > section:not(#home):target) #home { display: none; }
-		section header { display: flex; justify-content: space-between; align-items: center; }
-		section header a { border-radius: 1em; background: var(--card); text-decoration: none; padding: .25em .5em }
-		ul.grid, ul.actions { list-style: none; gap: 0.5em; }
-		ul.grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); }
-		@media (orientation: landscape) { ul.grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); } }
-		ul.grid li, ul.actions li { display: flex; }
-		ul.actions { display: flex; }
-		ul.actions li { flex: 1; }
-		ul.grid a, ul.grid label, ul.actions a { flex: 1; border-radius: 1em; background: var(--card); color: var(--text); text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
-		ul.grid label { position: relative; }
-		ul.grid input[type="checkbox"] { position: absolute; opacity: 0; }
-		ul.grid label:has(:focus-visible), a:focus-visible { outline: 3px solid var(--highlight); }
-		ul.grid label:has(:checked) { background: var(--highlight); color: var(--highlight-text); }
-		ul.grid strong { font-size: 1.5em; color: var(--highlight); }	
-		ul.grid span { color: var(--gray-text); }
-		ul.grid label:has(:checked) :is(strong, span) { color: inherit; }
-</style>
+		section header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+		section header .close { color: var(--highlight); background: var(--card); border: 1px solid var(--border); border-radius: 1em; padding: .5em .75em; font-weight: 700; }
+		.cards { list-style: none; gap: 0.5em; }
+		.cards > * { display: flex; }
+		.cards :is(a, label) { flex: 1; color: var(--text); border-radius: 1em; background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
+		.cards input[type="checkbox"] { position: absolute; opacity: 0; }
+		.cards strong { color: var(--highlight); font-size: 1.5em; }
+		.cards span { color: var(--gray-text); }
+		.cards label:has(:checked) { color: var(--highlight-text); background: var(--highlight); border-color: var(--highlight); }
+		.cards label:has(:checked) :is(strong, span) { color: inherit; }
+		.lang { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(5.5em, 1fr); }
+		@media (orientation: landscape) { .lang { grid-template-columns: repeat(4, 1fr); } }
+		.tool { display: flex; flex-shrink: 0; }
+		.tool > * { flex: 1; }
+		.tool strong { font-size: 1.25em; }
+	</style>
 </head>
 <body>
 	<main>
 		<section id="home" aria-labelledby="home-title">
-			<h1 id="home-title"><strong>Pick your language</strong></h1>
-			<!-- <p>
-				<span lang="es">Señale su idioma</span> |
-				<span lang="pl">Wybierz swój język</span> |
-				<span lang="zh">选择你的语言</span> |
-				<span lang="tl">Piliin ang iyong wika</span> |
-				<span lang="ar" dir="rtl">اختر لغتك</span> |
-				<span lang="hi">अपनी भाषा चुनें</span>
-			</p> -->
-			<ul class="grid">
+			<header>
+				<h1 id="home-title"><strong>Pick your language</strong></h1>
+				<!-- <p>
+					<span lang="es">Señale su idioma</span> |
+					<span lang="pl">Wybierz swój język</span> |
+					<span lang="zh">选择你的语言</span> |
+					<span lang="tl">Piliin ang iyong wika</span> |
+					<span lang="ar" dir="rtl">اختر لغتك</span> |
+					<span lang="hi">अपनी भाषा चुनें</span>
+				</p> -->
+			</header>
+			<ul class="lang cards">
 				<li><a href="#es"><strong lang="es">Español</strong><span>Spanish</span></a></li>
 				<li><a href="#pl"><strong lang="pl">Polski</strong><span>Polish</span></a></li>
 				<li><a href="#zh"><strong lang="zh">中文</strong><span>Chinese</span></a></li>
@@ -63,17 +66,17 @@
 				<li><a href="#cc"><strong>Captions</strong><span>CC</span></a></li>
 				<li><a href="#asl"><strong>Sign Language</strong><span>ASL</span></a></li>
 			</ul>
-			<ul class="actions">
+			<ul class="tool cards">
 				<li>
 					<a href="shortcuts://run-shortcut?name=Translate">
 						<strong>Apple Translate</strong>
-						<span>For quick automatic translations</span>
+						<span>Quick automatic translations</span>
 					</a>
 				</li>
 				<li>
 					<a href="https://one.propio-ls.com/">
 						<strong>Propio ONE</strong>
-						<span>For a live human interpreter</span>
+						<span>On-line human interpreter</span>
 					</a>
 				</li>
 			</ul>
@@ -83,10 +86,10 @@
 				<h2>
 					<strong lang="es">Español</strong>
 				</h2>
-				<a href="#home" aria-label="Close"><strong>X</strong></a>
+				<a href="#home" class="close" aria-label="Close">X</a>
+				<!-- <p><span lang="es">Señale una frase</span> (pick a phrase)</p> -->
 			</header>
-			<!-- <p><span lang="es">Señale una frase</span> (pick a phrase)</p> -->
-			<ul class="grid">
+			<ul class="lang cards">
 				<li><label><input type="checkbox">
 					<strong lang="es">Probemos la app Traducir</strong>
 					<span>Try the Translate app</span>
@@ -120,14 +123,14 @@
 					<span>No</span>
 				</label></li>
 			</ul>
-			<ul class="actions">
+			<ul class="tool cards">
 				<li><a href="shortcuts://run-shortcut?name=Translate">
 					<strong>Apple Translate</strong>
-					<span lang="es">Para traducciones automáticas rápidas</span>
+					<span lang="es">Traducciones automáticas rápidas</span>
 				</a></li>
 				<li><a href="https://one.propio-ls.com/">
 					<strong>Propio ONE</strong>
-					<span lang="es">Para un intérprete humano en vivo</span>
+					<span lang="es">Intérprete humano en línea</span>
 				</a></li>
 			</ul>
 		</section>
@@ -154,7 +157,7 @@
 		</section>
 	</main>
 	<script>
-		document.querySelectorAll("input[type=checkbox]").forEach(checkbox => { 
+		document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
 			checkbox.addEventListener("keydown", e => { if (e.key === "Enter") { e.target.click(); }});
 			checkbox.addEventListener("change", e => { if (e.target.checked) { document.querySelectorAll("input:checked").forEach(c => c.checked = (c === e.target))}});
 		});
