@@ -76,8 +76,8 @@
 
 		function resizeVisualViewport() {
 			if (window.visualViewport) {
+				document.body.style.minHeight = 0;
 				document.body.style.height = `${window.visualViewport.height}px`;
-				//document.querySelector("main").style.height = `${window.visualViewport.height}px`;
 				document.body.scrollTop = 0;
 				chats.forEach(chat => {
 					const history = chat.querySelector('.history');
