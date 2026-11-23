@@ -3,50 +3,72 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../site.css">
 	<title>Type</title>
 	<style>
-		main { display: flex; flex-flow: column nowrap; gap: 1em; padding-bottom: 1em; background: ButtonFace; }
-		textarea { flex: 1 1 0; font-size: 1.5em; padding: .5em; border-radius: .5em; background: Canvas; }
-		#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border: 1px solid #777; }
-	</style>
+		:root {
+			color-scheme: light;
+			--page: light-dark(#eee, #333);
+			--card: light-dark(#fff, #666);
+			--border: light-dark(#ddd, #777);
+			--text: light-dark(#444, #ccc);
+			--gray-text: light-dark(#777, #777);
+			--highlight: light-dark(#2278BB, #2278BB);
+			--highlight-text: light-dark(#fff, #000);
+		}		
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
+		main { flex: 1; display: flex; flex-direction: column; gap: 0.5em; margin: 0.5em; min-height: 0; }
+		#ttt { flex: 1; display: flex; flex-direction: column; }
+		#ttt textarea { flex: 1 1 0; font: inherit; font-size: 1.5em; padding: 1rem; border: none; border-radius: 1rem; outline: none;  }
+		#ttt textarea#output {  transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; background: #eee; }
+		.toolbar { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: .5rem; z-index: 10; }
+		.toolbar button { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5em; display: flex; align-items: center; justify-content: center; }
+</style>
 </head>
 <body>
-	<!-- header></header -->
 	<main>
-		<h1 class="visually-hidden">Type</h1>
-		<textarea id="output" readonly></textarea>
-		<div id="controls" hidden><button id="clear-button">X</button></div>
-		<textarea id="input" placeholder="Type or dictate here..." autofocus></textarea>
+		<section id="ttt">
+			<textarea id="output" placeholder="Read here..." readonly></textarea>
+			<div class="toolbar">
+				<button class="clear" title="Clear">⊘</button>
+				<button class="larger" title="Larger">+</button>
+				<button class="contrast" title="Contrast">●</button>
+				<button class="smaller" title="Smaller">−</button>
+				<button class="close" title="Close">X</button>
+			</div>
+			<textarea id="input" placeholder="Type or dictate here..." autofocus></textarea>
+		</section>
 	</main>
-	<!-- footer><a href=".."><span>Home</span></a> Last Updated: 2026-11-10</footer -->
 	<script>
 
-		const input = document.getElementById('input');
-		const output = document.getElementById('output');
-		input.addEventListener('input', () => {
+		const input = document.querySelector("textarea#input");
+		const output = document.querySelector("textarea#output");
+		input.addEventListener("input", () => {
 			output.value = input.value;
 			output.scrollTop = output.scrollHeight;
 		});
 
-		const clearButton = document.getElementById("clear-button");
-		clearButton.addEventListener('click', () => {
-			input.value = '';
-			output.value = '';
+		document.querySelector("button.clear").addEventListener("click", () => {
+			output.value = "";
+			input.value = "";
 			input.focus();
 		});
 
-		function resizeVisualViewport() {
-			if (window.visualViewport) {
-				document.body.style.minHeight = "0";
-				document.body.style.height = `${window.visualViewport.height}px`;
-				output.scrollTop = output.scrollHeight;
-			}
+		function setFontSize(base, increment) {
+			input.style.fontSize = (parseFloat(input.style.fontSize) || base) + increment + "em";
+			output.style.fontSize = input.style.fontSize;
+			input.scrollTop = input.scrollHeight;
+			output.scrollTop = output.scrollHeight;
 		}
-		if (window.visualViewport) {
-			window.visualViewport.addEventListener('resize', resizeVisualViewport);
-			window.visualViewport.addEventListener('scroll', resizeVisualViewport);
-		}		
+
+		document.querySelector("button.larger").addEventListener("click", () => {
+			setFontSize(1.5, 0.5);
+		});
+
+		document.querySelector("button.smaller").addEventListener("click", () => {
+			setFontSize(1.5, -0.5);
+		});
+
 	</script>
 </body>
 </html>
