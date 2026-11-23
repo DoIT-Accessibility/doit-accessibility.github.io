@@ -17,27 +17,32 @@
 		}		
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
-		main { flex: 1; display: flex; flex-direction: column; gap: 0.5em; margin: 0.5em; min-height: 0; }
+		main { flex: 1; display: flex; flex-direction: column; gap: .5em; margin: 0.5em; min-height: 0; }
 		#ttt { flex: 1; display: flex; flex-direction: column; }
-		#ttt textarea { flex: 1 1 0; font: inherit; font-size: 1.5em; padding: 1rem; border: none; border-radius: 1rem; outline: none;  }
-		#ttt textarea#output {  transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; background: #eee; }
-		.toolbar { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: .5rem; z-index: 10; }
-		.toolbar button { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5em; display: flex; align-items: center; justify-content: center; }
+		#ttt div { flex: 1 1 0; }
+		#ttt textarea { height: 100%; width: 100%; font: inherit; font-size: 1.5rem; padding: 0 1.5rem; border: none; border-top: 1.5rem solid var(--card); border-radius: 1rem; outline: none; }
+		#ttt textarea#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border-color: #f6f6f6; background: #f6f6f6; }
+		.toolbar { position: absolute; left: 50%; transform: translate(-50%, -50%); display: flex; gap: .25rem; }
+		.toolbar button { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5em; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
 	<main>
 		<section id="ttt">
-			<textarea id="output" placeholder="Read here..." readonly></textarea>
-			<div class="toolbar">
-				<button class="clear" title="Clear">⊘</button>
-				<button class="larger" title="Larger">+</button>
-				<button class="contrast" title="Contrast">●</button>
-				<button class="smaller" title="Smaller">−</button>
-				<button class="close" title="Close">X</button>
+			<div>
+				<textarea id="output" placeholder="Read here..." readonly></textarea>
 			</div>
-			<textarea id="input" placeholder="Type or dictate here..." autofocus></textarea>
-		</section>
+			<div>
+				<div class="toolbar">
+					<button class="clear" title="Clear">⊘</button>
+					<button class="larger" title="Larger">+</button>
+					<button class="contrast" title="Contrast">●</button>
+					<button class="smaller" title="Smaller">−</button>
+					<button class="close" title="Close">X</button>
+				</div>
+				<textarea id="input" placeholder="Type or dictate here..." autofocus></textarea>
+			</div>
+			</section>
 	</main>
 	<script>
 
@@ -69,6 +74,21 @@
 			setFontSize(1.5, -0.5);
 		});
 
+		function resizeVisualViewport() {
+			if (window.visualViewport) {
+				document.body.style.height = `${window.visualViewport.height}px`;
+				//document.querySelector("main").style.height = `${window.visualViewport.height}px`;
+				document.body.scrollTop = 0;
+				chats.forEach(chat => {
+					const history = chat.querySelector('.history');
+					history.scrollTop = history.scrollHeight;
+				});
+			}
+		}
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener('resize', resizeVisualViewport);
+			window.visualViewport.addEventListener('scroll', resizeVisualViewport);
+		}		
 	</script>
 </body>
 </html>
