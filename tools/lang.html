@@ -14,6 +14,7 @@
 			--gray-text: light-dark(#777, #777);
 			--highlight: light-dark(#2278BB, #2278BB);
 			--highlight-text: light-dark(#fff, #000);
+			--lowlight: light-dark(#f7f7f7, #444);
 		}
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
@@ -26,10 +27,9 @@
 		main > section#home, main > section:target { display: flex; }
 		body:has(main > section:not(#home):target) #home { display: none; }
 		section header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-		section header .close { color: var(--highlight); background: var(--card); border: 1px solid var(--border); border-radius: 1em; padding: .5em .75em; font-weight: 700; }
 		.cards { list-style: none; gap: 0.5em; }
 		.cards > * { display: flex; }
-		.cards :is(a, label) { flex: 1; color: var(--text); border-radius: 1em; background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
+		.cards :is(a, label) { flex: 1; color: var(--text); border-radius: 1em; background: var(--card); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
 		.cards input[type="checkbox"] { position: absolute; opacity: 0; }
 		.cards strong { color: var(--highlight); font-size: 1.5em; }
 		.cards span { color: var(--gray-text); }
@@ -40,6 +40,7 @@
 		.tool { display: flex; flex-shrink: 0; }
 		.tool > * { flex: 1; }
 		.tool strong { font-size: 1.25em; }
+		.toolbar :is(button, .button) { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5rem; display: flex; align-items: center; justify-content: center; text-decoration: none; }
 	</style>
 </head>
 <body>
@@ -83,10 +84,8 @@
 		</section>
 		<section id="es">
 			<header>
-				<h2>
-					<strong lang="es">Español</strong>
-				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<h2><strong lang="es">Español</strong></h2>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="es">Señale una frase</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -99,12 +98,12 @@
 					<span>Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="es">Mostrar identificación</strong>
-					<span>Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="es">Con cita</strong>
 					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="es">Mostrar identificación</strong>
+					<span>Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="es">Llenar este formulario</strong>
@@ -136,10 +135,8 @@
 		</section>
 		<section id="pl">
 			<header>
-				<h2>
-					<strong lang="pl">Polski</strong>
-				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<h2><strong lang="pl">Polski</strong></h2>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="pl">Wybierz zdanie</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -152,12 +149,12 @@
 					<span>Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="pl">Proszę pokazać dokument tożsamości</strong>
-					<span>Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="pl">Mam umówioną wizytę</strong>
 					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="pl">Proszę pokazać dokument tożsamości</strong>
+					<span>Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="pl">Proszę wypełnić ten formularz</strong>
@@ -192,7 +189,7 @@
 				<h2>
 					<strong lang="zh">中文</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="zh">请选择一个短语</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -205,12 +202,12 @@
 					<span>Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="zh">请出示身份证件</strong>
-					<span>Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="zh">有预约</strong>
 					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="zh">请出示身份证件</strong>
+					<span>Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="zh">请填写此表格</strong>
@@ -245,7 +242,7 @@
 				<h2>
 					<strong lang="tl">Tagalog</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="tl">Pumili ng parirala</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -258,12 +255,12 @@
 					<span>Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="tl">Magpakita ng ID</strong>
-					<span>Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="tl">May appointment</strong>
 					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="tl">Magpakita ng ID</strong>
+					<span>Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="tl">Sagutan ang form na ito</strong>
@@ -298,7 +295,7 @@
 				<h2>
 					<strong lang="ar" dir="rtl">العربية</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="ar" dir="rtl">اختر عبارة</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -311,12 +308,12 @@
 					<span dir="ltr">Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="ar">إظهار الهوية</strong>
-					<span dir="ltr">Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="ar">لدي موعد</strong>
 					<span dir="ltr">Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="ar">إظهار الهوية</strong>
+					<span dir="ltr">Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="ar">يرجى تعبئة هذا النموذج</strong>
@@ -351,7 +348,7 @@
 				<h2>
 					<strong lang="hi">हिन्दी</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 				<!-- <p><span lang="hi">एक वाक्यांश चुनें</span> (pick a phrase)</p> -->
 			</header>
 			<ul class="lang cards">
@@ -364,12 +361,12 @@
 					<span>Need an interpreter</span>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong lang="hi">पहचान पत्र दिखाएं</strong>
-					<span>Show identification</span>
-				</label></li>
-				<li><label><input type="checkbox">
 					<strong lang="hi">मेरी अपॉइंटमेंट है</strong>
 					<span>Have an appointment</span>
+				</label></li>
+				<li><label><input type="checkbox">
+					<strong lang="hi">पहचान पत्र दिखाएं</strong>
+					<span>Show identification</span>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong lang="hi">यह फ़ॉर्म भरें</strong>
@@ -404,7 +401,7 @@
 				<h2>
 					<strong>Captions</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 			</header>
 			<ul class="lang cards">
 				<li><label><input type="checkbox">
@@ -414,10 +411,10 @@
 					<strong>Try the Type-to-Talk app</strong>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong>Show identification</strong>
+					<strong>Have an appointment</strong>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong>Have an appointment</strong>
+					<strong>Show identification</strong>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong>Fill out this form</strong>
@@ -448,7 +445,7 @@
 				<h2>
 					<strong>Sign Language</strong>
 				</h2>
-				<a href="#home" class="close" aria-label="Close">X</a>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
 			</header>
 			<ul class="lang cards">
 				<li><label><input type="checkbox">
@@ -458,10 +455,10 @@
 					<strong>Need an interpreter</strong>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong>Show identification</strong>
+					<strong>Have an appointment</strong>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong>Have an appointment</strong>
+					<strong>Show identification</strong>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong>Fill out this form</strong>
