@@ -90,7 +90,7 @@
 		function resizeVisualViewport() {
 			document.body.style.minHeight = 0;
 			document.body.style.height = `${window.visualViewport.height}px`;
-			document.body.scrollTop = 0;
+			window.scrollTo(0, 0);
 		}
 		if (window.visualViewport) {
 			window.visualViewport.addEventListener("resize", resizeVisualViewport);
