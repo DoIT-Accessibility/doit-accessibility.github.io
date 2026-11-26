@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Type</title>
+	<title>Type-to-Talk</title>
 	<style>
 		:root {
 			color-scheme: light;
@@ -14,80 +14,89 @@
 			--gray-text: light-dark(#777, #777);
 			--highlight: light-dark(#2278BB, #2278BB);
 			--highlight-text: light-dark(#fff, #000);
+			--lowlight: light-dark(#f7f7f7, #444);
 		}		
 		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 		body { font: 1rem/1.25 system-ui, sans-serif; background: var(--page); color: var(--text); display: flex; flex-direction: column; min-height: 100dvh; }
+		h1, h2 { font-size: 2em; font-weight: 400; }
+		strong { font-weight: 600; }
 		main { flex: 1; display: flex; flex-direction: column; gap: .5em; margin: 0.5em; min-height: 0; }
-		#ttt { flex: 1; display: flex; flex-direction: column; }
-		#ttt div { flex: 1 1 0; }
-		#ttt textarea { height: 100%; width: 100%; font: inherit; font-size: 1.5rem; padding: 0 1.5rem; border: none; border-top: 1.5rem solid var(--card); border-radius: 1rem; outline: none; }
-		#ttt textarea#output { transform: rotate(180deg); overflow-y: auto; white-space: pre-wrap; border-color: #f6f6f6; background: #f6f6f6; }
-		.toolbar { position: absolute; left: 50%; transform: translate(-50%, -50%); display: flex; gap: .25rem; }
-		.toolbar button { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5em; display: flex; align-items: center; justify-content: center; }
+		#ttt { flex: 1; display: flex; flex-direction: column; gap: .25em; }
+		#ttt :is(.input, .output) { flex: 1 0 0; padding: 1rem 0; background: var(--card); border-radius: 1.5rem; }
+		#ttt textarea { height: 100%; width: 100%; font: inherit; font-size: 1.5rem; padding: 0 1rem; border: none; outline: none; background: transparent; resize: none; }
+		#ttt .input textarea::placeholder { color: var(--highlight); }
+		#ttt .output { transform: rotate(180deg); background: var(--lowlight); }
+		#ttt .toolbar h2 { margin-right: auto; }
+		#ttt .toolbar { flex: 0 1 0; display: flex; gap: .25rem; justify-content: center; }
+		.toolbar :is(button, .button) { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5rem; display: flex; align-items: center; justify-content: center; text-decoration: none; }
 </style>
 </head>
 <body>
 	<main>
 		<section id="ttt">
-			<div>
-				<textarea id="output" placeholder="Read here..." readonly></textarea>
+			<div class="output" style="display: none;">
+				<textarea placeholder="Read here..." aria-label="Output" readonly></textarea>
 			</div>
-			<div>
-				<div class="toolbar">
-					<button class="clear" title="Clear">⊘</button>
-					<button class="larger" title="Larger">+</button>
-					<button class="contrast" title="Contrast">●</button>
-					<button class="smaller" title="Smaller">−</button>
-					<button class="close" title="Close">X</button>
-				</div>
-				<textarea id="input" placeholder="Type or dictate here..." autofocus></textarea>
+			<div class="toolbar">
+				<h2><strong>Type to talk</strong></h2>
+				<button class="mirror" title="Mirror" aria-label="Mirror" aria-pressed="false">▽</button>
+				<button class="larger" title="Larger" aria-label="Larger">+</button>
+				<button class="smaller" title="Smaller" aria-label="Smaller">−</button>
+				<button class="clear" title="Clear" aria-label="Clear">⊘</button>
+				<a href="" class="close button" title="Close" aria-label="Close">X</a>
 			</div>
-			</section>
+			<div class="input">
+				<textarea placeholder="Type or dictate here..." aria-label="Input" autofocus></textarea>
+			</div>
+		</section>
 	</main>
 	<script>
 
-		const input = document.querySelector("textarea#input");
-		const output = document.querySelector("textarea#output");
-		input.addEventListener("input", () => {
-			output.value = input.value;
-			output.scrollTop = output.scrollHeight;
-		});
-
-		document.querySelector("button.clear").addEventListener("click", () => {
-			output.value = "";
-			input.value = "";
-			input.focus();
-		});
-
-		function setFontSize(base, increment) {
-			input.style.fontSize = (parseFloat(input.style.fontSize) || base) + increment + "em";
-			output.style.fontSize = input.style.fontSize;
-			input.scrollTop = input.scrollHeight;
-			output.scrollTop = output.scrollHeight;
-		}
-
-		document.querySelector("button.larger").addEventListener("click", () => {
-			setFontSize(1.5, 0.5);
-		});
-
-		document.querySelector("button.smaller").addEventListener("click", () => {
-			setFontSize(1.5, -0.5);
+		document.querySelectorAll("#ttt").forEach(ttt => {
+			const input = ttt.querySelector(".input textarea");
+			const output = ttt.querySelector(".output textarea");
+			ttt.scrollToEnd = function () {
+				[input, output].forEach(textarea => {
+					textarea.scrollTop = textarea.scrollHeight;
+				});
+			};
+			input.addEventListener("input", event => {
+				output.value = input.value;
+				output.scrollTop = output.scrollHeight;
+			});
+			ttt.querySelector("button.mirror").addEventListener("click", event => {
+				const button = event.currentTarget;
+				const pressed = button.ariaPressed !== "true";
+				button.ariaPressed = pressed;
+				button.style.transform = pressed ? "rotate(180deg)" : "";
+				output.parentElement.style.display = pressed ? "" : "none";
+				ttt.querySelector("h2").style.display = pressed ? "none" : "";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.larger").addEventListener("click", event => {
+				input.style.fontSize = output.style.fontSize = ((parseFloat(input.style.fontSize) || 1.5) + 0.5) + "em";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.smaller").addEventListener("click", event => {
+				input.style.fontSize = output.style.fontSize = ((parseFloat(input.style.fontSize) || 1.5) - 0.5) + "em";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.clear").addEventListener("click", event => {
+				input.value = "";
+				output.value = "";
+			});
 		});
 
 		function resizeVisualViewport() {
-			if (window.visualViewport) {
-				document.body.style.minHeight = 0;
-				document.body.style.height = `${window.visualViewport.height}px`;
-				document.body.scrollTop = 0;
-				document.querySelector("#ttt textarea").forEach(textarea => {
-					textarea.scrollTop = textarea.scrollHeight;
-				});
-			}
+			document.body.style.minHeight = 0;
+			document.body.style.height = `${window.visualViewport.height}px`;
+			document.body.scrollTop = 0;
 		}
 		if (window.visualViewport) {
-			window.visualViewport.addEventListener('resize', resizeVisualViewport);
-			window.visualViewport.addEventListener('scroll', resizeVisualViewport);
-		}		
+			window.visualViewport.addEventListener("resize", resizeVisualViewport);
+			window.visualViewport.addEventListener("scroll", resizeVisualViewport);
+		}
+
 	</script>
 </body>
 </html>
