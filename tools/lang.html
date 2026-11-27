@@ -27,19 +27,28 @@
 		main > section#home, main > section:target { display: flex; }
 		body:has(main > section:not(#home):target) #home { display: none; }
 		section header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-		.cards { list-style: none; gap: 0.5em; }
-		.cards > * { display: flex; }
-		.cards :is(a, label) { flex: 1; color: var(--text); border-radius: 1em; background: var(--card); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
+		.cards { list-style: none; gap: .5em; }
+		.cards > * { display: flex; border-radius: 1em; background: var(--card); color: var(--text);  }
+		.cards :is(a, label) { flex: 1; border-radius: inherit; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0.75em; gap: 0.25em; }
 		.cards input[type="checkbox"] { position: absolute; opacity: 0; }
 		.cards strong { color: var(--highlight); font-size: 1.5em; }
 		.cards span { color: var(--gray-text); }
-		.cards label:has(:checked) { color: var(--highlight-text); background: var(--highlight); border-color: var(--highlight); }
+		.cards label:has(:checked) { background: var(--highlight); color: var(--highlight-text); }
 		.cards label:has(:checked) :is(strong, span) { color: inherit; }
 		.lang { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(5.5em, 1fr); }
 		@media (orientation: landscape) { .lang { grid-template-columns: repeat(4, 1fr); } }
 		.tool { display: flex; flex-shrink: 0; }
 		.tool > * { flex: 1; }
 		.tool strong { font-size: 1.25em; }
+		.instruction { display: flex; flex: 1; flex-direction: column; gap: .5em; }
+		.instruction > * { flex: 1; flex-direction: column; padding: 0.75em; gap: .5em; }
+		#ttt { gap: 0.25em; }
+		#ttt :is(.input, .output) { flex: 1 0 0; padding: 1rem 0; background: var(--card); border-radius: 1.5rem; }
+		#ttt textarea { height: 100%; width: 100%; font: inherit; font-size: 1.5rem; padding: 0 1rem; border: none; outline: none; background: transparent; resize: none; }
+		#ttt .input textarea::placeholder { color: var(--highlight); }
+		#ttt .output { transform: rotate(180deg); background: var(--lowlight); }
+		#ttt .toolbar { flex: 0 1 0; display: flex; gap: 0.25rem; justify-content: center; }
+		#ttt .toolbar h2 { margin-right: auto; }
 		.toolbar :is(button, .button) { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--highlight); font-size: 1.5rem; display: flex; align-items: center; justify-content: center; text-decoration: none; }
 	</style>
 </head>
@@ -405,10 +414,10 @@
 			</header>
 			<ul class="lang cards">
 				<li><label><input type="checkbox">
-					<strong>Try the Live Captions app</strong>
+					<strong>Try Type-to-Talk</strong>
 				</label></li>
 				<li><label><input type="checkbox">
-					<strong>Try the Type-to-Talk app</strong>
+					<strong>Try Live Captions</strong>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong>Have an appointment</strong>
@@ -430,13 +439,55 @@
 				</label></li>
 			</ul>
 			<ul class="tool cards">
+				<li><a href="#ttt">
+					<strong>Type-to-Talk</strong>
+					<span>Type messages back and forth</span>
+				</a></li>
 				<li><a href="#lc">
 					<strong>Live Captions</strong>
 					<span>Read automatic captions</span>
 				</a></li>
+			</ul>
+		</section>
+		<section id="lc">
+			<header>
+				<h2><strong>Live Captions</strong></h2>
+				<div class="toolbar"><a href="#home" class="close button" title="Close" aria-label="Close">X</a></div>
+			</header>
+			<ul class="instruction cards">
+				<li>
+					<strong>Overview</strong>
+					<p>Live Captions shows the text of what you speak into the microphone.</p>
+					<p>It’s not perfect so use it for quick conversations.</p>
+					<p>For more important information, use Type to Talk or Propio One.</p>
+				</li>
+				<li>
+					<strong>Show Captions</strong>
+					<p>Go to Settings > Accessibility > Hearing > Live Captions</p>
+					<p>Switch Live Captions on</p>
+					<p>Double tap to expand or shrink</p>
+				</li>
+				<li>
+					<strong>Customize Appearance</strong>
+					<p>Go to Settings > Accessibility > Hearing > Live Captions</p>
+					<p>Tap Appearance</p>
+					<p>Set Text Size, Font, and Colors</p>
+				</li>
+				<li>
+					<strong>Type to Talk</strong>
+					<p>You can also use the Type to Talk app for captions</p>
+					<p>Tap in the typing area to bring up the keyboard</p>
+					<p>Tap the microphone button to dictate</p>
+				</li>
+			</ul>
+			<ul class="tool cards">
 				<li><a href="#ttt">
 					<strong>Type-to-Talk</strong>
 					<span>Type messages back and forth</span>
+				</a></li>
+				<li><a href="shortcuts://run-shortcut?name=Captions">
+					<strong>Live Captions</strong>
+					<span>Read automatic captions</span>
 				</a></li>
 			</ul>
 		</section>
@@ -449,7 +500,7 @@
 			</header>
 			<ul class="lang cards">
 				<li><label><input type="checkbox">
-					<strong>Try the Translate app</strong>
+					<strong>Try Talk-to-Type</strong>
 				</label></li>
 				<li><label><input type="checkbox">
 					<strong>Need an interpreter</strong>
@@ -474,9 +525,9 @@
 				</label></li>
 			</ul>
 			<ul class="tool cards">
-				<li><a href="shortcuts://run-shortcut?name=Translate">
-					<strong>Apple Translate</strong>
-					<span>Quick automatic translations</span>
+				<li><a href="#ttt">
+					<strong>Type-to-Talk</strong>
+					<span>Type messages back and forth</span>
 				</a></li>
 				<li><a href="https://one.propio-ls.com/">
 					<strong>Propio ONE</strong>
@@ -484,13 +535,77 @@
 				</a></li>
 			</ul>
 		</section>
+		<section id="ttt">
+			<div class="output" style="display: none;">
+				<textarea placeholder="Read here..." aria-label="Output" readonly></textarea>
+			</div>
+			<div class="toolbar">
+				<h2><strong>Type to talk</strong></h2>
+				<button class="mirror" title="Mirror" aria-label="Mirror" aria-pressed="false">▽</button>
+				<button class="larger" title="Larger" aria-label="Larger">+</button>
+				<button class="smaller" title="Smaller" aria-label="Smaller">−</button>
+				<button class="clear" title="Clear" aria-label="Clear">⊘</button>
+				<a href="#cc" class="close button" title="Close" aria-label="Close">X</a>
+			</div>
+			<div class="input">
+				<textarea placeholder="Type or dictate here..." aria-label="Input"></textarea>
+			</div>
+		</section>
 	</main>
 	<script>
+		window.addEventListener("hashchange", () => {
+			document.querySelectorAll("input:checked").forEach(c => c.checked = false);
+		});
+	
 		document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
 			checkbox.addEventListener("keydown", e => { if (e.key === "Enter") { e.target.click(); }});
 			checkbox.addEventListener("change", e => { if (e.target.checked) { document.querySelectorAll("input:checked").forEach(c => c.checked = (c === e.target))}});
 		});
-		window.addEventListener("hashchange", () => document.querySelectorAll("input:checked").forEach(c => c.checked = false));
+
+		document.querySelectorAll("#ttt").forEach(ttt => {
+			const input = ttt.querySelector(".input textarea");
+			const output = ttt.querySelector(".output textarea");
+			ttt.scrollToEnd = function () {
+				[input, output].forEach(textarea => {
+					textarea.scrollTop = textarea.scrollHeight;
+				});
+			};
+			input.addEventListener("input", event => {
+				output.value = input.value;
+				output.scrollTop = output.scrollHeight;
+			});
+			ttt.querySelector("button.mirror").addEventListener("click", event => {
+				const button = event.currentTarget;
+				const pressed = button.ariaPressed !== "true";
+				button.ariaPressed = pressed;
+				button.style.transform = pressed ? "rotate(180deg)" : "";
+				output.parentElement.style.display = pressed ? "" : "none";
+				ttt.querySelector("h2").style.display = pressed ? "none" : "";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.larger").addEventListener("click", event => {
+				input.style.fontSize = output.style.fontSize = ((parseFloat(input.style.fontSize) || 1.5) + 0.5) + "em";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.smaller").addEventListener("click", event => {
+				input.style.fontSize = output.style.fontSize = ((parseFloat(input.style.fontSize) || 1.5) - 0.5) + "em";
+				ttt.scrollToEnd();
+			});
+			ttt.querySelector("button.clear").addEventListener("click", event => {
+				input.value = "";
+				output.value = "";
+			});
+		});
+
+		function resizeVisualViewport() {
+			document.body.style.minHeight = 0;
+			document.body.style.height = `${window.visualViewport.height}px`;
+			window.scrollTo(0, 0);
+		}
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener("resize", resizeVisualViewport);
+			window.visualViewport.addEventListener("scroll", resizeVisualViewport);
+		}
 	</script>
 </body>
 </html>
